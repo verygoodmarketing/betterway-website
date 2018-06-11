@@ -1,0 +1,46 @@
+# site settings
+title: Jekyll Starter Site
+email: bbodine1@gmail.com
+description: >-
+  A Starter Jekyll Website using Scss and Bootstrap 4,
+  and this is a multi-line variable for Jekyll.
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "" # the base hostname & protocol for your site
+author: Brad Bodine
+
+
+
+
+# build settings
+source: src
+destination: dist
+markdown: kramdown
+
+plugins:
+  - jekyll-autoprefixer
+
+autoprefixer:
+  browsers:
+    - last 2 versions
+sass:
+  style: compressed
+  load_paths:
+    - _sass
+    - ../node_modules
+
+collections:
+  pages:
+    output: true
+    permalink: /:path
+    
+# Include
+include:
+  - _pages
+
+# Exclude
+# exclude:
+#   - 'package.json'
+#   - 'Gemfile'
+#   - '*.gemspec'
+#   - '*.lock'
+exclude: []

@@ -1,0 +1,23 @@
+{
+  "name": "jekyll-bootstrap-website",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "keywords": [],
+  "author": "Brad Bodine <bbodine1@github.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "bootstrap": "^4.1.1",
+    "jquery": "^3.3.1",
+    "npm-run-all": "^4.1.3",
+    "popper.js": "^1.14.3"
+  },
+  "scripts": {
+    "start": "npm run copy && bundle exec jekyll serve --port 3000 --livereload",
+    "build": "npm run copy && bundle exec jekyll build",
+    "bundle": "bundle install",
+    "clean": "git clean -xdf",
+    "copy": "npm-run-all copy:**",
+    "copy:fonts": "echo 'hello'"
+  }
+}
