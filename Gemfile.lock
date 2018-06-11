@@ -5,10 +5,6 @@ GEM
       public_suffix (>= 2.0.2, < 4.0)
     autoprefixer-rails (6.3.7)
       execjs
-    babel-source (5.8.35)
-    babel-transpiler (0.7.0)
-      babel-source (>= 4.0, < 6)
-      execjs (~> 2.0)
     colorator (1.1.0)
     concurrent-ruby (1.0.5)
     em-websocket (0.5.1)
@@ -36,8 +32,6 @@ GEM
       safe_yaml (~> 1.0)
     jekyll-autoprefixer (1.0.1)
       autoprefixer-rails (~> 6.3.6)
-    jekyll-babel (1.1.0)
-      babel-transpiler
     jekyll-sass-converter (1.5.2)
       sass (~> 3.4)
     jekyll-seo-tag (2.4.0)
@@ -72,7 +66,6 @@ PLATFORMS
 DEPENDENCIES
   jekyll (~> 3.7.3)
   jekyll-autoprefixer (~> 1.0.1)
-  jekyll-babel
   jekyll-seo-tag (~> 2.1)
 
 BUNDLED WITH
