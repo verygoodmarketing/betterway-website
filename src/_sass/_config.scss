@@ -1,5 +1,6 @@
-@import "./bootstrap/scss/bootstrap";
 
-body {
-  background-color: var(--dark);
-}
+@import "./variables";
+@import "./bootstrap/scss/bootstrap";
+@import "./partials/shame";
+
+
