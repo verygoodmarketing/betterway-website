@@ -8,6 +8,14 @@ baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site
 author: Brad Bodine
 
+# Facebook Share Meta
+share-website : https://mywebsite.com
+share-title: This is the title of the share
+share-description: >-
+  This is the description of the share. It should be a bit
+  longer. It can be several sentences.
+share-image: share.jpg
+
 
 
 

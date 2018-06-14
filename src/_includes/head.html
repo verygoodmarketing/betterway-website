@@ -3,6 +3,20 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+{% if page.share-website %}
+	<meta property="og:url" content="{{ page.share-website }}">
+	<meta property="og:title" content="{{ page.share-title }}">
+	<meta property="og:description" content="{{ page.share-description }}">
+	<meta property="og:image" content="{{ "/img/ " | absolute_url }}{{ page.share-image }}">
+	<meta property="og:type" content="website">
+{% else %}
+	<meta property="og:url" content="{{ site.share-website }}">
+	<meta property="og:title" content="{{ site.share-title }}">
+	<meta property="og:description" content="{{ site.share-description }}">
+	<meta property="og:image" content="{{ "/img/" | absolute_url }}{{ site.share-image }}">
+	<meta property="og:type" content="website">
+{% endif %}
+
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
 	<link rel="stylesheet" href="{{ "/css/styles.css" | relative_url }}">
 
