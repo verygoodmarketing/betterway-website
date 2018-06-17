@@ -1,0 +1,16 @@
+// _footer.scss      src/_sass/partials/
+////////////////////////////////////////////////////////////
+
+// Footer
+footer {
+  background-color: $forest-green;
+}
+
+footer img {
+  width: 100%;
+  max-width: rem-calc(320);
+  margin-bottom: rem-calc(16);
+  @include media-breakpoint-up(lg) {
+    max-width: rem-calc(220);
+  }
+}

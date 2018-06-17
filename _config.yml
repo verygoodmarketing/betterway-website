@@ -1,12 +1,20 @@
 # site settings
-title: Jekyll Starter Site
+title: Pest Control Company
 email: bbodine1@gmail.com
 description: >-
-  A Starter Jekyll Website using Scss and Bootstrap 4,
-  and this is a multi-line variable for Jekyll.
+  Pest Control Services for your area. We have the best
+  pest solutions and the best prices to protect the things
+  you love from pests.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site
-author: Brad Bodine
+
+# General data
+logo: /img/main-logo.png
+street: 123 Main St.
+city: YourTown
+state: AL
+zipcode: 55555
+phone: (256) 555-5011
 
 # Facebook Share Meta
 share-website : https://mywebsite.com

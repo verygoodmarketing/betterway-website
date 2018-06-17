@@ -1,0 +1,21 @@
+// _nav.scss      src/_sass/partials/
+////////////////////////////////////////////////////////////
+
+// Navbar
+.navbar {
+  justify-content: center;
+  background-color: $white;
+  border-bottom: rem-calc(2) solid $forest-green;
+}
+
+// Logo
+.navbar-brand img {
+  height: rem-calc(40);
+}
+
+// Menu button
+.navbar-toggler {
+  position: absolute;
+  right: rem-calc(12);
+  top: rem-calc(12);
+}
