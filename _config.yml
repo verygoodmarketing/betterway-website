@@ -16,6 +16,16 @@ state: AL
 zipcode: 55555
 phone: (256) 555-5011
 
+# Work Hours
+hours:
+  sun: Closed
+  mon: 7am - 6pm
+  tue: 7am - 6pm
+  wed: 7am - 6pm
+  thur: 7am - 6pm
+  fri: 7am - 6pm
+  sat: 7am - 6pm
+
 # Facebook Share Meta
 share-website : https://mywebsite.com
 share-title: This is the title of the share
