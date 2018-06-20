@@ -1,4 +1,8 @@
 
+<div class="alert alert-success d-sm-flex d-md-none d-flex justify-content-center" role="alert">
+  <a href="tel:5555555555" class="btn btn-success">(555) 555-5555</a>
+</div>
+
 <nav class="navbar sticky-top navbar-expand-md navbar-light">
   <a class="navbar-brand" href="/"><img src="{{ site.logo | relative_url }}" alt=""></a>
 
@@ -26,6 +30,11 @@
 				{% endif %}
 			{% endfor %}
 
+    </span>
+
+    <span class="my-2 my-lg-0 d-none d-sm-block">
+      <strong>Call Today</strong>
+      <a href="tel:5555555555" class="btn btn-success">(555) 555-5555</a>
     </span>
   </div>
 </nav>
