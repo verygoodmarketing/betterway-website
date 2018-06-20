@@ -1,0 +1,10 @@
+// _request-form.scss      src/_sass/partials/
+////////////////////////////////////////////////////////////
+
+// Request form
+.request-form {
+  background-color: $forest-green;
+  border: rem-calc(3) solid darken($forest-green, 10%);
+  border-radius: rem-calc(24);
+  padding: rem-calc(24 16);
+}

@@ -1,8 +1,8 @@
 ---
 layout: page
-permalink: /about
-page-name: About
-nav-order: 1
+permalink: /services
+page-name: Services
+nav-order: 2
 nav-menu: true
 
 # Share website must be set or default
@@ -15,4 +15,4 @@ share-description: >-
 share-image: share.jpg
 ---
 
-## This is the about page
+## This is the services page

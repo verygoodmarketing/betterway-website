@@ -1,0 +1,23 @@
+// _jumbotron.scss      src/_sass/partials/
+////////////////////////////////////////////////////////////
+
+// Jumbotron
+.jumbotron {
+  background-image: url(/img/bg-house.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: top center;
+  position: relative;
+  border-radius: 0;
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba($black, .3);
+    z-index: 0;
+  }
+}
+
