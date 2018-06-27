@@ -1,0 +1,40 @@
+// _carousel.scss      src/_sass/partials/
+////////////////////////////////////////////////////////////
+
+// Reviews section
+.reviews-section {
+  background-color: #b8e6b8;
+}
+
+// Review item
+.review {
+  display: flex;
+  align-items: center;
+  min-height: rem-calc(450);
+  @include media-breakpoint-up(md) {
+    min-height: rem-calc(350);
+  }
+}
+
+// Review main content
+.review .h2 {
+  font-family: 'Bitter', serif;
+  color: rgba($black, .8);
+}
+
+// Review avatar
+.blockquote-footer {
+  img {
+    border-radius: 100%;
+  }
+}
+
+// Review link
+.review a {
+  text-decoration: none;
+  color: darkgreen;
+  transition: all 100ms ease-in-out;
+  &:hover {
+    color: lighten(darkgreen, 20%);
+  }
+}

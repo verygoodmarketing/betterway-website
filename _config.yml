@@ -58,10 +58,14 @@ collections:
   pages:
     output: true
     permalink: /:path
+  reviews:
+    output: true
+    permalink: /review/:title
     
 # Include
 include:
   - _pages
+  - _reviews
 
 # Exclude
 # exclude:
