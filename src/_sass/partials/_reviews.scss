@@ -1,4 +1,4 @@
-// _carousel.scss      src/_sass/partials/
+// _reviews.scss      src/_sass/partials/
 ////////////////////////////////////////////////////////////
 
 // Reviews section
@@ -22,15 +22,32 @@
   color: rgba($black, .8);
 }
 
-// Review avatar
-.blockquote-footer {
-  img {
-    border-radius: 100%;
-  }
+// Customer info container
+.customer-info {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+// Customer avatar
+.customer-info img {
+  border-radius: 100%;
+  margin-right: rem-calc(16);
+  height: rem-calc(50);
+  width: rem-calc(50);
+}
+
+// Customer meta container
+.customer-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-size: rem-calc(12);
 }
 
 // Review link
 .review a {
+  font-size: rem-calc(15);
   text-decoration: none;
   color: darkgreen;
   transition: all 100ms ease-in-out;
