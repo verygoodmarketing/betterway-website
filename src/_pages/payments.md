@@ -1,14 +1,12 @@
 ---
 layout: page
-permalink: services/payments
+permalink: /payments
 page-name: Pay Online
 featured-img: /img/bg-about.jpg
 excerpt: >-
   Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam, alias.
   Praesentium earum aliquid doloribus aperiam velit quasi,
   voluptatum ducimus commodi.
-nav-order: 2.6
-nav-menu: true
 
 # Share website must be set or default
 # home page share will be used

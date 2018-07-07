@@ -11,16 +11,23 @@
   </button>
 
   <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-    <span class="navbar-nav mr-auto">
-      <a class="nav-item nav-link {% if page.layout == 'home' %}active{% endif %}" href="/">Home</a>
+    <span class="navbar-nav mr-auto position-relative">
+    {% for nav in site.nav %}
+      {% if nav.subpages %}
+      
+      {% assign submatch = nav.url | remove: '/' %}
+      {% assign toppage = page.url | remove_first: '/' | split: '/' | first %}
 
-			{% assign my_pages = (site.pages | sort: 'nav-order') %}
-			{% for navPage in my_pages %}
-        {% if navPage.layout != "home" and navPage.nav-menu == true %}
-          <a class="nav-item nav-link {% if page.url == navPage.url %}active{% endif %}" href="{{ navPage.url | absolute_url }}">{{ navPage.title }}</a>
-				{% endif %}
-			{% endfor %}
-
+      <a class="nav-link dropdown-toggle {% if toppage == submatch %}active{% endif %}" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">{{ nav.title }}</a>
+      <span class="dropdown-menu" aria-labelledby="navbarDropdown">
+        {% for subnav in nav.subpages %}
+        <a class="dropdown-item {% if page.url == subnav.url %}active{% endif %}" href="{{ subnav.url }}">{{ subnav.title }}</a>
+        {% endfor %}
+      </span>
+      {% else %}
+      <a class="nav-item nav-link {% if page.url == nav.url %}active{% endif %}" href="{{ nav.url }}">{{ nav.title }}</a>
+      {% endif %}
+    {% endfor %}
     </span>
 
     <span class="my-2 my-lg-0 d-none d-md-block call-us">

@@ -41,7 +41,29 @@ share-description: >-
   longer. It can be several sentences.
 share-image: share.jpg
 
+# Navigation
+nav:
+  - title: Home
+    url: /
+    subpages:
 
+  - title: About
+    url: /about
+    subpages:
+
+  - title: Services
+    url: /services
+    subpages:
+      - title: Residential Pest Control
+        url: /services/residential
+      - title: Mosquito Control
+        url: /services/mosquito
+      - title: Rodent Control
+        url: /services/rodents
+
+  - title: Payments
+    url: /payments
+    subpages:
 
 
 # build settings

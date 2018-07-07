@@ -1,7 +1,7 @@
 ---
 layout: page
-permalink: /about
-page-name: About This Company
+permalink: /services/rodents
+page-name: Rodent Control
 featured-img: /img/bg-about.jpg
 excerpt: >-
   Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam, alias.
@@ -18,4 +18,4 @@ share-description: >-
 share-image: share.jpg
 ---
 
-## This is the about page
+## This is the Rodent Control page
