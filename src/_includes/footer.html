@@ -5,6 +5,14 @@
 
       <div class="col-12 col-lg p-3 order-lg-4">
         <img src="{{ "/img/bbb-aplus.png" | relative_url }}" alt="">
+        <div class="social">
+          {% if site.facebook %}
+          <a href="{{ site.facebook }}"><i class="fab fa-facebook"></i></a>
+          {% endif %}
+          {% if site.google %}
+          <a href="{{ site.google }}"><i class="fab fa-google"></i></a>
+          {% endif %}
+        </div>
       </div>
 
       <div class="col-12 col-lg p-3 order-lg-2">
@@ -30,7 +38,7 @@
       </div>
 
       <div class="col-12 col-lg p-3 order-lg-1">
-        <img src="{{ site.logo | relative_url }}" alt="">
+        <img src="{{ site.logo-light | relative_url }}" alt="">
         <small class="d-block mb-3 text-white-50">&copy; {{ site.title }} {{ site.time | date: '%Y' }}</small>
       </div>
     </div>

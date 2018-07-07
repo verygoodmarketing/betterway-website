@@ -1,0 +1,54 @@
+// _typography.scss      src/_sass/partials/
+////////////////////////////////////////////////////////////
+
+.page .content,
+.post .content {
+  color: #354147;
+  font-family: $opensans;
+}
+
+// Code Blocks
+pre.highlight {
+  background-color: aliceblue;
+  padding: 5px 12px;
+  border-radius: 4px;
+  box-shadow: inset 0 0 1px 0 cadetblue;
+}
+
+
+
+.page .content blockquote,
+.post .content blockquote {
+  @extend .blockquote;
+  position: relative;
+  // font-family: $bitter;
+  font-size: 1.425em;
+  font-style: italic;
+  font-weight: 300;
+  line-height: 1.8em;
+  letter-spacing: rem-calc(.2);
+  text-align: center;
+  margin: rem-calc(60 20);
+  &:before {
+    content: '\201C';
+    position: absolute;
+    top: 0.25em;
+    left: -0.15em;
+    color: darken($white, 7%);
+    font-size: 6em;
+    z-index: -1;
+   }
+  p {
+    font-size: inherit;
+  }
+}
+
+
+
+.page .content p,
+.post .content p {
+  font-size: rem-calc(18);
+  line-height: 2em;
+  margin: rem-calc(20 0);
+  padding: 0;
+}

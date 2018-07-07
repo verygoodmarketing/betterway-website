@@ -1,7 +1,12 @@
 ---
 layout: page
 permalink: /about
-page-name: About
+page-name: About This Company
+featured-img: /img/bg-about.jpg
+excerpt: >-
+  Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam, alias.
+  Praesentium earum aliquid doloribus aperiam velit quasi,
+  voluptatum ducimus commodi.
 nav-order: 1
 nav-menu: true
 

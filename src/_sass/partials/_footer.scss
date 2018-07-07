@@ -14,3 +14,32 @@ footer img {
     max-width: rem-calc(220);
   }
 }
+
+// Social links
+footer .social {
+  padding: rem-calc(16 8);
+  a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $white;
+    height: rem-calc(48);
+    width: rem-calc(48);
+    border-radius: 100%;
+    margin-right: rem-calc(8);
+    text-decoration: none;
+    transition: all 150ms ease-in-out;
+    &:hover {
+      background-color: rgba($white, .8);
+    }
+  }
+  i {
+    font-size: rem-calc(24);
+  }
+  .fa-facebook {
+    color: #3b5998;
+  }
+  .fa-google {
+    color: #4885ed;
+  }
+}

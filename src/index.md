@@ -2,7 +2,7 @@
 layout: home
 ---
 
-![]( {{ site.logo | relative_url }} )
+![]( {{ site.logo-light | relative_url }}){: .logo }
 
 # We Protect What You Love
 {: .display-3}

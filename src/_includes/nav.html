@@ -1,10 +1,10 @@
 
 <div class="alert alert-success d-sm-flex d-md-none d-flex justify-content-center" role="alert">
-  <a href="tel:5555555555" class="btn btn-success">(555) 555-5555</a>
+  <a href="tel:{{ site.phone }}" class="btn btn-success">{{ site.phone }}</a>
 </div>
 
 <nav class="navbar sticky-top navbar-expand-md navbar-light">
-  <a class="navbar-brand" href="/"><img src="{{ site.logo | relative_url }}" alt=""></a>
+  <a class="navbar-brand" href="/"><img src="{{ site.logo-dark | relative_url }}" alt=""></a>
 
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault"  aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -12,31 +12,22 @@
 
   <div class="collapse navbar-collapse" id="navbarsExampleDefault">
     <span class="navbar-nav mr-auto">
-
-      {% if page.layout == 'home' %}
-      <a class="nav-item nav-link active" href="/">Home</a>
-      {% else %}
-      <a class="nav-item nav-link" href="/">Home</a>
-      {% endif %}
+      <a class="nav-item nav-link {% if page.layout == 'home' %}active{% endif %}" href="/">Home</a>
 
 			{% assign my_pages = (site.pages | sort: 'nav-order') %}
-			{% for node in my_pages %}
-        {% if node.layout != "home" and node.nav-menu == true %}
-          {% if page.url == node.url %}
-          <a class="nav-item nav-link active" href="{{ node.url | absolute_url }}">{{ node.title }}</a>
-          {% else %}
-          <a class="nav-item nav-link" href="{{ node.url | absolute_url }}">{{ node.title }}</a>
-          {% endif %}
+			{% for navPage in my_pages %}
+        {% if navPage.layout != "home" and navPage.nav-menu == true %}
+          <a class="nav-item nav-link {% if page.url == navPage.url %}active{% endif %}" href="{{ navPage.url | absolute_url }}">{{ navPage.title }}</a>
 				{% endif %}
 			{% endfor %}
 
     </span>
 
-    <span class="my-2 my-lg-0 d-none d-sm-block">
+    <span class="my-2 my-lg-0 d-none d-md-block call-us">
       Give us a call today
-      <a href="tel:5555555555" class="btn btn-success">
+      <a href="tel:{{ site.phone }}" class="btn btn-success">
         <i class="fas fa-phone"></i>
-        (555) 555-5555</a>
+        {{ site.phone }}</a>
     </span>
   </div>
 </nav>

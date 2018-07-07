@@ -10,12 +10,18 @@ baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site
 
 # General data
-logo: /img/main-logo.png
+logo-dark: /img/logo-dark.svg
+logo-light: /img/logo-light.svg
 street: 123 Main St.
 city: YourTown
 state: AL
 zipcode: 55555
-phone: (256) 555-5011
+phone: '(256) 555-5011'
+service-area: 'North Alabama including Hartselle, Decatur, Madison, Athens, Moulton, and Cullman'
+
+# Social links
+facebook: https://www.facebook.com/BetterWayPestControl/
+google: https://goo.gl/maps/c3yoeyEDwTn
 
 # Work Hours
 hours:
@@ -28,7 +34,7 @@ hours:
   sat: 7am - 6pm
 
 # Facebook Share Meta
-share-website : https://mywebsite.com
+share-website: https://mywebsite.com
 share-title: This is the title of the share
 share-description: >-
   This is the description of the share. It should be a bit

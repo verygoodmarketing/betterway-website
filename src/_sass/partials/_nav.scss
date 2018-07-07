@@ -6,11 +6,22 @@
   justify-content: center;
   background-color: $white;
   border-bottom: rem-calc(2) solid $forest-green;
+  min-height: rem-calc(64);
+}
+
+// Logo Wrapper
+.navbar-brand {
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-right: 0;
 }
 
 // Logo
 .navbar-brand img {
-  height: rem-calc(40);
+  height: rem-calc(28);
+  @include media-breakpoint-up(lg) {
+    margin-right: rem-calc(24);
+  }
 }
 
 // Menu button
@@ -18,4 +29,13 @@
   position: absolute;
   right: rem-calc(12);
   top: rem-calc(12);
+}
+
+// Mobile alert for phone number
+body > .alert {
+  margin-bottom: 0;
+}
+
+nav .call-us a {
+  margin-left: rem-calc(16);
 }
