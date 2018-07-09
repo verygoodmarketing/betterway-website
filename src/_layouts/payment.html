@@ -3,7 +3,7 @@
 
   {% include head.html %}
 
-<body class="page">
+<body class="page payment">
 
   {% include nav.html %}
 
@@ -18,9 +18,19 @@
     </div>
 
     <div class="container content">
+
       <div class="row">
-        <div class="col-md-12">
-          {{ content }}
+        <div class="col-md-6 offset-md-3 mb-5">
+
+          <div class="alert alert-secondary" role="alert">
+            <h4 class="alert-heading">Information About Payments</h4>
+
+            {{ content }}
+
+          </div>
+
+          {% include pay-form.html %}
+
         </div>
       </div>
     </div>

@@ -15,8 +15,7 @@ pre.highlight {
   box-shadow: inset 0 0 1px 0 cadetblue;
 }
 
-
-
+// Blockquote content styles
 .page .content blockquote,
 .post .content blockquote {
   @extend .blockquote;
@@ -43,12 +42,24 @@ pre.highlight {
   }
 }
 
-
-
+// Paragraph default content styles
 .page .content p,
 .post .content p {
   font-size: rem-calc(18);
   line-height: 2em;
   margin: rem-calc(20 0);
   padding: 0;
+}
+
+// Images inside of content
+.post .content img,
+.page .content img {
+  max-width: 50%;
+  margin: rem-calc(0 16 16);
+  &.float-right {
+    margin-right: 0;
+  }
+  &.float-left {
+    margin-left: 0;
+  }
 }

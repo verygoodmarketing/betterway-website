@@ -1,0 +1,43 @@
+
+<form class="needs-validation" action="https://www.paypal.com/cgi-bin/webscr" method="post" novalidate>
+
+  <input type="hidden" name="business" value="bbodine1@gmail.com">
+  <input type="hidden" name="cmd" value="_xclick">
+  <input type="hidden" name="item_name" value="Residental Services">
+  <input type="hidden" name="return" value="https://bradbodine.com">
+
+  <div class="row">
+    <div class="col-md-6 mb-3">
+      <label for="first_name">First name</label>
+      <input type="text" class="form-control" name="first_name" placeholder="" value="" required>
+      <div class="invalid-feedback">
+        Valid first name is required.
+      </div>
+    </div>
+
+    <div class="col-md-6 mb-3">
+      <label for="last_name">Last name</label>
+      <input type="text" class="form-control" name="last_name" placeholder="" value="" required>
+      <div class="invalid-feedback">
+        Valid last name is required.
+      </div>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="email">Email</label>
+    <input type="email" class="form-control" name="email" placeholder="you@example.com" required>
+    <div class="invalid-feedback">
+      Please enter a valid email address.
+    </div>
+  </div>
+
+  <div class="mb-5">
+    <label for="invoice">Invoice Number
+      <span class="text-muted">(Optional)</span>
+    </label>
+    <input type="text" class="form-control" name="invoice">
+  </div>
+
+  <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to Payment</button>
+</form>
