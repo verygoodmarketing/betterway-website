@@ -2,7 +2,7 @@
 layout: payment
 permalink: /payments
 page-name: Pay Online
-featured-img: /img/bg-about.jpg
+featured-img: /img/headers/payments.jpg
 excerpt: >-
   Use our secure online payment system to easily submit your payment.
   Once we receive your payment we will immediately apply the 

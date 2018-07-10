@@ -2,7 +2,7 @@
 layout: page
 permalink: /about
 page-name: About This Company
-featured-img: /img/bg-about.jpg
+featured-img: /img/headers/about.jpg
 excerpt: >-
   Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam, alias.
   Praesentium earum aliquid doloribus aperiam velit quasi,

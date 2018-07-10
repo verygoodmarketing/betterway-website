@@ -2,7 +2,7 @@
 layout: page
 permalink: /services/mosquito
 page-name: Mosquito Control
-featured-img: /img/bg-about.jpg
+featured-img: /img/headers/mosquito.jpg
 excerpt: >-
   Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam, alias.
   Praesentium earum aliquid doloribus aperiam velit quasi,

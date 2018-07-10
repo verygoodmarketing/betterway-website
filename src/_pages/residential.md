@@ -2,7 +2,7 @@
 layout: page
 permalink: /services/residential
 page-name: Residential Pest Control
-featured-img: /img/bg-about.jpg
+featured-img: /img/headers/residential.jpg
 excerpt: >-
   Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam, alias.
   Praesentium earum aliquid doloribus aperiam velit quasi,
