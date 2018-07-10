@@ -33,6 +33,8 @@
 
 // Logo size 
 .jumbotron .logo {
-  height: rem-calc(60);
   max-width: 100%;
+  @include media-breakpoint-up(lg) {
+    max-width: rem-calc(500);
+  }
 }

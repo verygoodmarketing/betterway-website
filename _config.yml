@@ -1,22 +1,22 @@
 # site settings
-title: Pest Control Company
+title: Better Way Pest Control
 email: bbodine1@gmail.com
 description: >-
-  Pest Control Services for your area. We have the best
-  pest solutions and the best prices to protect the things
+  Pest Control Services for Hartselle, Decatur, Athens, Madison.
+  We have the best pest solutions and the best prices to protect the things
   you love from pests.
 reviewlimit: 5
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site
 
 # General data
-logo-dark: /img/logo-dark.svg
-logo-light: /img/logo-light.svg
-street: 123 Main St.
-city: YourTown
+logo-dark: /img/main-logo-dark.png
+logo-light: /img/main-logo-light.png
+street: 209 Sparkman St SW
+city: Hartselle
 state: AL
-zipcode: 55555
-phone: '(256) 555-5011'
+zipcode: 35640
+phone: '(256) 580-6181'
 service-area: 'North Alabama including Hartselle, Decatur, Madison, Athens, Moulton, and Cullman'
 
 # Social links
@@ -34,11 +34,12 @@ hours:
   sat: 7am - 6pm
 
 # Facebook Share Meta
-share-website: https://mywebsite.com
-share-title: This is the title of the share
+share-website: https://betterwaypestcontrol.com
+share-title: Better Pest Control for North Alabama
 share-description: >-
-  This is the description of the share. It should be a bit
-  longer. It can be several sentences.
+  Our company strives to provide our customers with a great
+  service at an affordable price, while protecting your home
+  and family from unwanted pests.
 share-image: share.jpg
 
 # Navigation
