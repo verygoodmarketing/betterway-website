@@ -50,3 +50,13 @@ footer .social {
     color: #4885ed;
   }
 }
+
+// Social column
+.social-col img {	
+  width: 100%;	
+  max-width: rem-calc(320);
+  margin-bottom: rem-calc(16);
+  @include media-breakpoint-up(lg) {
+    min-width: rem-calc(220);
+  }
+}
