@@ -1,0 +1,28 @@
+// _forms.scss      src/_sass/partials/
+////////////////////////////////////////////////////////////
+
+// Invalid feedback small text under forms
+.invalid-feedback {
+ color: var(--orange);
+ font-size: 65%;
+ margin-top: rem-calc(1);
+ margin-left: rem-calc(6);
+ margin-bottom: rem-calc(-16);
+}
+
+// Request form button
+.request-form button {
+  margin-top: rem-calc(10);
+}
+
+// Request form text under email form (we won't share)
+.request-form #emailHelp {
+  font-size: 60%;
+  margin-left: rem-calc(6);
+}
+
+// Payment form alert text
+.payment .alert-secondary p {
+  font-size: rem-calc(14);
+  line-height: rem-calc(24);
+}

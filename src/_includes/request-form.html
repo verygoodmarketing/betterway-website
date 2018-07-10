@@ -1,28 +1,46 @@
 
 <div class="request-form text-light">
   <h2>Request Inspection</h2>
-  <form class="text-white-50">
+
+  <form class="needs-validation text-white-50" action="https://formspree.io/{{ site.email }}" method="POST" novalidate>
+
+    <input type="hidden" name="_subject" value="Inspection Request From Your Website">
+    <input type="hidden" name="_cc" value="bbodine1@gmail.com">
+    <input type="hidden" name="_next" value="https://betterwaypestcontrol.com/thanks.html" />
+
     <div class="form-group ">
-      <label for="requestEmail">Email address</label>
-      <input type="email" class="form-control" id="requestEmail" aria-describedby="emailHelp" placeholder="Enter email">
+      <label for="email">Email address</label>
+      <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" placeholder="your@email.com" required>
       <small id="emailHelp" class="form-text">We'll never share your email with anyone else.</small>
+      <div class="invalid-feedback">
+        Valid email is required.
+      </div>
     </div>
 
     <div class="form-group">
-      <label for="requestFirstName">First Name</label>
-      <input type="text" class="form-control" id="requestFirstName">
+      <label for="first_name">First Name</label>
+      <input type="text" class="form-control" id="first_name" name="first_name" required>
+      <div class="invalid-feedback">
+        Valid first name is required.
+      </div>
     </div>
 
     <div class="form-group">
-      <label for="requestLastName">Last Name</label>
-      <input type="text" class="form-control" id="requestLastName">
+      <label for="last_name">Last Name</label>
+      <input type="text" class="form-control" id="last_name" name="last_name" required>
+      <div class="invalid-feedback">
+        Valid last name is required.
+      </div>
     </div>
 
     <div class="form-group">
-      <label for="requestPhone">Phone</label>
-      <input type="phone" class="form-control" id="requestPhone" placeholder="">
+      <label for="phone">Phone</label>
+      <input type="phone" class="form-control" id="phone" name="phone" placeholder="555-555-5555" minLength="10" maxLength="12" required>
+      <div class="invalid-feedback">
+        Valid phone number is required.
+      </div>
     </div>
 
-    <button type="submit" class="btn btn-warning">Get Started</button>
+    <button type="submit" class="btn btn-warning" value="Send">Get Started</button>
   </form>
 </div>
