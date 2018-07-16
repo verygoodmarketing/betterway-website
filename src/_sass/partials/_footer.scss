@@ -25,7 +25,7 @@ footer .footer-logo {
 // Social links
 footer .social {
   padding: rem-calc(16 8);
-  a {
+  a:not(.guarantee) {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -59,4 +59,10 @@ footer .social {
   @include media-breakpoint-up(lg) {
     min-width: rem-calc(220);
   }
+}
+
+// Guarantee
+.social-col a.guarantee img {
+  min-width: rem-calc(60);
+  width: rem-calc(60);
 }
