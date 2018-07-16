@@ -1,7 +1,7 @@
 ---
 layout: page
 permalink: /services/residential-commercial
-page-name: Residential &amp; Commercial Pest Control
+name: Residential &amp; Commercial Pest Control
 featured-img: /img/headers/residential.jpg
 excerpt: >-
    Better Service...Better Results...Guaranteed!

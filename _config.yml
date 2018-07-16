@@ -6,6 +6,7 @@ description: >-
   We have the best pest solutions and the best prices to protect the things
   you love from pests.
 reviewlimit: 5
+gtm-id: MR2CTVP
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site
 

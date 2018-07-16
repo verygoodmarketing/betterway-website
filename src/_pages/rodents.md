@@ -1,7 +1,7 @@
 ---
 layout: page
 permalink: /services/rodents
-page-name: Rodent Control
+name: Rodent Control
 featured-img: /img/headers/rodent.jpg
 excerpt: >-
    Better Service...Better Results...Guaranteed!

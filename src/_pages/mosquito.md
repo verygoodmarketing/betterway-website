@@ -1,7 +1,7 @@
 ---
 layout: page
 permalink: /services/mosquito
-page-name: Mosquito Control
+name: Mosquito Control
 featured-img: /img/headers/mosquito.jpg
 excerpt: >-
    Better Service...Better Results...Guaranteed!

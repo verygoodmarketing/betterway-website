@@ -1,7 +1,7 @@
 ---
 layout: payment
 permalink: /payments
-page-name: Pay Online
+name: Pay Online
 featured-img: /img/headers/payments.jpg
 excerpt: >-
   Use our secure online payment system to easily submit your payment.
