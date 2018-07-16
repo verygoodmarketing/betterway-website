@@ -1,12 +1,10 @@
 ---
 layout: page
 permalink: /about
-page-name: About This Company
+page-name: About Us
 featured-img: /img/headers/about.jpg
 excerpt: >-
-  Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam, alias.
-  Praesentium earum aliquid doloribus aperiam velit quasi,
-  voluptatum ducimus commodi.
+   Better Service...Better Results...Guaranteed!
 
 # Share website must be set or default
 # home page share will be used
@@ -18,4 +16,6 @@ share-description: >-
 share-image: share.jpg
 ---
 
-## This is the about page
+## About Better Way Pest Control
+
+Better Way Pest Control is a family owned business that has been built one customer at a time with honesty and integrity. Our values and foundation are based upon our biblical faith in God. Our friendly Staff and Service Specialists will provide you with the finest upmost care for your home and business needs.

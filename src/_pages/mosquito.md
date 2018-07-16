@@ -4,9 +4,7 @@ permalink: /services/mosquito
 page-name: Mosquito Control
 featured-img: /img/headers/mosquito.jpg
 excerpt: >-
-  Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam, alias.
-  Praesentium earum aliquid doloribus aperiam velit quasi,
-  voluptatum ducimus commodi.
+   Better Service...Better Results...Guaranteed!
 
 # Share website must be set or default
 # home page share will be used
@@ -20,4 +18,4 @@ share-image: share.jpg
 
 ## Mosquito Control
 
-Mosquitoes are all the buzz as people are outdoors more in the summertime and susceptible to bites; however, summer is only the start of mosquito season and {{ site.title }} offers a monthly fogging treatment. These biting pests are just as active during the fall and to keep mosquito prevention top of mind. It's a common misconception that these pests simply die off once summer ends. Cases of the West Nile virus are reported across the country in both the summer and fall. If you want to enjoy your pool, patio deck, or yard without pesky mosquitoes, we have your solution. Taking simple measures to protect yourself from biting mosquitoes is more than worth it given the risk of contracting a mosquito-borne disease such at West Nile virus. 
+Mosquitoes are a springtime buzz and as people are outdoors more in the springtime and summer, they are more susceptible to bites. However, springtime is only the start of mosquito season and Better Way Pest Control offers monthly treatment plans for your property. These biting pests are just as active during the fall months, so monthly prevention is a must to control them. It’s a common misconception that these pests simply die off once summer ends. Cases of the West Nile virus are reported across the country in both the summer and fall. If you want to enjoy your pool, patio deck, or yard without pesky mosquitoes, we have your solution. Taking simple measures to protect yourself from biting mosquitoes is more than worth it given the risk of contracting a mosquito-borne disease such at West Nile virus.
