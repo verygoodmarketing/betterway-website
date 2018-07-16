@@ -55,8 +55,8 @@ nav:
   - title: Services
     url: /services
     subpages:
-      - title: Residential Pest Control
-        url: /services/residential
+      - title: Residential & Commercial Pest Control
+        url: /services/residential-commercial
       - title: Mosquito Control
         url: /services/mosquito
       - title: Rodent Control
