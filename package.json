@@ -10,7 +10,7 @@
     "bootstrap": "^4.1.1"
   },
   "scripts": {
-    "start": "bundle exec jekyll serve --port 3000 --livereload",
+    "start": "bundle exec jekyll serve --port 4000 --livereload",
     "build": "bundle exec jekyll build",
     "clean": "git clean -xdf && npm install"
   }
