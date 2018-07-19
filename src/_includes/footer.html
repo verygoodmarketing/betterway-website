@@ -34,15 +34,11 @@
         </div>
       </div>
 
-      <div class="col-8 col-lg p-3 order-lg-3">
+      <div class="col-8 col-lg p-3 order-lg-3 hours">
         <h5>Office Hours</h5>
-          <span class="text-white-50 d-block">Sunday - {{ site.hours.sun }}</span>
-          <span class="text-white-50 d-block">Monday - {{ site.hours.mon }}</span>
-          <span class="text-white-50 d-block">Tuesday - {{ site.hours.tue }}</span>
-          <span class="text-white-50 d-block">Wednesday - {{ site.hours.wed }}</span>
-          <span class="text-white-50 d-block">Thursday - {{ site.hours.thur }}</span>
-          <span class="text-white-50 d-block">Friday - {{ site.hours.fri }}</span>
-          <span class="text-white-50 d-block">Saturday - {{ site.hours.sat }}</span>
+        {% for item in site.work-hours %}
+          <div class="text-white-50 hourline"><span>{{ item.day }}</span><span>{{ item.hours }}</span></div>
+        {% endfor %}
       </div>
 
       <div class="col-12 col-lg p-3 order-lg-1 footer-logo">

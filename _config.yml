@@ -25,14 +25,21 @@ facebook: https://www.facebook.com/BetterWayPestControl/
 google: https://goo.gl/maps/c3yoeyEDwTn
 
 # Work Hours
-hours:
-  sun: Closed
-  mon: 7am - 6pm
-  tue: 7am - 6pm
-  wed: 7am - 6pm
-  thur: 7am - 6pm
-  fri: 7am - 6pm
-  sat: 7am - 6pm
+work-hours:
+  - day: Sunday
+    hours: Closed
+  - day: Monday
+    hours: 7am - 6pm
+  - day: Tuesday
+    hours: 7am - 6pm
+  - day: Wednesday
+    hours: 7am - 6pm
+  - day: Thursday
+    hours: 7am - 6pm
+  - day: Friday
+    hours: 7am - 6pm
+  - day: Saturday
+    hours: 7am - 6pm
 
 # Facebook Share Meta
 share-website: https://betterwaypestcontrol.com
