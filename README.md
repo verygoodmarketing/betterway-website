@@ -1,4 +1,4 @@
-# Pest Control Website Starter
+# Better Way Pest Control
 
 ### Install
 - clone this repo
@@ -6,10 +6,7 @@
 - run `npm install`
 
 ### Running the project
-- run `npm start` for the local dev server on port 3000
+- run `npm start` for the local dev server on port 4000
 
 ### Build the project
 - run `npm run build` to build in the "dist/" directory
-
-### Deploy to Netlify
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/bbodine1/jekyll-bootstrap-website)

@@ -1,5 +1,5 @@
 {
-  "name": "jekyll-bootstrap-website",
+  "name": "better-way-pest-control",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -7,7 +7,7 @@
   "author": "Brad Bodine <bbodine1@github.com>",
   "license": "ISC",
   "devDependencies": {
-    "bootstrap": "^4.1.1"
+    "bootstrap": "^4.1.2"
   },
   "scripts": {
     "start": "bundle exec jekyll serve --port 4000 --livereload",

@@ -90,13 +90,12 @@ collections:
     output: true
     permalink: /:path
   reviews:
-    output: true
-    permalink: /review/:title
+    output: false
     
 # Include
-include:
-  - _pages
-  - _reviews
+# include:
+#   - _pages
+#   - _reviews
 
 # Exclude
 # exclude:
