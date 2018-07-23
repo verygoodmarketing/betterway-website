@@ -18,7 +18,7 @@ city: Hartselle
 state: AL
 zipcode: 35640
 phone: '(256) 580-6181'
-service-area: 'North Alabama including Hartselle, Decatur, Madison, Athens, Moulton, and Cullman'
+service-area: 'North Alabama including Hartselle, Decatur, Madison, Athens, and Moulton'
 
 # Social links
 facebook: https://www.facebook.com/BetterWayPestControl/
@@ -69,6 +69,8 @@ nav:
         url: /services/mosquito
       - title: Rodent Control
         url: /services/rodents
+      - title: Brown Recluse Control
+        url: /services/brown-recluse
 
   - title: Payments
     url: /payments

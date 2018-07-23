@@ -39,3 +39,7 @@ body > .alert {
 nav .call-us a {
   margin-left: rem-calc(16);
 }
+
+.dropdown-item.active, .dropdown-item:active {
+  background-color: $forest-green;
+}

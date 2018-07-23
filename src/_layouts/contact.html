@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+
+  {% include head.html %}
+
+<body>
+  {% include gtm-2.html %}
+  
+  <div class="contact-page" style="background-image: url({{ page.featured-img }});">
+    <div class="box">
+
+      {{ content }}
+
+      {% include request-form.html %}
+
+      <img src="{{ "/img/main-logo-dark.png" | relative_url }}" alt="">
+    </div>
+
+  </div>
+  
+  {% include scripts.html %}
+</body>
+</html>

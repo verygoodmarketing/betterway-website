@@ -63,3 +63,9 @@ pre.highlight {
     margin-left: 0;
   }
 }
+
+// Links inside of content
+.post .content a,
+.page .content a {
+  color: $green;
+}
