@@ -29,3 +29,5 @@ After rodents, like mice and rats are removed from your property, the next step 
 ## Rodent Cleanup
 
 Rodents, insects and other pests tend to leave behind a messy environment that could include strong odors, stains, feces, nests, damage, urine and hair. Better Way Pest Control’s experts will work to leave your residence odor-free and spotless. We will even clean tough to reach places like crawl spaces and attic corners.
+
+[Request a FREE Rodent Inspection](/request-inspection){: .btn .btn-success}

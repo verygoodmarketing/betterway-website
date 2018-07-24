@@ -65,7 +65,7 @@ pre.highlight {
 }
 
 // Links inside of content
-.post .content a,
-.page .content a {
+.post .content a:not(.btn),
+.page .content a:not(.btn) {
   color: $green;
 }

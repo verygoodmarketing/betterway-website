@@ -30,4 +30,6 @@ Brown recluse spiders do pose a slight risk, and they have been known to bite pe
 
 ## Brown Recluse Treatment
 
-{{ site.title }}'s general pest extermination program treats for house spiders. Brown Recluse spiders do not respond to this general treatment and require additional services to rid your home of these pests. Complete Brown Recluse extermination requires a very thorough treatment but once the spiders are removed, regular maintenance will keep new infestations from occurring. Contact us today to schedule your free [Brown Recluse Evaluation](/request-evaluation).
+{{ site.title }}'s general pest extermination program treats for house spiders. Brown Recluse spiders do not respond to this general treatment and require additional services to rid your home of these pests. Complete Brown Recluse extermination requires a very thorough treatment but once the spiders are removed, regular maintenance will keep new infestations from occurring.
+
+[Request a FREE Brown Recluse Inspection](/request-inspection){: .btn .btn-success}
