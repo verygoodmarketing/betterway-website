@@ -47,7 +47,7 @@
 {% if site.paypal-amount-onform == true %}
   <div class="mb-3">
     <label for="amount">Amount to Pay</label>
-    <input type="number" class="form-control" name="amount" required>
+    <input type="text" class="form-control" name="amount" required>
     <div class="invalid-feedback">
       Please enter a valid amount.
     </div>
@@ -58,7 +58,7 @@
     <label for="invoice">Invoice Number
       <span class="text-muted">(Optional)</span>
     </label>
-    <input type="text" class="form-control" name="invoice">
+    <input type="tel" class="form-control" name="invoice">
   </div>
 
   <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to Payment</button>

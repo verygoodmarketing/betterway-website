@@ -1,6 +1,7 @@
 # site settings
 title: Better Way Pest Control
 email: bbodine1@gmail.com
+email-cc: bbodine1@gmail.com
 description: >-
   Pest Control Services for Hartselle, Decatur, Athens, Madison.
   We have the best pest solutions and the best prices to protect the things
@@ -84,7 +85,7 @@ nav:
 
 # PayPal settings
 paypal-email: israel@betterwaypestcontrol.com
-paypal-amount-onform: false
+paypal-amount-onform: true
 paypal-allow-cancel: false
 paypal-sandbox: false
 paypal-sandbox-email: bbodine1+merchant@gmail.com

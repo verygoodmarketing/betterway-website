@@ -5,8 +5,8 @@
   <form class="needs-validation text-white-50" action="https://formspree.io/{{ site.email }}" method="POST" novalidate>
 
     <input type="hidden" name="_subject" value="Inspection Request From Your Website">
-    <input type="hidden" name="_cc" value="bbodine1@gmail.com">
-    <input type="hidden" name="_next" value="https://betterwaypestcontrol.com/thanks.html" />
+    <input type="hidden" name="_cc" value="{{ site.email-cc }}">
+    <input type="hidden" name="_next" value="{{ site.url }}/thanks-request">
 
     <div class="form-group ">
       <label for="email">Email address</label>
@@ -35,7 +35,7 @@
 
     <div class="form-group">
       <label for="phone">Phone</label>
-      <input type="phone" class="form-control" id="phone" name="phone" placeholder="555-555-5555" minLength="10" maxLength="12" required>
+      <input type="tel" class="form-control" id="phone" name="phone" placeholder="555-555-5555" minLength="16" maxLength="16" required>
       <div class="invalid-feedback">
         Valid phone number is required.
       </div>
