@@ -26,7 +26,7 @@ As a homeowner, you need to protect your assets. Not only do you need to protect
 
 #### Our Residential Pest Control Services Include:
 - Residential Protection Plans
-- Canine Bed Bug Services
+- Bed Bug Services
 - Crawl Space and Moisture Control
 - Brown Recluse Control
 - Mosquito control

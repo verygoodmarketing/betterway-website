@@ -21,7 +21,7 @@
     background-color: rgba($black, .5);
     z-index: 0;
     @include media-breakpoint-up(md) {
-      background-color: rgba($black, .3);
+      background-color: rgba($black, .5);
     }
   }
 }

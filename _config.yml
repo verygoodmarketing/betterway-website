@@ -10,6 +10,7 @@ gtm-id: MR2CTVP
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site
 
+
 # General data
 logo-dark: /img/main-logo-dark.png
 logo-light: /img/main-logo-light.png
@@ -20,9 +21,11 @@ zipcode: 35640
 phone: '(256) 580-6181'
 service-area: 'North Alabama including Hartselle, Decatur, Madison, Athens, and Moulton'
 
+
 # Social links
 facebook: https://www.facebook.com/BetterWayPestControl/
 google: https://goo.gl/maps/c3yoeyEDwTn
+
 
 # Work Hours
 work-hours:
@@ -41,6 +44,7 @@ work-hours:
   - day: Saturday
     hours: 7am - 6pm
 
+
 # Facebook Share Meta
 share-website: https://betterwaypestcontrol.com
 share-title: Better Pest Control for North Alabama
@@ -49,6 +53,7 @@ share-description: >-
   service at an affordable price, while protecting your home
   and family from unwanted pests.
 share-image: share.jpg
+
 
 # Navigation
 nav:
@@ -75,6 +80,14 @@ nav:
   - title: Payments
     url: /payments
     subpages:
+
+
+# PayPal settings
+paypal-email: israel@betterwaypestcontrol.com
+paypal-amount-onform: false
+paypal-allow-cancel: false
+paypal-sandbox: false
+paypal-sandbox-email: bbodine1+merchant@gmail.com
 
 
 # build settings
