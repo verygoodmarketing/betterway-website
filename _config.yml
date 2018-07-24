@@ -26,6 +26,7 @@ service-area: 'North Alabama including Hartselle, Decatur, Madison, Athens, and 
 # Social links
 facebook: https://www.facebook.com/BetterWayPestControl/
 google: https://goo.gl/maps/c3yoeyEDwTn
+yelp: https://www.yelp.com/biz/better-way-pest-control-hartselle
 
 
 # Work Hours
@@ -98,6 +99,7 @@ markdown: kramdown
 
 plugins:
   - jekyll-autoprefixer
+  - jekyll-sitemap
 
 autoprefixer:
   browsers:

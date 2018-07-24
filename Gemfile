@@ -21,4 +21,5 @@ gem "jekyll", "~> 3.7.3"
 group :jekyll_plugins do
   gem "jekyll-seo-tag", "~> 2.1"
   gem "jekyll-autoprefixer", "~> 1.0.1"
+  gem "jekyll-sitemap", "~> 1.2.0"
 end

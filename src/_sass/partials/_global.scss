@@ -1,0 +1,25 @@
+// _global.scss 			~/styles/partials
+// Styles here will be included throughout the project. Limit use as much
+// as possible. Using too much here can cause un intended effects.
+////////////////////////////////////////////////////////////
+
+// Set global box sizing.
+* {
+  box-sizing: border-box;
+  outline: none;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -ms-overflow-style: none;
+  overflow: auto;
+  height: 100%;
+}
+
+body {
+  height: 100%;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
