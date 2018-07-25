@@ -1,19 +1,19 @@
 ---
 layout: page
 permalink: /services/mosquito
-name: Mosquito Control
-featured-img: /img/headers/mosquito.jpg
-excerpt: >-
-   Better Service...Better Results...Guaranteed!
 
-# Share website must be set or default
-# home page share will be used
-share-website: https://mywebsite.com
-share-title: About page title
-share-description: >-
+# Page header
+featured-img: /img/headers/mosquito.jpg
+name: Mosquito Control
+excerpt: >-
+  Better Service...Better Results...Guaranteed!
+
+# SEO and Share Content
+title: Mosquito Control Service
+description: >-
   This is the description of the share. It should be a bit
   longer. It can be several sentences.
-share-image: share.jpg
+image: img/share/share.jpg
 ---
 
 ## Mosquito Control

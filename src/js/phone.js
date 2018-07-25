@@ -43,7 +43,9 @@
   };
 
   const inputElement = document.getElementById('phone');
-  inputElement.addEventListener('keydown', enforceFormat);
-  inputElement.addEventListener('keyup', formatToPhone);
+  if(inputElement) {
+    inputElement.addEventListener('keydown', enforceFormat);
+    inputElement.addEventListener('keyup', formatToPhone);
+  }
 
 })();

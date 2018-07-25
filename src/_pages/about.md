@@ -1,19 +1,19 @@
 ---
 layout: page
 permalink: /about
-name: About Us
-featured-img: /img/headers/about.jpg
-excerpt: >-
-   Better Service...Better Results...Guaranteed!
 
-# Share website must be set or default
-# home page share will be used
-share-website: https://mywebsite.com
-share-title: About page title
-share-description: >-
-  This is the description of the share. It should be a bit
-  longer. It can be several sentences.
-share-image: share.jpg
+# Page header
+featured-img: /img/headers/about.jpg
+name: About Us
+excerpt: >-
+  Better Service...Better Results...Guaranteed!
+
+# SEO and Share Content
+title: About Us
+description: >-
+  We have over 40 years combined pest control experience.
+  Let us inspect your home for FREE.
+image: img/share/share.jpg
 ---
 
 ## About {{ site.title }}

@@ -19,7 +19,7 @@ gem "jekyll", "~> 3.7.3"
 
 # If you have any plugins, put them here!
 group :jekyll_plugins do
-  gem "jekyll-seo-tag", "~> 2.1"
+  gem "jekyll-seo-tag", "~> 2.5"
   gem "jekyll-autoprefixer", "~> 1.0.1"
   gem "jekyll-sitemap", "~> 1.2.0"
 end

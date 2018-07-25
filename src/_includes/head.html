@@ -5,37 +5,6 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
-<!-- Title -->
-{% if page.layout == 'home' %}
-	<title>{{ site.title }}</title>
-	<meta content='{{ site.title }}' name='title'>
-{% else %}
-	<title>{{ page.name }} - {{ site.title }}</title>
-	<meta content='{{ page.title }} - {{ site.title }}' name='title'>
-{% endif %}
-
-<!-- description -->
-{% if page.layout == 'home' %}
-	<meta property="description" content="{{ site.description }}">
-{% else %}
-	<meta property="description" content="{{ page.description }}">
-{% endif %}
-
-<!-- share -->
-{% if page.share-website %}
-	<meta property="og:url" content="{{ page.share-website }}">
-	<meta property="og:title" content="{{ page.share-title }}">
-	<meta property="og:description" content="{{ page.share-description }}">
-	<meta property="og:image" content="{{ "/img/share/ " | absolute_url }}{{ page.share-image }}">
-	<meta property="og:type" content="website">
-{% else %}
-	<meta property="og:url" content="{{ site.share-website }}">
-	<meta property="og:title" content="{{ site.share-title }}">
-	<meta property="og:description" content="{{ site.share-description }}">
-	<meta property="og:image" content="{{ "/img/share/" | absolute_url }}{{ site.share-image }}">
-	<meta property="og:type" content="website">
-{% endif %}
-
 <!-- favicon -->
 	<link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon.png">
 	<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
@@ -50,5 +19,14 @@
 	<!-- stylesheets -->
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
 	<link rel="stylesheet" href="{{ "/css/styles.css" | relative_url }}">
+
+	<!-- seo -->
+	{% if page.layout == 'home' %}
+	<title>{{ page.title }}</title>
+	{% seo title=false %}
+	{% else %}
+	{% seo %}
+	{% endif %}
+	<meta property="og:type" content="website">
 
 </head>

@@ -1,19 +1,19 @@
 ---
 layout: page
 permalink: /services/residential-commercial
-name: Residential &amp; Commercial Pest Control
+
+# Page header
 featured-img: /img/headers/residential.jpg
+name: Residential &amp; Commercial Pest Control
 excerpt: >-
    Better Service...Better Results...Guaranteed!
 
-# Share website must be set or default
-# home page share will be used
-share-website: https://mywebsite.com
-share-title: About page title
-share-description: >-
+# SEO and Share Content
+title: Pay online
+description: >-
   This is the description of the share. It should be a bit
   longer. It can be several sentences.
-share-image: share.jpg
+image: img/share/share.jpg
 ---
 
 ## Residential Pest Control
