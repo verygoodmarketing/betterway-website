@@ -1,6 +1,6 @@
 ---
 layout: page
-permalink: /services/brown-recluse
+permalink: /services/brown-recluse-control
 
 # Page header
 featured-img: /img/headers/brown-recluse.jpg

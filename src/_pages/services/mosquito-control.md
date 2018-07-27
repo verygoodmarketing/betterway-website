@@ -1,6 +1,6 @@
 ---
 layout: page
-permalink: /services/mosquito
+permalink: /services/mosquito-control
 
 # Page header
 featured-img: /img/headers/mosquito.jpg

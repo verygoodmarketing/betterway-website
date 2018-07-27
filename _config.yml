@@ -48,26 +48,40 @@ nav:
   - title: Home
     url: /
     subpages:
-
   - title: About
     url: /about
     subpages:
-
   - title: Services
     url: /services
     subpages:
       - title: Residential & Commercial Pest Control
-        url: /services/residential-commercial
+        url: /services/residential-commercial-pest-control
       - title: Mosquito Control
-        url: /services/mosquito
+        url: /services/mosquito-control
       - title: Rodent Control
-        url: /services/rodents
+        url: /services/rodent-control
       - title: Brown Recluse Control
-        url: /services/brown-recluse
-
+        url: /services/brown-recluse-control
   - title: Payments
     url: /payments
     subpages:
+
+      
+# Service Area Navigation
+service-area-pages: true
+nav2:
+  - title: Decatur
+    url: /decatur-alabama
+  - title: Hartselle
+    url: /hartselle-alabama
+  - title: Moulton
+    url: /moulton-alabama
+  - title: Athens
+    url: /athens-alabama
+  - title: Madison
+    url: /madison-alabama
+  - title: Huntsville
+    url: /huntsville-alabama
 
 
 # PayPal settings

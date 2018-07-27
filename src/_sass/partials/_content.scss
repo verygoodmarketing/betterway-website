@@ -1,0 +1,30 @@
+// _content.scss 			~/styles/partials
+////////////////////////////////////////////////////////////
+
+// Content type
+.page .content,
+.post .content {
+  color: $stone;
+}
+
+// Links inside of content
+.post .content a:not(.btn),
+.page .content a:not(.btn) {
+  color: $forest-green;
+}
+
+// Images inside of content
+.page .content img
+.post .content img {
+  &.float-right,
+  &.float-left {
+    max-width: 50%;
+    margin: rem-calc(0 16 16);
+  }
+  &.float-right {
+    margin-right: 0;
+  }
+  &.float-left {
+    margin-left: 0;
+  }
+}

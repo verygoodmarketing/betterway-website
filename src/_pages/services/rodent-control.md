@@ -1,6 +1,6 @@
 ---
 layout: page
-permalink: /services/rodents
+permalink: /services/rodent-control
 
 # Page header
 featured-img: /img/headers/rodent.jpg

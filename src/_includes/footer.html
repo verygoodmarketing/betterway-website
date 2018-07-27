@@ -30,11 +30,24 @@
         <h5>Contact</h5>
         <div class="text-small text-white-50 pb-4">
           {{ site.street }} <br>
-          {{ site.city }}, {{ site.state }} {{ site.zipcode }}
-        </div>
-        <div class="text-small">
+          {{ site.city }}, {{ site.state }} {{ site.zipcode }} <br>
           <a class="text-white-50" href="tel:{{ site.phone }}">{{ site.phone }}</a>
         </div>
+
+        {% if site.service-area-pages %}
+        <h5>Service Areas</h5>
+
+        <div class="text-small">
+        {% for nav in site.nav2 %}
+          {% if forloop.last == true %}
+          <a href="{{ nav.url }}" class="text-white-50">{{ nav.title }}</a>
+          {% else %}
+          <a href="{{ nav.url }}" class="text-white-50">{{ nav.title }}</a>,
+          {% endif %}
+        {% endfor %}
+        </div>
+        {% endif %}
+
       </div>
 
       <div class="col-8 col-lg p-3 order-lg-3 hours">

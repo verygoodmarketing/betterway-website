@@ -1,9 +1,7 @@
 // _typography.scss      src/_sass/partials/
 ////////////////////////////////////////////////////////////
 
-.page .content,
-.post .content {
-  color: #354147;
+body p {
   font-family: $opensans;
 }
 
@@ -42,30 +40,3 @@ pre.highlight {
   }
 }
 
-// Paragraph default content styles
-.page .content p,
-.post .content p {
-  font-size: rem-calc(18);
-  line-height: 2em;
-  margin: rem-calc(20 0);
-  padding: 0;
-}
-
-// Images inside of content
-.post .content img,
-.page .content img {
-  max-width: 50%;
-  margin: rem-calc(0 16 16);
-  &.float-right {
-    margin-right: 0;
-  }
-  &.float-left {
-    margin-left: 0;
-  }
-}
-
-// Links inside of content
-.post .content a:not(.btn),
-.page .content a:not(.btn) {
-  color: $green;
-}

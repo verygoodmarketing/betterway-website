@@ -1,6 +1,6 @@
 ---
 layout: page
-permalink: /services/residential-commercial
+permalink: /services/residential-commercial-pest-control
 
 # Page header
 featured-img: /img/headers/residential.jpg
