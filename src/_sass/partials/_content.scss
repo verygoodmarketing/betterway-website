@@ -5,6 +5,7 @@
 .page .content,
 .post .content {
   color: $stone;
+  padding-bottom: rem-calc(48);
 }
 
 // Links inside of content

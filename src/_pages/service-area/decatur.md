@@ -4,7 +4,7 @@ permalink: /decatur-alabama
 city: Decatur, AL
 
 # Page header
-featured-img: /img/headers/about.jpg
+featured-img: /img/headers/decatur.jpg
 name: Pest Control Decatur, AL
 excerpt: >-
   Residential & Commercial Pest Control Services

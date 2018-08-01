@@ -1,6 +1,7 @@
 ---
 layout: thanks
 permalink: /thanks-payment
+sitemap: false
 
 # Page header
 featured-img: /img/headers/about.jpg
