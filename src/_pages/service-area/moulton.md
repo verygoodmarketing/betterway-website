@@ -4,7 +4,7 @@ permalink: /moulton-alabama
 city: Moulton, AL
 
 # Page header
-featured-img: /img/headers/about.jpg
+featured-img: /img/headers/moulton.jpg
 name: Pest Control Moulton, AL
 excerpt: >-
   Residential & Commercial Pest Control Services

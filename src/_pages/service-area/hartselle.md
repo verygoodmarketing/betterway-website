@@ -4,7 +4,7 @@ permalink: /hartselle-alabama
 city: Hartselle, AL
 
 # Page header
-featured-img: /img/headers/about.jpg
+featured-img: /img/headers/hartselle.jpg
 name: Pest Control Hartselle, AL
 excerpt: >-
   Residential & Commercial Pest Control Services

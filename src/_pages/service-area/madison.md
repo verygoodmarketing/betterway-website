@@ -4,7 +4,7 @@ permalink: /madison-alabama
 city: Madison, AL
 
 # Page header
-featured-img: /img/headers/about.jpg
+featured-img: /img/headers/madison.jpg
 name: Pest Control Madison, AL
 excerpt: >-
   Residential & Commercial Pest Control Services

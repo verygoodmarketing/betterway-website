@@ -88,7 +88,7 @@ nav2:
 paypal-email: israel@betterwaypestcontrol.com
 paypal-amount-onform: true
 paypal-allow-cancel: false
-paypal-sandbox: true
+paypal-sandbox: false
 paypal-sandbox-email: bbodine1+merchant@gmail.com
 
 

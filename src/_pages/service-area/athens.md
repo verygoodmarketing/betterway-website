@@ -4,7 +4,7 @@ permalink: /athens-alabama
 city: Athens, AL
 
 # Page header
-featured-img: /img/headers/about.jpg
+featured-img: /img/headers/athens.jpg
 name: Pest Control Athens, AL
 excerpt: >-
   Residential & Commercial Pest Control Services

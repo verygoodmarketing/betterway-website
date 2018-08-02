@@ -4,7 +4,7 @@ permalink: /huntsville-alabama
 city: Huntsville, AL
 
 # Page header
-featured-img: /img/headers/about.jpg
+featured-img: /img/headers/huntsville.jpg
 name: Pest Control Huntsville, AL
 excerpt: >-
   Residential & Commercial Pest Control Services
