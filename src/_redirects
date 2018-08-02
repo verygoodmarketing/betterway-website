@@ -1,0 +1,11 @@
+# Redirect default Netlify subdomain to primary domain
+http://betterwaypestcontrol.netlify.com/* http://betterwaypestcontrol.com/:splat 301!
+
+# Old site url redirects so any old links will go to the correct page
+/insect-control           /services/residential-commercial-pest-control
+/mosquito-control         /services/mosquito-control
+/termite-control          /services/residential-commercial-pest-control
+/spiders                  /services/brown-recluse-control
+/rodent-controltrapping   /services/rodent-control
+/service-area             /
+/contact-us               /request-inspection

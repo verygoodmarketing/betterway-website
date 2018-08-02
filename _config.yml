@@ -119,9 +119,8 @@ collections:
     output: false
     
 # Include
-# include:
-#   - _pages
-#   - _reviews
+include:
+  - _redirects
 
 # Exclude
 # exclude:
