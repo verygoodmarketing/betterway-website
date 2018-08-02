@@ -1,6 +1,6 @@
 
 <div class="alert alert-success d-sm-flex d-md-none d-flex justify-content-center" role="alert">
-  <a href="tel:{{ site.phone }}" class="btn btn-success">{{ site.phone }}</a>
+  <a href="tel:{{ site.phone }}" class="btn btn-success" onclick="ga('send', 'event', 'Click', 'Mobile Call', 'Call Tracking');">{{ site.phone }}</a>
 </div>
 
 <nav class="navbar sticky-top navbar-expand-md navbar-light">
@@ -32,7 +32,7 @@
 
     <span class="my-2 my-lg-0 d-none d-md-block call-us">
       Give us a call today
-      <a href="tel:{{ site.phone }}" class="btn btn-success">
+      <a href="tel:{{ site.phone }}" class="btn btn-success" onclick="ga('send', 'event', 'Click', 'Web Call', 'Call Tracking');">
         <i class="fas fa-phone"></i>
         {{ site.phone }}</a>
     </span>
