@@ -2,7 +2,7 @@
 <div class="request-form text-light">
   <h2>Request Inspection</h2>
 
-  <form class="needs-validation text-white-50" action="https://formspree.io/{{ site.email }}" method="POST" novalidate>
+  <form class="needs-validation text-white-50" action="https://formspree.io/{{ site.email }}" method="POST" data-track="Request Inspection" novalidate>
 
     <input type="hidden" name="_subject" value="Inspection Request From Your Website">
     <input type="hidden" name="_cc" value="{{ site.email-cc }}">
