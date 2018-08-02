@@ -10,16 +10,16 @@
 
         <div class="social">
           {% if site.facebook %}
-          <a href="{{ site.facebook }}"><i class="fab fa-facebook"></i></a>
+          <a href="{{ site.facebook }}" aria-label="Better Way Pest Control Facebook Page"><i class="fab fa-facebook"></i></a>
           {% endif %}
           {% if site.google %}
-          <a href="{{ site.google }}"><i class="fab fa-google"></i></a>
+          <a href="{{ site.google }}" aria-label="Better Way Pest Control Google Maps Listing"><i class="fab fa-google"></i></a>
           {% endif %}
           {% if site.yelp %}
-          <a href="{{ site.yelp }}"><i class="fab fa-yelp"></i></a>
+          <a href="{{ site.yelp }}" aria-label="Better Way Pest Control Yelp Page"><i class="fab fa-yelp"></i></a>
           {% endif %}
 
-          <a href="/guarantee" class="guarantee">
+          <a href="/guarantee" class="guarantee" aria-label="Better Way Pest Control Guarantee">
             <img src="{{ "/img/satisfaction-guarantee.png"| relative_url }}" alt="" >
           </a>
         </div>
