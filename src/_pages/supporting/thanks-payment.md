@@ -12,8 +12,8 @@ excerpt: >-
 # SEO and Share Content
 title: Thank You for Your Payment
 description: >-
-  This is the description of the share. It should be a bit
-  longer. It can be several sentences.
+  Thank you for your payment to Better Way Pest Control. Your business is
+  very much appreciated.
 image: img/share/share.jpg
 ---
 

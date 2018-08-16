@@ -11,8 +11,8 @@ excerpt: >-
 # SEO and Share Content
 title: Request a FREE Inspection
 description: >-
-  This is the description of the share. It should be a bit
-  longer. It can be several sentences.
+  Request a FREE inspection from Better Way Pest Control using our online
+  inspection request form.
 image: img/share/share.jpg
 ---
 

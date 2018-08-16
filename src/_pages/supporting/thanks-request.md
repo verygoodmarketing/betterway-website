@@ -10,8 +10,8 @@ name: Thank You Requesting an Inspection
 # SEO and Share Content
 title: Thank You for Your Request
 description: >-
-  This is the description of the share. It should be a bit
-  longer. It can be several sentences.
+  Thank you for requestion a Better Way Pest Control inspection.
+  We will contact you very soon.
 image: img/share/share.jpg
 ---
 

@@ -11,8 +11,7 @@ excerpt: >-
 # SEO and Share Content
 title: Satisfaction Guarantee
 description: >-
-  This is the description of the share. It should be a bit
-  longer. It can be several sentences.
+  Better Way Pest Control has a 100% money back guarantee.
 image: img/share/share.jpg
 ---
 

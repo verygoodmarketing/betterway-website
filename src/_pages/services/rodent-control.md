@@ -11,8 +11,8 @@ excerpt: >-
 # SEO and Share Content
 title: Rodent Control
 description: >-
-  This is the description of the share. It should be a bit
-  longer. It can be several sentences.
+  Better Way Pest Control will help you with any rodent problems you may have.
+  Contact us today for a FREE inspection.
 image: img/share/share.jpg
 ---
 

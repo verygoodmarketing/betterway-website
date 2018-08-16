@@ -13,8 +13,8 @@ excerpt: >-
 # SEO and Share Content
 title: Pay online
 description: >-
-  This is the description of the share. It should be a bit
-  longer. It can be several sentences.
+  Better Way Pest Control accepts payments for services online
+  so that you can make payments quickly and conveniently.
 image: img/share/share.jpg
 ---
 

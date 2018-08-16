@@ -11,8 +11,8 @@ excerpt: >-
 # SEO and Share Content
 title: Mosquito Control Service
 description: >-
-  This is the description of the share. It should be a bit
-  longer. It can be several sentences.
+  Better Way Pest Control offers Mosquitoe Control Services in many North Alabama areas at
+  prices that are amazing compared to our competitors. And the service is Better!
 image: img/share/share.jpg
 ---
 

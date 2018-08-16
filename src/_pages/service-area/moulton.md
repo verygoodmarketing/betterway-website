@@ -12,8 +12,9 @@ excerpt: >-
 # SEO and Share Content
 title: Pest Control Moulton, AL
 description: >-
-  We have over 40 years combined pest control experience.
-  Let us inspect your home for FREE.
+  Better Way Pest Control services Moulton, AL. We are a family
+  owned business that has been built one customer at a time
+  with honesty and integrity.
 image: img/share/share.jpg
 ---
 

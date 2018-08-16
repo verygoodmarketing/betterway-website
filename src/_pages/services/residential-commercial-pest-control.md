@@ -9,10 +9,9 @@ excerpt: >-
    Better Service...Better Results...Guaranteed!
 
 # SEO and Share Content
-title: Pay online
+title: Residential & Commercial Pest Control
 description: >-
-  This is the description of the share. It should be a bit
-  longer. It can be several sentences.
+  
 image: img/share/share.jpg
 ---
 
