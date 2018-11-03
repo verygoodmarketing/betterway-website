@@ -18,18 +18,18 @@
     </div>
 
     <div class="form-group">
-      <label for="first_name">First Name</label>
-      <input type="text" class="form-control" id="first_name" name="first_name" required>
+      <label for="contact-name">Contact Name</label>
+      <input type="text" class="form-control" id="contact-name" name="contact-name" required>
       <div class="invalid-feedback">
-        Valid first name is required.
+        Please add your first and last name.
       </div>
     </div>
-
+    
     <div class="form-group">
-      <label for="last_name">Last Name</label>
-      <input type="text" class="form-control" id="last_name" name="last_name" required>
+      <label for="zipcode">Service Zipcode</label>
+      <input type="text" class="form-control" id="zipcode" name="zipcode" maxLength="5" pattern="[0-9]*" required>
       <div class="invalid-feedback">
-        Valid last name is required.
+        Valid zipcode is required.
       </div>
     </div>
 
