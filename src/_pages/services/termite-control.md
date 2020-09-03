@@ -18,8 +18,10 @@ image: img/share/share.jpg
 
 ## Termite Control
 
-The first step to avoiding a termite problem is having your home regularly inspected for termites. And because termites feast 24/7 and can strike your home at any time, it's recommended that you have your home inspected at least once a year, or anytime you suspect termite activity. The cost of a termite inspection can vary based on the company, though many, if not most, offer free inspections. Better Way Pest Control offers a free inspection.
+The first step to avoiding a termite problem is having your home regularly inspected for termites. Termites feast 24/7 and can strike your home at any time. It's recommended that you have your home inspected at least once a year, or anytime you suspect termite activity. Better Way Pest Control offers a free termite inspection.
 
-Note: If an inspection is for a real estate transaction, there are normally fees associated because additional wood destroying insects are included and a formal report must be submitted. Learn more about wood destroying organisms reports here.
+If termites are detected in your home, Better Way Pest Control can remove any infestations and provide termite control services to protect you home from these nasty pests.
+
+
 
 [Request a FREE Termite Inspection](/request-inspection){: .btn .btn-success}
