@@ -18,10 +18,11 @@ image: img/share/share.jpg
 
 ## Termite Control
 
-The first step to avoiding a termite problem is having your home regularly inspected for termites. Termites feast 24/7 and can strike your home at any time. It's recommended that you have your home inspected at least once a year, or anytime you suspect termite activity. Better Way Pest Control offers a free termite inspection.
+The best way to avoid termite damage to your home is to install a termite baiting system around your home. Better Way Pest Control termite baiting stations are inspected on a quarterly basis to to give our customers peace of mind that there are no termite infestations going on.
+
+Termites feast 24/7 and can strike your home at any time. It's recommended that you have your home inspected at least once a year, or anytime you suspect termite activity. Better Way Pest Control offers a free termite inspection.
 
 If termites are detected in your home, Better Way Pest Control can remove any infestations and provide termite control services to protect you home from these nasty pests.
 
 
-
-[Request a FREE Termite Inspection](/request-inspection){: .btn .btn-success}
+[Request a FREE Termite Inspection Quote](/request-inspection){: .btn .btn-success}
