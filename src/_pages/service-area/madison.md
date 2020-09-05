@@ -36,6 +36,16 @@ image: img/share/share.jpg
   </div>
 
   <div class="card">
+    <img class="card-img-top" src="{{ "/img/post/termite-control.jpg" | relative_url }}" alt="Termite Control {{ page.city }}">
+    <div class="card-body">
+      <h3 class="card-title">Termite Control in {{ page.city }}</h3>
+      <p class="card-text">{{ site.title }} now offers termite protection solutions for your property in {{ page.city }}. Make sure your home is protected from damaging termites. We have <a href="/services/termite-control">termite control services</a> that will keep your home protected and safe from these damaging pests.</p>
+      <p class="mb-0">Request a <strong>FREE</strong></p>
+      <a href="/request-inspection" class="btn btn-success">Termite Inspection</a>
+    </div>
+  </div>  
+
+  <div class="card">
     <img class="card-img-top" src="{{ "/img/post/mosquito-control.jpg" | relative_url }}" alt="Mosquito Control {{ page.city }}">
     <div class="card-body">
       <h3 class="card-title">Mosquito Control in {{ page.city }}</h3>
