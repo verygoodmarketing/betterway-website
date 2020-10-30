@@ -18,5 +18,5 @@ description: >-
 image: img/share/share.jpg
 ---
 
-We use PayPal to process online payments. You will be directed 
-to the PayPal website to complete the payment process.
+We use Square to process online payments. You will be directed 
+to the Square secure website to complete the payment process.
