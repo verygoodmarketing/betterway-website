@@ -11,8 +11,6 @@ $container-max-widths: (
   lg: 1200px
 );
 
-@import "./vendors/square";
-
 @import "./partials/fonts";
 @import "./bootstrap/scss/bootstrap";
 @import "./partials/typography";
