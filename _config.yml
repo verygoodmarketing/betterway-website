@@ -64,9 +64,9 @@ nav:
         url: /services/rodent-control
       - title: Brown Recluse Control
         url: /services/brown-recluse-control
-  - title: Payments
-    url: /payments
-    subpages:
+#  - title: Payments
+#    url: /payments
+#    subpages:
 
       
 # Service Area Navigation

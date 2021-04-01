@@ -1,6 +1,7 @@
 ---
 layout: payment
 permalink: /payments
+published: false
 
 # Page header
 featured-img: /img/headers/payments.jpg
