@@ -1,16 +1,48 @@
 ---
-import '../styles/global.css';
-const { content } = Astro.props;
+import '../styles/global.css'
+const { content } = Astro.props
 ---
 
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta
+			name="viewport"
+			content="width=device-width"
+		/>
+		<link
+			rel="icon"
+			type="image/svg+xml"
+			href="/favicon.svg"
+		/>
 		<title>{content.title}</title>
 	</head>
 	<body>
+		<nav class="w-full border-b">
+			<div class="max-w-6xl mx-auto px-4 py-3 flex flex-wrap items-center gap-4">
+				<a
+					href="/"
+					class="font-semibold"
+					>Better Way Pest Control</a
+				>
+				<ul class="flex flex-wrap gap-4 text-sm">
+					<li><a href="/about">About</a></li>
+					<li><a href="/guarantee">Guarantee</a></li>
+					<li><a href="/request-inspection">Request Inspection</a></li>
+					<li><a href="/athens-alabama">Athens, Alabama</a></li>
+					<li><a href="/decatur-alabama">Decatur, Alabama</a></li>
+					<li><a href="/hartselle-alabama">Hartselle, Alabama</a></li>
+					<li><a href="/huntsville-alabama">Huntsville, Alabama</a></li>
+					<li><a href="/madison-alabama">Madison, Alabama</a></li>
+					<li><a href="/moulton-alabama">Moulton, Alabama</a></li>
+					<li><a href="/services/brown-recluse-control">Brown Recluse Control</a></li>
+					<li><a href="/services/mosquito-control">Mosquito Control</a></li>
+					<li><a href="/services/residential-commercial-pest-control">Residential & Commercial</a></li>
+					<li><a href="/services/rodent-control">Rodent Control</a></li>
+					<li><a href="/services/termite-control">Termite Control</a></li>
+				</ul>
+			</div>
+		</nav>
 		<slot />
 	</body>
 </html>
