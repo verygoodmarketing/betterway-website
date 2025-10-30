@@ -1,4 +1,20 @@
 ---
+import Layout from '../../layouts/main.astro'
+const content = { title: 'Brown Recluse Control — Better Way Pest Control' }
+---
+
+<Layout content={content}>
+	<section class="container py-12 grid gap-6">
+		<h1>Brown Recluse Control</h1>
+		<p>Trained technicians inspect your home inside and out to properly identify spiders and create the best treatment plan.</p>
+		<div class="flex gap-3">
+			<a href="tel:12565806181" class="btn btn-primary">Call (256) 580-6181</a>
+			<a href="/request-inspection" class="btn btn-outline">Request Inspection</a>
+		</div>
+	</section>
+</Layout>
+
+---
 import Layout from "../../layouts/main.astro";
 import { Button } from "@/components/ui/button";
 const content = { title: "Brown Recluse Control" };

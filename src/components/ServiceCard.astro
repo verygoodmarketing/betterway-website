@@ -1,0 +1,22 @@
+---
+interface Props { 
+  href: string
+  title: string
+  description?: string
+}
+const { href, title, description } = Astro.props as Props
+---
+
+<a href={href} class="group block rounded-xl border-2 border-[color:var(--border)] p-6 bg-white hover:border-[color:var(--primary)] hover:shadow-lg transition-all">
+	<div class="flex items-start gap-3">
+		<div class="flex-1 min-w-0">
+			<h3 class="font-bold mb-2 group-hover:text-[color:var(--primary)] transition-colors">{title}</h3>
+			{description && <p class="text-sm text-muted-foreground">{description}</p>}
+		</div>
+		<svg class="w-5 h-5 flex-shrink-0 mt-1 text-muted-foreground group-hover:text-[color:var(--primary)] group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+			<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+		</svg>
+	</div>
+</a>
+
+

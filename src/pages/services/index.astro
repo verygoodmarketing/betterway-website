@@ -1,0 +1,21 @@
+---
+import Layout from '../../layouts/main.astro'
+import ServiceCard from '../../components/ServiceCard.astro'
+const content = { title: 'Services — Better Way Pest Control' }
+---
+
+<Layout content={content}>
+	<section class="container py-12 grid gap-6">
+		<h1>Our Services</h1>
+		<p class="max-w-2xl">Smart, economical protection all year long for homes and businesses across North Alabama.</p>
+		<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+			<ServiceCard href="/services/residential-commercial-pest-control" title="Residential & Commercial Pest Control" />
+			<ServiceCard href="/services/termite-control" title="Termite Control" />
+			<ServiceCard href="/services/mosquito-control" title="Mosquito Control" />
+			<ServiceCard href="/services/rodent-control" title="Rodent Control" />
+			<ServiceCard href="/services/brown-recluse-control" title="Brown Recluse Control" />
+		</div>
+	</section>
+</Layout>
+
+

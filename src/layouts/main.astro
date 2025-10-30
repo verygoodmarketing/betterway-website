@@ -1,5 +1,7 @@
 ---
 import '../styles/global.css'
+import MobileStickyCTA from '../components/MobileStickyCTA.astro'
+import Header from '../components/Header.astro'
 const { content } = Astro.props
 ---
 
@@ -8,41 +10,130 @@ const { content } = Astro.props
 		<meta charset="utf-8" />
 		<meta
 			name="viewport"
-			content="width=device-width"
+			content="width=device-width, initial-scale=1"
 		/>
+		<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
+		<link rel="preconnect" href="https://www.google-analytics.com" crossorigin />
+		<meta name="theme-color" content="#0a7a7a" />
 		<link
 			rel="icon"
 			type="image/svg+xml"
 			href="/favicon.svg"
 		/>
+		<link rel="icon" type="image/png" href="/favicon.png" />
+		<meta property="og:image" content={`${import.meta.env.PUBLIC_SITE_URL || ''}/logo.png`} />
 		<title>{content.title}</title>
+		<meta name="description" content={content.description ?? 'Better Way Pest Control serves North Alabama with reliable, affordable pest control for homes and businesses.'} />
+		<link rel="canonical" href={`${import.meta.env.PUBLIC_SITE_URL || 'https://betterwaypestcontrol.com'}${Astro.url.pathname}`} />
+		<meta property="og:title" content={content.title} />
+		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content="Better Way Pest Control" />
+		<meta property="og:locale" content="en_US" />
+		<script type="application/ld+json">
+			{JSON.stringify({
+				'@context': 'https://schema.org',
+				'@type': 'LocalBusiness',
+				name: 'Better Way Pest Control',
+				telephone: '(256) 580-6181',
+				url: 'https://betterwaypestcontrol.com/',
+				address: {
+					'@type': 'PostalAddress',
+					streetAddress: '209 Sparkman St SW',
+					addressLocality: 'Hartselle',
+					addressRegion: 'AL',
+					postalCode: '35640',
+					addressCountry: 'US',
+				},
+				areaServed: ['Decatur', 'Hartselle', 'Moulton', 'Athens', 'Madison', 'Huntsville'],
+				openingHours: ['Mo-Sa 07:00-18:00', 'Su Closed'],
+			})}
+		</script>
+
+		{import.meta.env.PUBLIC_GA_ID && (
+			<>
+				<script async src={`https://www.googletagmanager.com/gtag/js?id=${import.meta.env.PUBLIC_GA_ID}`}></script>
+				<script>
+					{`window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', '${import.meta.env.PUBLIC_GA_ID}');`}
+				</script>
+			</>
+		)}
 	</head>
 	<body>
-		<nav class="w-full border-b">
-			<div class="max-w-6xl mx-auto px-4 py-3 flex flex-wrap items-center gap-4">
-				<a
-					href="/"
-					class="font-semibold"
-					>Better Way Pest Control</a
-				>
-				<ul class="flex flex-wrap gap-4 text-sm">
-					<li><a href="/about">About</a></li>
-					<li><a href="/guarantee">Guarantee</a></li>
-					<li><a href="/request-inspection">Request Inspection</a></li>
-					<li><a href="/athens-alabama">Athens, Alabama</a></li>
-					<li><a href="/decatur-alabama">Decatur, Alabama</a></li>
-					<li><a href="/hartselle-alabama">Hartselle, Alabama</a></li>
-					<li><a href="/huntsville-alabama">Huntsville, Alabama</a></li>
-					<li><a href="/madison-alabama">Madison, Alabama</a></li>
-					<li><a href="/moulton-alabama">Moulton, Alabama</a></li>
-					<li><a href="/services/brown-recluse-control">Brown Recluse Control</a></li>
-					<li><a href="/services/mosquito-control">Mosquito Control</a></li>
-					<li><a href="/services/residential-commercial-pest-control">Residential & Commercial</a></li>
-					<li><a href="/services/rodent-control">Rodent Control</a></li>
-					<li><a href="/services/termite-control">Termite Control</a></li>
-				</ul>
+		<a
+			href="#main"
+			class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 btn btn-outline"
+			>Skip to content</a
+		>
+		<Header />
+		<main id="main">
+			<slot />
+		</main>
+		<footer class="mt-12 border-t">
+			<div class="container py-10 grid gap-8 md:grid-cols-3">
+				<section>
+					<h2 class="text-lg font-bold mb-2">Contact</h2>
+					<p>209 Sparkman St SW<br />Hartselle, AL 35640</p>
+					<p class="mt-2">
+						<a
+							href="tel:12565806181"
+							class="hover:underline"
+							>(256) 580-6181</a>
+					</p>
+				</section>
+				<section>
+					<h2 class="text-lg font-bold mb-2">Service Areas</h2>
+					<p>Decatur, Hartselle, Moulton, Athens, Madison, Huntsville</p>
+				</section>
+				<section>
+					<h2 class="text-lg font-bold mb-2">Office Hours</h2>
+					<ul class="text-sm space-y-1">
+						<li>Mon–Sat: 7am – 6pm</li>
+						<li>Sun: Closed</li>
+					</ul>
+				</section>
 			</div>
-		</nav>
-		<slot />
+			<div class="border-t">
+				<div class="container py-4 text-sm flex items-center justify-between">
+					<p>© Better Way Pest Control 2025</p>
+					<nav
+						aria-label="Footer"
+						class="hidden md:block"
+					>
+						<ul class="flex gap-4">
+							<li>
+								<a
+									href="/about"
+									class="hover:underline"
+									>About</a>
+							</li>
+							<li>
+								<a
+									href="/services"
+									class="hover:underline"
+									>Services</a>
+							</li>
+							<li>
+								<a
+									href="/request-inspection"
+									class="hover:underline"
+									>Request</a>
+							</li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+		</footer>
+		<script>
+			{`(function(){
+			  function track(event, params){ if (window.gtag) window.gtag('event', event, params || {}) }
+			  document.addEventListener('click', function(e){
+			    const a = e.target.closest('a[href^="tel:"]');
+			    if (a) track('click_to_call', { link_text: (a.textContent||'').trim() })
+			  });
+			  const form = document.getElementById('request-inspection');
+			  if (form) form.addEventListener('submit', function(){ track('lead_form_submit'); });
+			})();`}
+		</script>
+		<MobileStickyCTA />
 	</body>
 </html>
