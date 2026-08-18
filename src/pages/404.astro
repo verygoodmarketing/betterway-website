@@ -1,0 +1,34 @@
+---
+import Layout from '../layouts/main.astro'
+import { COMPANY, SERVICES, telHref, servicePath } from '../config/company'
+
+const content = {
+	title: `Page Not Found | ${COMPANY.name}`,
+	description: 'That page does not exist. Here is where to go instead.',
+	noindex: true,
+}
+---
+
+<Layout content={content}>
+	<section class="container py-20">
+		<div class="max-w-2xl space-y-6">
+			<h1>We couldn't find that page</h1>
+			<p class="text-lg text-muted-foreground">
+				The link may be out of date. Try one of these, or just call us.
+			</p>
+			<ul class="flex flex-wrap gap-3">
+				<li><a href="/" class="btn btn-outline px-4 py-2">Home</a></li>
+				{SERVICES.map(service => (
+					<li>
+						<a href={servicePath(service.slug)} class="btn btn-outline px-4 py-2"
+							>{service.shortName}</a
+						>
+					</li>
+				))}
+			</ul>
+			<a href={telHref()} data-location="404" class="btn btn-primary px-6 py-3 inline-flex">
+				Call {COMPANY.phoneFormatted}
+			</a>
+		</div>
+	</section>
+</Layout>

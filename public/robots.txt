@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://betterwaypestcontrol.com/sitemap-index.xml

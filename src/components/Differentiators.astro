@@ -1,0 +1,16 @@
+---
+import Icon from './Icon.astro'
+import { DIFFERENTIATORS } from '../config/company'
+---
+
+<div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+	{DIFFERENTIATORS.map(item => (
+		<div class="space-y-2">
+			<div class="text-[color:var(--primary)]">
+				<Icon name={item.icon} class="w-8 h-8" />
+			</div>
+			<h3 class="font-bold">{item.title}</h3>
+			<p class="text-sm text-muted-foreground">{item.text}</p>
+		</div>
+	))}
+</div>

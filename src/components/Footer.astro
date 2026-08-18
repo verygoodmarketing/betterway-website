@@ -1,0 +1,94 @@
+---
+import {
+	COMPANY,
+	SERVICES,
+	SERVICE_AREAS,
+	GUARANTEE,
+	telHref,
+	addressLines,
+	areaPath,
+	servicePath,
+} from '../config/company'
+
+const [street, cityLine] = addressLines()
+const social = Object.entries(COMPANY.social).filter(([, url]) => url)
+const year = new Date().getFullYear()
+---
+
+<footer class="mt-16 border-t bg-gray-50">
+	<div class="container py-12 grid gap-8 md:grid-cols-4">
+		<section>
+			<h2 class="text-lg font-bold mb-3">Contact</h2>
+			<address class="not-italic text-sm space-y-2">
+				<p>{street}<br />{cityLine}</p>
+				<p>
+					<a href={telHref()} data-location="footer" class="font-semibold hover:underline"
+						>{COMPANY.phoneFormatted}</a
+					>
+				</p>
+			</address>
+			{social.length > 0 && (
+				<ul class="flex gap-4 mt-4 text-sm">
+					{social.map(([label, url]) => (
+						<li>
+							<a href={url} rel="noopener noreferrer" target="_blank" class="capitalize hover:underline"
+								>{label}</a
+							>
+						</li>
+					))}
+				</ul>
+			)}
+		</section>
+
+		<section>
+			<h2 class="text-lg font-bold mb-3">Services</h2>
+			<ul class="text-sm space-y-2">
+				{SERVICES.map(service => (
+					<li>
+						<a href={servicePath(service.slug)} class="hover:underline">{service.shortName}</a>
+					</li>
+				))}
+			</ul>
+		</section>
+
+		<section>
+			<h2 class="text-lg font-bold mb-3">Service Areas</h2>
+			<ul class="text-sm space-y-2">
+				{SERVICE_AREAS.map(area => (
+					<li>
+						<a href={areaPath(area.slug)} class="hover:underline">{area.name}, AL</a>
+					</li>
+				))}
+			</ul>
+		</section>
+
+		<section>
+			<h2 class="text-lg font-bold mb-3">Office Hours</h2>
+			<ul class="text-sm space-y-1">
+				{COMPANY.hoursDisplay.map(row => (
+					<li class="flex justify-between gap-3">
+						<span>{row.days}</span>
+						<span class="text-muted-foreground">{row.hours}</span>
+					</li>
+				))}
+			</ul>
+			<p class="text-sm mt-4">
+				<a href="/guarantee" class="font-semibold hover:underline">{GUARANTEE.name}</a>
+			</p>
+		</section>
+	</div>
+
+	<div class="border-t">
+		<div class="container py-4 text-sm flex flex-wrap items-center justify-between gap-3">
+			<p>© {COMPANY.name} {year}</p>
+			<nav aria-label="Footer">
+				<ul class="flex flex-wrap gap-4">
+					<li><a href="/about" class="hover:underline">About</a></li>
+					<li><a href="/services" class="hover:underline">Services</a></li>
+					<li><a href="/guarantee" class="hover:underline">Guarantee</a></li>
+					<li><a href="/request-inspection" class="hover:underline">Request Inspection</a></li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</footer>

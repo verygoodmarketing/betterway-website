@@ -22,3 +22,6 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# Superseded files staged for manual deletion (device tooling cannot rm)
+_to_delete/

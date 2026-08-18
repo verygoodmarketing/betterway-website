@@ -1,0 +1,103 @@
+---
+import Layout from '../../layouts/main.astro'
+import Icon from '../../components/Icon.astro'
+import Faqs from '../../components/Faqs.astro'
+import CtaBand from '../../components/CtaBand.astro'
+import FormRequestInspection from '../../components/FormRequestInspection.astro'
+import { SERVICES, COMPANY, telHref, serviceAreaNames } from '../../config/company'
+import { serviceSchema, faqSchema, breadcrumbSchema } from '../../lib/schema'
+
+export function getStaticPaths() {
+	return SERVICES.map(service => ({
+		params: { slug: service.slug },
+		props: { service },
+	}))
+}
+
+const { service } = Astro.props
+
+const content = {
+	title: `${service.metaTitle} | ${COMPANY.name}`,
+	description: service.metaDescription,
+}
+
+const schemas = [
+	serviceSchema(service),
+	faqSchema(service.faqs),
+	breadcrumbSchema([
+		{ name: 'Home', path: '/' },
+		{ name: 'Services', path: '/services' },
+		{ name: service.name, path: `/services/${service.slug}` },
+	]),
+].filter(Boolean)
+---
+
+<Layout content={content} schemas={schemas}>
+	<section class="border-b bg-gray-50">
+		<div class="container py-12 md:py-16">
+			<nav aria-label="Breadcrumb" class="text-sm text-muted-foreground mb-4">
+				<a href="/" class="hover:underline">Home</a>
+				<span aria-hidden="true"> / </span>
+				<a href="/services" class="hover:underline">Services</a>
+				<span aria-hidden="true"> / </span>
+				<span>{service.name}</span>
+			</nav>
+			<div class="max-w-3xl space-y-5">
+				<div class="text-[color:var(--primary)]">
+					<Icon name={service.icon} class="w-10 h-10" />
+				</div>
+				<h1>{service.name}</h1>
+				<p class="text-lg text-muted-foreground">{service.excerpt}</p>
+				<ul class="flex flex-wrap gap-2">
+					{service.chips.map(chip => (
+						<li class="text-sm rounded-full bg-white border px-3 py-1">{chip}</li>
+					))}
+				</ul>
+				<div class="flex flex-wrap gap-3 pt-2">
+					<a href={telHref()} data-location="service-hero" class="btn btn-primary px-6 py-3">
+						Call {COMPANY.phoneFormatted}
+					</a>
+					<a href="#request-inspection" class="btn btn-outline px-6 py-3">Request Free Inspection</a>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="container py-12 grid gap-10 lg:grid-cols-3">
+		<div class="lg:col-span-2 space-y-4">
+			{service.body.map(paragraph => <p class="text-lg leading-relaxed">{paragraph}</p>)}
+		</div>
+		<aside class="space-y-4">
+			<div class="rounded-xl border-2 border-[color:var(--border)] p-6 bg-white">
+				<h2 class="text-lg font-bold mb-4">What's Included</h2>
+				<ul class="space-y-3">
+					{service.features.map(feature => (
+						<li class="flex items-start gap-2 text-sm">
+							<span class="text-[color:var(--primary)] flex-shrink-0 mt-0.5">
+								<Icon name="check" class="w-4 h-4" />
+							</span>
+							<span>{feature}</span>
+						</li>
+					))}
+				</ul>
+			</div>
+			<p class="text-sm text-muted-foreground">
+				Serving {serviceAreaNames()} and the surrounding North Alabama counties.
+			</p>
+		</aside>
+	</section>
+
+	<Faqs faqs={service.faqs} heading={`${service.shortName} — Common Questions`} />
+
+	<section id="request-inspection" class="bg-gray-50 py-12">
+		<div class="container max-w-md">
+			<div class="text-center mb-6">
+				<h2>Request a Free {service.shortName} Inspection</h2>
+				<p class="text-muted-foreground">We'll come look before anyone quotes you a number.</p>
+			</div>
+			<FormRequestInspection defaultService={service.slug} />
+		</div>
+	</section>
+
+	<CtaBand location="service-footer" />
+</Layout>

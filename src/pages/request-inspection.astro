@@ -1,17 +1,68 @@
 ---
-import Layout from "../layouts/main.astro";
-import { Button } from "@/components/ui/button";
-const content = { title: "Request Inspection" };
+import Layout from '../layouts/main.astro'
+import FormRequestInspection from '../components/FormRequestInspection.astro'
+import Icon from '../components/Icon.astro'
+import { COMPANY, GUARANTEE, telHref, serviceAreaNames } from '../config/company'
+import { breadcrumbSchema } from '../lib/schema'
+
+const content = {
+	title: `Request a Free Inspection | ${COMPANY.name}`,
+	description: `Request a free pest, termite, mosquito, rodent, or brown recluse inspection anywhere in North Alabama. Call ${COMPANY.phoneFormatted} or send the form.`,
+}
+
+const schemas = [
+	breadcrumbSchema([
+		{ name: 'Home', path: '/' },
+		{ name: 'Request Inspection', path: '/request-inspection' },
+	]),
+].filter(Boolean)
 ---
 
-<Layout content={content}>
-	<main>
-		<h1>Request Inspection</h1>
-		<p>This page is intentionally left blank for now.</p>
-		<div class="mt-4">
-			<Button>Tailwind Button</Button>
+<Layout content={content} schemas={schemas}>
+	<section class="container py-12 md:py-16">
+		<div class="grid gap-10 lg:grid-cols-2 lg:items-start">
+			<div class="space-y-5">
+				<h1>Request a Free Inspection</h1>
+				<p class="text-lg text-muted-foreground">
+					Tell us what you're seeing and where, and we'll come look at it. The inspection is free,
+					and you get a real quote before any work starts.
+				</p>
+
+				<ul class="space-y-3">
+					{[
+						'Free inspection — we look before anyone quotes a number',
+						'A straight answer, including if you do not need us',
+						`Every service backed by the ${GUARANTEE.name}`,
+						`Serving ${serviceAreaNames()}`,
+					].map(item => (
+						<li class="flex items-start gap-2">
+							<span class="text-[color:var(--primary)] flex-shrink-0 mt-0.5">
+								<Icon name="check" class="w-5 h-5" />
+							</span>
+							<span>{item}</span>
+						</li>
+					))}
+				</ul>
+
+				<div class="rounded-xl border-2 border-[color:var(--border)] p-6 bg-white space-y-3">
+					<p class="font-semibold">Would rather just call?</p>
+					<a href={telHref()} data-location="request-page" class="btn btn-primary px-6 py-3">
+						Call {COMPANY.phoneFormatted}
+					</a>
+					<ul class="text-sm space-y-1 pt-2">
+						{COMPANY.hoursDisplay.map(row => (
+							<li class="flex justify-between gap-3">
+								<span>{row.days}</span>
+								<span class="text-muted-foreground">{row.hours}</span>
+							</li>
+						))}
+					</ul>
+				</div>
+			</div>
+
+			<div class="lg:sticky lg:top-6">
+				<FormRequestInspection id="request-page-form" />
+			</div>
 		</div>
-	</main>
+	</section>
 </Layout>
-
-

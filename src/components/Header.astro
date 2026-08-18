@@ -1,47 +1,32 @@
 ---
+import NavMenu from './NavMenu'
+import { COMPANY, telHref } from '../config/company'
 ---
 
-<header class="w-full border-b bg-white/70 backdrop-blur supports-[backdrop-filter]:bg-white/60">
+<header class="relative z-50 w-full border-b bg-white/70 backdrop-blur supports-[backdrop-filter]:bg-white/60">
 	<div class="container py-3 flex items-center justify-between gap-3">
 		<a href="/" class="flex items-center gap-3">
-			<img src="/logo.png" alt="Better Way Pest Control" width="160" height="40" class="h-10 w-auto" loading="eager" decoding="async" />
-			<span class="text-xl font-extrabold tracking-tight sr-only">Better Way Pest Control</span>
+			<img
+				src="/logo.png"
+				alt={COMPANY.name}
+				width="160"
+				height="40"
+				class="h-10 w-auto"
+				loading="eager"
+				decoding="async"
+			/>
+			<span class="text-xl font-extrabold tracking-tight sr-only">{COMPANY.name}</span>
 		</a>
-		<nav aria-label="Primary">
-			<ul class="hidden md:flex items-center gap-5 text-sm">
-				<li>
-					<a
-						href="/about"
-						class="hover:underline"
-						>About</a>
-				</li>
-				<li>
-					<a
-						href="/services"
-						class="hover:underline"
-						>Services</a>
-				</li>
-				<li>
-					<a
-						href="/request-inspection"
-						class="hover:underline"
-						>Request</a>
-				</li>
-			</ul>
+		<nav aria-label="Primary" class="hidden md:block">
+			<NavMenu client:load />
 		</nav>
 		<div class="flex items-center gap-2">
-			<a
-				href="tel:12565806181"
-				class="btn btn-primary"
-				>Call (256) 580-6181</a
+			<a href={telHref()} data-location="header" class="btn btn-primary"
+				>Call {COMPANY.phoneFormatted}</a
 			>
-			<a
-				href="/request-inspection"
-				class="btn btn-outline"
+			<a href="/request-inspection" class="btn btn-outline hidden sm:inline-flex"
 				>Request Inspection</a
 			>
 		</div>
 	</div>
 </header>
-
-

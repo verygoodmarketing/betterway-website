@@ -1,21 +1,49 @@
 ---
 import Layout from '../../layouts/main.astro'
 import ServiceCard from '../../components/ServiceCard.astro'
-const content = { title: 'Services — Better Way Pest Control' }
+import CtaBand from '../../components/CtaBand.astro'
+import { COMPANY, SERVICES, COUNTIES, servicePath } from '../../config/company'
+import { breadcrumbSchema } from '../../lib/schema'
+
+const content = {
+	title: `Pest Control Services | ${COMPANY.name}`,
+	description: `Pest control, termite, mosquito, rodent, and brown recluse services for homes and businesses across North Alabama. Free inspections. Call ${COMPANY.phoneFormatted}.`,
+}
+
+const schemas = [
+	breadcrumbSchema([
+		{ name: 'Home', path: '/' },
+		{ name: 'Services', path: '/services' },
+	]),
+].filter(Boolean)
 ---
 
-<Layout content={content}>
-	<section class="container py-12 grid gap-6">
-		<h1>Our Services</h1>
-		<p class="max-w-2xl">Smart, economical protection all year long for homes and businesses across North Alabama.</p>
-		<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-			<ServiceCard href="/services/residential-commercial-pest-control" title="Residential & Commercial Pest Control" />
-			<ServiceCard href="/services/termite-control" title="Termite Control" />
-			<ServiceCard href="/services/mosquito-control" title="Mosquito Control" />
-			<ServiceCard href="/services/rodent-control" title="Rodent Control" />
-			<ServiceCard href="/services/brown-recluse-control" title="Brown Recluse Control" />
+<Layout content={content} schemas={schemas}>
+	<section class="border-b bg-gray-50">
+		<div class="container py-12 md:py-16">
+			<div class="max-w-3xl space-y-5">
+				<h1>Our Services</h1>
+				<p class="text-lg text-muted-foreground">
+					Year-round protection for homes and businesses across {COUNTIES.join(', ')} counties.
+					Every service starts with a free inspection.
+				</p>
+			</div>
 		</div>
 	</section>
+
+	<section class="container py-12 grid gap-6">
+		<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+			{SERVICES.map(service => (
+				<ServiceCard
+					href={servicePath(service.slug)}
+					title={service.name}
+					description={service.excerpt}
+					icon={service.icon}
+					chips={service.chips}
+				/>
+			))}
+		</div>
+	</section>
+
+	<CtaBand location="services-footer" />
 </Layout>
-
-

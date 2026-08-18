@@ -1,0 +1,30 @@
+---
+import { COMPANY, telHref } from '../config/company'
+
+interface Props {
+	heading?: string
+	sub?: string
+	location?: string
+}
+
+const {
+	heading = 'Ready to Protect Your Home?',
+	sub = `Free inspection, straight answers, and a guarantee behind the work. Call ${COMPANY.phoneFormatted}.`,
+	location = 'cta-band',
+} = Astro.props as Props
+---
+
+<section class="container py-16">
+	<div class="max-w-3xl mx-auto text-center space-y-6">
+		<h2>{heading}</h2>
+		<p class="text-lg text-muted-foreground">{sub}</p>
+		<div class="flex flex-wrap justify-center gap-4">
+			<a href={telHref()} data-location={location} class="btn btn-primary text-base px-8 py-3">
+				Call {COMPANY.phoneFormatted}
+			</a>
+			<a href="/request-inspection" class="btn btn-outline text-base px-8 py-3">
+				Request Free Inspection
+			</a>
+		</div>
+	</div>
+</section>

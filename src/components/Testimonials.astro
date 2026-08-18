@@ -1,0 +1,35 @@
+---
+import { getCollection } from 'astro:content'
+import Testimonial from './Testimonial.astro'
+
+interface Props {
+	featuredOnly?: boolean
+	heading?: string
+	limit?: number
+}
+
+const { featuredOnly = false, heading = 'What Our Customers Say', limit } = Astro.props as Props
+
+const all = await getCollection('testimonials')
+const filtered = featuredOnly ? all.filter(t => t.data.featured) : all
+const reviews = limit ? filtered.slice(0, limit) : filtered
+---
+
+{/* No reviews on file → the whole section hides rather than rendering an empty grid. */}
+{reviews.length > 0 && (
+	<section class="bg-gray-50 py-16">
+		<div class="container grid gap-6">
+			<h2>{heading}</h2>
+			<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+				{reviews.map(review => (
+					<Testimonial
+						quote={review.data.text}
+						author={review.data.name}
+						location={review.data.location}
+						rating={review.data.rating ?? 5}
+					/>
+				))}
+			</div>
+		</div>
+	</section>
+)}

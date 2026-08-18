@@ -1,22 +1,45 @@
 ---
-interface Props { 
-  href: string
-  title: string
-  description?: string
+import Icon from './Icon.astro'
+
+interface Props {
+	href: string
+	title: string
+	description?: string
+	icon?: string
+	chips?: readonly string[]
 }
-const { href, title, description } = Astro.props as Props
+const { href, title, description, icon, chips = [] } = Astro.props as Props
 ---
 
-<a href={href} class="group block rounded-xl border-2 border-[color:var(--border)] p-6 bg-white hover:border-[color:var(--primary)] hover:shadow-lg transition-all">
+<a
+	href={href}
+	class="group block rounded-xl border-2 border-[color:var(--border)] p-6 bg-white hover:border-[color:var(--primary)] hover:shadow-lg transition-all"
+>
 	<div class="flex items-start gap-3">
+		{icon && (
+			<div class="text-[color:var(--primary)] flex-shrink-0">
+				<Icon name={icon} class="w-7 h-7" />
+			</div>
+		)}
 		<div class="flex-1 min-w-0">
 			<h3 class="font-bold mb-2 group-hover:text-[color:var(--primary)] transition-colors">{title}</h3>
 			{description && <p class="text-sm text-muted-foreground">{description}</p>}
+			{chips.length > 0 && (
+				<ul class="flex flex-wrap gap-2 mt-3">
+					{chips.map(chip => (
+						<li class="text-xs rounded-full bg-gray-100 px-2.5 py-1 text-muted-foreground">{chip}</li>
+					))}
+				</ul>
+			)}
 		</div>
-		<svg class="w-5 h-5 flex-shrink-0 mt-1 text-muted-foreground group-hover:text-[color:var(--primary)] group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+		<svg
+			class="w-5 h-5 flex-shrink-0 mt-1 text-muted-foreground group-hover:text-[color:var(--primary)] group-hover:translate-x-1 transition-all"
+			fill="none"
+			stroke="currentColor"
+			viewBox="0 0 24 24"
+			aria-hidden="true"
+		>
 			<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
 		</svg>
 	</div>
 </a>
-
-

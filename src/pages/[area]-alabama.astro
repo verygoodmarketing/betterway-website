@@ -1,0 +1,111 @@
+---
+import Layout from '../layouts/main.astro'
+import ServiceCard from '../components/ServiceCard.astro'
+import Differentiators from '../components/Differentiators.astro'
+import Testimonials from '../components/Testimonials.astro'
+import CtaBand from '../components/CtaBand.astro'
+import {
+	SERVICE_AREAS,
+	SERVICES,
+	COMPANY,
+	COUNTIES,
+	telHref,
+	servicePath,
+	areaPath,
+} from '../config/company'
+import { breadcrumbSchema } from '../lib/schema'
+
+export function getStaticPaths() {
+	return SERVICE_AREAS.map(area => ({
+		params: { area: area.slug },
+		props: { area },
+	}))
+}
+
+const { area } = Astro.props
+
+const content = {
+	title: `Pest Control ${area.name}, AL | ${COMPANY.name}`,
+	description: `Pest, termite, mosquito, rodent, and brown recluse control in ${area.name}, Alabama. Free inspections from a locally owned Hartselle company. Call ${COMPANY.phoneFormatted}.`,
+}
+
+const schemas = [
+	breadcrumbSchema([
+		{ name: 'Home', path: '/' },
+		{ name: `${area.name}, AL`, path: areaPath(area.slug) },
+	]),
+].filter(Boolean)
+
+const otherAreas = SERVICE_AREAS.filter(a => a.slug !== area.slug)
+---
+
+<Layout content={content} schemas={schemas}>
+	<section class="border-b bg-gray-50">
+		<div class="container py-12 md:py-16">
+			<nav aria-label="Breadcrumb" class="text-sm text-muted-foreground mb-4">
+				<a href="/" class="hover:underline">Home</a>
+				<span aria-hidden="true"> / </span>
+				<span>{area.name}, AL</span>
+			</nav>
+			<div class="max-w-3xl space-y-5">
+				<h1>Pest Control {area.name}, AL</h1>
+				<p class="text-lg">{area.blurb}</p>
+				<p class="text-muted-foreground">{area.detail}</p>
+				<div class="flex flex-wrap gap-3 pt-2">
+					<a href={telHref()} data-location="area-hero" class="btn btn-primary px-6 py-3">
+						Call {COMPANY.phoneFormatted}
+					</a>
+					<a href="/request-inspection" class="btn btn-outline px-6 py-3">Request Free Inspection</a>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="container py-12 grid gap-6">
+		<div class="max-w-3xl space-y-4">
+			<h2>Services We Offer in {area.name}</h2>
+			<p class="text-muted-foreground">
+				{COMPANY.name} is a family owned business that has been built one customer at a time with
+				honesty and integrity. We reach {area.county} County and the rest of North Alabama —
+				{COUNTIES.join(', ')} — from our office in {COMPANY.address.locality}.
+			</p>
+		</div>
+		<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+			{SERVICES.map(service => (
+				<ServiceCard
+					href={servicePath(service.slug)}
+					title={`${service.name} in ${area.name}`}
+					description={service.excerpt}
+					icon={service.icon}
+				/>
+			))}
+		</div>
+	</section>
+
+	<section class="bg-gray-50 py-12">
+		<div class="container">
+			<h2 class="mb-8">Why {area.name} Calls Us</h2>
+			<Differentiators />
+		</div>
+	</section>
+
+	<Testimonials featuredOnly limit={3} />
+
+	<section class="container py-12">
+		<h2 class="mb-4">Other Areas We Serve</h2>
+		<ul class="flex flex-wrap gap-3">
+			{otherAreas.map(other => (
+				<li>
+					<a href={areaPath(other.slug)} class="btn btn-outline text-sm px-4 py-2"
+						>{other.name}, AL</a
+					>
+				</li>
+			))}
+		</ul>
+	</section>
+
+	<CtaBand
+		heading={`Ready for Pest Control in ${area.name}?`}
+		location="area-footer"
+	/>
+</Layout>

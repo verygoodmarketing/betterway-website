@@ -1,0 +1,26 @@
+---
+import { getIcon } from '../lib/icons'
+
+interface Props {
+	name: string
+	class?: string
+	size?: number
+}
+
+const { name, class: className = 'w-6 h-6', size = 24 } = Astro.props as Props
+const path = getIcon(name)
+---
+
+<svg
+	class={className}
+	width={size}
+	height={size}
+	viewBox="0 0 24 24"
+	fill="none"
+	stroke="currentColor"
+	stroke-width="2"
+	stroke-linecap="round"
+	stroke-linejoin="round"
+	aria-hidden="true"
+	set:html={path}
+/>

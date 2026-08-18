@@ -2,11 +2,29 @@
 import Layout from '../layouts/main.astro'
 import FormRequestInspection from '../components/FormRequestInspection.astro'
 import ServiceCard from '../components/ServiceCard.astro'
-import Testimonial from '../components/Testimonial.astro'
+import ServiceIcon from '../components/ServiceIcon.astro'
+import Testimonials from '../components/Testimonials.astro'
 import TrustBadge from '../components/TrustBadge.astro'
 import ProcessStep from '../components/ProcessStep.astro'
-import ServiceIcon from '../components/ServiceIcon.astro'
-const content = { title: 'Better Way Pest Control — North Alabama' }
+import CtaBand from '../components/CtaBand.astro'
+import {
+	COMPANY,
+	SERVICES,
+	SERVICE_AREAS,
+	DIFFERENTIATORS,
+	PROCESS_STEPS,
+	COUNTIES,
+	telHref,
+	servicePath,
+	areaPath,
+} from '../config/company'
+
+const content = {
+	title: `Pest Control in Hartselle & North Alabama | ${COMPANY.name}`,
+	description: `Locally owned pest, termite, mosquito, rodent, and brown recluse control across North Alabama. Free inspections. Call ${COMPANY.phoneFormatted}.`,
+}
+
+const featured = SERVICES.filter(s => s.featured)
 ---
 
 <Layout content={content}>
@@ -17,6 +35,7 @@ const content = { title: 'Better Way Pest Control — North Alabama' }
 				alt=""
 				class="h-full w-full object-cover"
 				loading="eager"
+				fetchpriority="high"
 				decoding="async"
 			/>
 			<div class="absolute inset-0 bg-black/40"></div>
@@ -25,26 +44,25 @@ const content = { title: 'Better Way Pest Control — North Alabama' }
 			<div class="max-w-4xl mx-auto text-center space-y-8 text-white">
 				<img
 					src="/logo.png"
-					alt="Better Way Pest Control"
+					alt={COMPANY.name}
 					width="520"
 					height="140"
 					class="h-32 w-auto mx-auto drop-shadow-lg sm:h-64 mb-16"
 					loading="eager"
+					fetchpriority="high"
 					decoding="async"
 				/>
 				<h1 class="text-4xl md:text-5xl font-extrabold drop-shadow-lg">
 					Protecting Your Home and Family From Unwanted Pests
 				</h1>
 				<p class="text-lg md:text-xl max-w-2xl mx-auto drop-shadow">
-					Locally owned in Hartselle, serving North Alabama with affordable, reliable pest control backed by 40+ years
-					combined experience.
+					{COMPANY.name} is locally owned and operated in {COMPANY.address.locality}, Alabama. We
+					service a large area of North Alabama which includes {COUNTIES.join(', ')} Counties.
 				</p>
 				<div class="flex flex-wrap justify-center gap-4">
-					<a
-						href="tel:12565806181"
-						class="btn btn-primary text-base px-8 py-3 shadow-lg"
-						>Call (256) 580-6181</a
-					>
+					<a href={telHref()} data-location="hero" class="btn btn-primary text-base px-8 py-3 shadow-lg">
+						Call {COMPANY.phoneFormatted}
+					</a>
 					<a
 						href="#request-inspection"
 						class="btn bg-white/10 backdrop-blur border-2 border-white text-white hover:bg-white/20 px-8 py-3 shadow-lg"
@@ -52,71 +70,37 @@ const content = { title: 'Better Way Pest Control — North Alabama' }
 					>
 				</div>
 
-				<!-- Service Quick Links -->
 				<div class="pt-8 border-t border-white/20">
 					<p class="text-sm font-medium mb-4 uppercase tracking-wider">Our Services</p>
 					<div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
-						<ServiceIcon
-							href="/services/residential-commercial-pest-control"
-							label="Pest Control"
-						/>
-						<ServiceIcon
-							href="/services/termite-control"
-							label="Termite Control"
-						/>
-						<ServiceIcon
-							href="/services/mosquito-control"
-							label="Mosquito Control"
-						/>
-						<ServiceIcon
-							href="/services/rodent-control"
-							label="Rodent Control"
-						/>
-						<ServiceIcon
-							href="/services/brown-recluse-control"
-							label="Brown Recluse"
-						/>
+						{SERVICES.map(service => (
+							<ServiceIcon href={servicePath(service.slug)} label={service.shortName} />
+						))}
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
 
-	<!-- Trust Indicators -->
 	<section class="bg-gray-50 py-12">
 		<div class="container">
 			<div class="grid grid-cols-2 lg:grid-cols-4 gap-8">
-				<TrustBadge
-					title="40+ Years Experience"
-					description="Combined expertise"
-				/>
-				<TrustBadge
-					title="100% Guarantee"
-					description="Satisfaction assured"
-				/>
-				<TrustBadge
-					title="Licensed & Insured"
-					description="Fully protected"
-				/>
-				<TrustBadge
-					title="Locally Owned"
-					description="Your neighbors"
-				/>
+				{DIFFERENTIATORS.map(item => (
+					<TrustBadge title={item.title} description={item.text} icon={item.icon} />
+				))}
 			</div>
 		</div>
 	</section>
 
-	<!-- Request Inspection Form -->
-	<section
-		id="request-inspection"
-		class="container py-12"
-	>
+	<section id="request-inspection" class="container py-12">
 		<div class="max-w-md mx-auto">
 			<div class="text-center mb-6">
 				<h2>Request a Free Inspection</h2>
-				<p class="text-muted-foreground">Get started with Better Way Pest Control today</p>
+				<p class="text-muted-foreground">
+					Tell us what you're seeing and we'll come look. No charge, no pressure.
+				</p>
 			</div>
-			<FormRequestInspection />
+			<FormRequestInspection id="home-lead-form" />
 		</div>
 	</section>
 
@@ -125,106 +109,47 @@ const content = { title: 'Better Way Pest Control — North Alabama' }
 			<div class="max-w-4xl mx-auto">
 				<h2 class="text-center mb-12">How We Protect Your Home</h2>
 				<div class="grid md:grid-cols-2 gap-8">
-					<ProcessStep
-						number={1}
-						title="Free Inspection"
-						description="We thoroughly inspect your property to identify current issues and potential problem areas."
-					/>
-					<ProcessStep
-						number={2}
-						title="Custom Treatment Plan"
-						description="Based on your specific needs, we create a personalized pest control strategy."
-					/>
-					<ProcessStep
-						number={3}
-						title="Professional Service"
-						description="Our trained technicians apply safe, effective treatments with minimal disruption to your home."
-					/>
-					<ProcessStep
-						number={4}
-						title="Ongoing Protection"
-						description="Regular maintenance visits ensure your home stays pest-free year-round."
-					/>
+					{PROCESS_STEPS.map((step, i) => (
+						<ProcessStep number={i + 1} title={step.title} description={step.description} />
+					))}
 				</div>
 			</div>
 		</div>
 	</section>
 
 	<section class="container py-12 grid gap-6">
-		<h2>Residential & Commercial Services</h2>
+		<h2>Residential &amp; Commercial Services</h2>
 		<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-			<ServiceCard
-				href="/services/residential-commercial-pest-control"
-				title="Residential & Commercial Pest Control"
-				description="Comprehensive protection for homes and businesses from ants, roaches, spiders, and more"
-			/>
-			<ServiceCard
-				href="/services/termite-control"
-				title="Termite Control"
-				description="Protect your property from costly termite damage with proven treatment methods"
-			/>
-			<ServiceCard
-				href="/services/mosquito-control"
-				title="Mosquito Control"
-				description="Enjoy your outdoor spaces with our effective mosquito reduction treatments"
-			/>
-			<ServiceCard
-				href="/services/rodent-control"
-				title="Rodent Control"
-				description="Safe and effective removal of mice, rats, and other rodents from your property"
-			/>
-			<ServiceCard
-				href="/services/brown-recluse-control"
-				title="Brown Recluse Control"
-				description="Specialized treatment for dangerous brown recluse spiders common in Alabama"
-			/>
+			{featured.map(service => (
+				<ServiceCard
+					href={servicePath(service.slug)}
+					title={service.name}
+					description={service.excerpt}
+					icon={service.icon}
+					chips={service.chips}
+				/>
+			))}
 		</div>
 	</section>
 
-	<section class="bg-gray-50 py-16">
-		<div class="container grid gap-6">
-			<h2>What Our Customers Say</h2>
-			<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-				<Testimonial
-					quote="These guys are the best! Great service. Great customer relations. They do an excellent job."
-					author="Jack D."
-					location="Hartselle"
-				/>
-				<Testimonial
-					quote="Excellent service, honest and dependable. Reasonably priced and I highly recommend Israel and his team."
-					author="Jean W."
-					location="Moulton"
-				/>
-				<Testimonial
-					quote="We get a monthly mosquito and outdoor bug treatment. They do an awesome job."
-					author="Shaun M."
-					location="Hartselle"
-				/>
-			</div>
-		</div>
+	<Testimonials featuredOnly limit={3} />
 
-		<!-- Final CTA Section -->
-		<section class="container py-16">
-			<div class="max-w-3xl mx-auto text-center space-y-6">
-				<h2>Ready to Protect Your Home?</h2>
-				<p class="text-lg text-muted-foreground">
-					Get a free inspection and discover why North Alabama trusts Better Way Pest Control
-				</p>
-				<div class="flex flex-wrap justify-center gap-4">
-					<a
-						href="tel:12565806181"
-						class="btn btn-primary text-base px-8 py-3"
-					>
-						Call (256) 580-6181
-					</a>
-					<a
-						href="#request-inspection"
-						class="btn btn-outline text-base px-8 py-3"
-					>
-						Request Free Inspection
-					</a>
-				</div>
-			</div>
-		</section>
+	<section class="container py-12 grid gap-6">
+		<div class="max-w-3xl space-y-3">
+			<h2>Where We Work</h2>
+			<p class="text-muted-foreground">
+				We reach several counties in North Alabama — {COUNTIES.join(', ')} — from our office in
+				{' '}{COMPANY.address.locality}.
+			</p>
+		</div>
+		<ul class="flex flex-wrap gap-3">
+			{SERVICE_AREAS.map(area => (
+				<li>
+					<a href={areaPath(area.slug)} class="btn btn-outline text-sm px-4 py-2">{area.name}, AL</a>
+				</li>
+			))}
+		</ul>
 	</section>
+
+	<CtaBand location="home-footer" />
 </Layout>

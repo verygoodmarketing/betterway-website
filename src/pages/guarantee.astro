@@ -1,17 +1,71 @@
 ---
-import Layout from "../layouts/main.astro";
-import { Button } from "@/components/ui/button";
-const content = { title: "Guarantee" };
+import Layout from '../layouts/main.astro'
+import Icon from '../components/Icon.astro'
+import CtaBand from '../components/CtaBand.astro'
+import { COMPANY, GUARANTEE, SERVICES, telHref, servicePath } from '../config/company'
+import { breadcrumbSchema } from '../lib/schema'
+
+const content = {
+	title: `${GUARANTEE.name} | ${COMPANY.name}`,
+	description: `${GUARANTEE.promise} It covers every service we provide. Call ${COMPANY.phoneFormatted}.`,
+}
+
+const schemas = [
+	breadcrumbSchema([
+		{ name: 'Home', path: '/' },
+		{ name: 'Guarantee', path: '/guarantee' },
+	]),
+].filter(Boolean)
 ---
 
-<Layout content={content}>
-	<main>
-		<h1>Guarantee</h1>
-		<p>This page is intentionally left blank for now.</p>
-		<div class="mt-4">
-			<Button>Tailwind Button</Button>
+<Layout content={content} schemas={schemas}>
+	<section class="border-b bg-gray-50">
+		<div class="container py-12 md:py-16">
+			<div class="max-w-3xl space-y-5">
+				<h1>The {GUARANTEE.name}</h1>
+				<p class="text-2xl font-semibold text-[color:var(--primary)]">{GUARANTEE.promise}</p>
+			</div>
 		</div>
-	</main>
+	</section>
+
+	<section class="container py-12 grid gap-10 lg:grid-cols-3">
+		<div class="lg:col-span-2 space-y-4 text-lg leading-relaxed">
+			<p>
+				That is the whole policy. There is no version of it with a page of conditions attached.
+			</p>
+			<p>
+				We aim to give you better service and better results, and the guarantee is how we stand
+				behind that. It applies to every service we provide — pest control, termite, mosquito,
+				rodent, and brown recluse work alike.
+			</p>
+			<p>
+				If something is not right, call us before you do anything else. Most of the time it is
+				something we can come back out and fix. If it is not, you get your money back.
+			</p>
+		</div>
+
+		<aside>
+			<div class="rounded-xl border-2 border-[color:var(--border)] p-6 bg-white">
+				<h2 class="text-lg font-bold mb-4">Covered Services</h2>
+				<ul class="space-y-3">
+					{SERVICES.map(service => (
+						<li class="flex items-start gap-2 text-sm">
+							<span class="text-[color:var(--primary)] flex-shrink-0 mt-0.5">
+								<Icon name="check" class="w-4 h-4" />
+							</span>
+							<a href={servicePath(service.slug)} class="hover:underline">{service.name}</a>
+						</li>
+					))}
+				</ul>
+				<p class="mt-6 text-sm">
+					Questions? Call
+					<a href={telHref()} data-location="guarantee" class="font-semibold hover:underline"
+						>{COMPANY.phoneFormatted}</a
+					>.
+				</p>
+			</div>
+		</aside>
+	</section>
+
+	<CtaBand location="guarantee-footer" />
 </Layout>
-
-
