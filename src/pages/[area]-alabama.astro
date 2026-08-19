@@ -1,19 +1,24 @@
 ---
 import Layout from '../layouts/main.astro'
+import Hero from '../components/Hero.astro'
+import TrustBar from '../components/TrustBar.astro'
+import Icon from '../components/Icon.astro'
 import ServiceCard from '../components/ServiceCard.astro'
-import Differentiators from '../components/Differentiators.astro'
 import Testimonials from '../components/Testimonials.astro'
+import Faqs from '../components/Faqs.astro'
 import CtaBand from '../components/CtaBand.astro'
+import FormRequestInspection from '../components/FormRequestInspection.astro'
 import {
 	SERVICE_AREAS,
 	SERVICES,
 	COMPANY,
 	COUNTIES,
+	getService,
 	telHref,
 	servicePath,
 	areaPath,
 } from '../config/company'
-import { breadcrumbSchema } from '../lib/schema'
+import { breadcrumbSchema, faqSchema, areaServiceSchema } from '../lib/schema'
 
 export function getStaticPaths() {
 	return SERVICE_AREAS.map(area => ({
@@ -25,11 +30,13 @@ export function getStaticPaths() {
 const { area } = Astro.props
 
 const content = {
-	title: `Pest Control ${area.name}, AL | ${COMPANY.name}`,
-	description: `Pest, termite, mosquito, rodent, and brown recluse control in ${area.name}, Alabama. Free inspections from a locally owned Hartselle company. Call ${COMPANY.phoneFormatted}.`,
+	title: `${area.metaTitle} | ${COMPANY.name}`,
+	description: area.metaDescription,
 }
 
 const schemas = [
+	areaServiceSchema(area),
+	faqSchema(area.faqs),
 	breadcrumbSchema([
 		{ name: 'Home', path: '/' },
 		{ name: `${area.name}, AL`, path: areaPath(area.slug) },
@@ -40,72 +47,179 @@ const otherAreas = SERVICE_AREAS.filter(a => a.slug !== area.slug)
 ---
 
 <Layout content={content} schemas={schemas}>
-	<section class="border-b bg-gray-50">
-		<div class="container py-12 md:py-16">
-			<nav aria-label="Breadcrumb" class="text-sm text-muted-foreground mb-4">
-				<a href="/" class="hover:underline">Home</a>
-				<span aria-hidden="true"> / </span>
-				<span>{area.name}, AL</span>
-			</nav>
-			<div class="max-w-3xl space-y-5">
-				<h1>Pest Control {area.name}, AL</h1>
-				<p class="text-lg">{area.blurb}</p>
-				<p class="text-muted-foreground">{area.detail}</p>
-				<div class="flex flex-wrap gap-3 pt-2">
-					<a href={telHref()} data-location="area-hero" class="btn btn-primary px-6 py-3">
-						Call {COMPANY.phoneFormatted}
-					</a>
-					<a href="/request-inspection" class="btn btn-outline px-6 py-3">Request Free Inspection</a>
-				</div>
+	<Hero
+		eyebrow={`${area.county} County, Alabama`}
+		heading={`Pest Control in ${area.name}, AL`}
+		sub={area.blurb}
+		compact
+	/>
+	<TrustBar />
+
+	<section class="section">
+		<div class="container area-intro">
+			<div class="prose-block area-copy">
+				<p>{area.detail}</p>
+				<p>
+					{COMPANY.name} is a family owned business that has been built one customer at a time with
+					honesty and integrity. We reach {area.county} County and the rest of North Alabama —
+					{' '}{COUNTIES.join(', ')} — from our office in {COMPANY.address.locality}, and every
+					service starts with a free inspection.
+				</p>
+				<p class="area-meta muted">
+					<strong>Also serving nearby:</strong> {area.nearby.join(' · ')}
+					<br />
+					<strong>Zip codes:</strong> {area.zips.join(', ')}
+				</p>
+			</div>
+
+			<div class="area-form" id="request-inspection">
+				<FormRequestInspection
+					id={`area-${area.slug}-form`}
+					heading={`Free Inspection in ${area.name}`}
+					sub="Two required fields. We call you back to set a time."
+				/>
 			</div>
 		</div>
 	</section>
 
-	<section class="container py-12 grid gap-6">
-		<div class="max-w-3xl space-y-4">
-			<h2>Services We Offer in {area.name}</h2>
-			<p class="text-muted-foreground">
-				{COMPANY.name} is a family owned business that has been built one customer at a time with
-				honesty and integrity. We reach {area.county} County and the rest of North Alabama —
-				{COUNTIES.join(', ')} — from our office in {COMPANY.address.locality}.
-			</p>
-		</div>
-		<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-			{SERVICES.map(service => (
-				<ServiceCard
-					href={servicePath(service.slug)}
-					title={`${service.name} in ${area.name}`}
-					description={service.excerpt}
-					icon={service.icon}
-				/>
-			))}
+	{/*
+	  The pressures are ordered per town and written per town, so no two area
+	  pages present the same reasoning in the same sequence. Near-identical area
+	  pages read as doorway pages to Google and can suppress the whole set.
+	*/}
+	<section class="section section-alt">
+		<div class="container area-pressures">
+			<div class="area-head">
+				<h2>What drives pest calls in {area.name}</h2>
+				<p class="muted">
+					The problems we get called for here most often, and how we handle each one.
+				</p>
+			</div>
+			<div class="pressure-list">
+				{area.localPressures.map(pressure => {
+					const service = getService(pressure.serviceSlug)
+					return (
+						<article class="pressure card">
+							<span class="pressure-icon"><Icon name={service?.icon ?? 'check'} class="icon-md" /></span>
+							<h3>{pressure.heading}</h3>
+							<p class="muted pressure-body">{pressure.body}</p>
+							{service && (
+								<a href={servicePath(service.slug)} class="pressure-link">
+									More on {service.shortName} in {area.name}
+									<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+								</a>
+							)}
+						</article>
+					)
+				})}
+			</div>
 		</div>
 	</section>
 
-	<section class="bg-gray-50 py-12">
+	<section class="section">
+		<div class="container area-services">
+			<div class="area-head">
+				<h2>Every service we offer in {area.name}</h2>
+				<p class="muted">All of it backed by the same guarantee, all of it starting with a free inspection.</p>
+			</div>
+			<div class="card-grid">
+				{SERVICES.map(service => (
+					<ServiceCard
+						href={servicePath(service.slug)}
+						title={`${service.name} in ${area.name}`}
+						description={service.excerpt}
+						icon={service.icon}
+						cta={`${service.shortName} details`}
+					/>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<Testimonials featuredOnly limit={3} heading="What North Alabama customers say" />
+
+	<Faqs faqs={area.faqs} heading={`Pest control in ${area.name} — common questions`} />
+
+	<section class="section section-alt">
 		<div class="container">
-			<h2 class="mb-8">Why {area.name} Calls Us</h2>
-			<Differentiators />
+			<h2 class="area-head">Other areas we serve</h2>
+			<ul class="area-links">
+				{otherAreas.map(other => (
+					<li>
+						<a href={areaPath(other.slug)} class="area-link">
+							<span class="area-link-name">Pest Control {other.name}, AL</span>
+							<span class="muted area-link-county">{other.county} County</span>
+						</a>
+					</li>
+				))}
+			</ul>
 		</div>
-	</section>
-
-	<Testimonials featuredOnly limit={3} />
-
-	<section class="container py-12">
-		<h2 class="mb-4">Other Areas We Serve</h2>
-		<ul class="flex flex-wrap gap-3">
-			{otherAreas.map(other => (
-				<li>
-					<a href={areaPath(other.slug)} class="btn btn-outline text-sm px-4 py-2"
-						>{other.name}, AL</a
-					>
-				</li>
-			))}
-		</ul>
 	</section>
 
 	<CtaBand
-		heading={`Ready for Pest Control in ${area.name}?`}
+		heading={`Need pest control in ${area.name}?`}
+		sub={`Free inspection, a real quote before any work starts, and the same technicians every visit. Call ${COMPANY.phoneFormatted}.`}
 		location="area-footer"
 	/>
 </Layout>
+
+<style>
+	.area-intro { display: grid; gap: 2rem; align-items: start; }
+	.area-copy { max-width: 60ch; }
+	.area-meta { font-size: var(--text-sm); line-height: 1.8; }
+	.area-head { display: grid; gap: 0.5rem; margin-bottom: 1.75rem; }
+
+	.pressure-list { display: grid; gap: 1rem; }
+	.pressure { display: grid; gap: 0.625rem; align-content: start; }
+	.pressure-icon {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 44px;
+		height: 44px;
+		border-radius: 0.75rem;
+		background: var(--color-brand-50);
+		color: var(--color-brand-700);
+	}
+	.pressure h3 { font-size: var(--text-lg); }
+	.pressure-body { font-size: var(--text-sm); line-height: 1.65; }
+	.pressure-link {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.375rem;
+		margin-top: auto;
+		font-size: var(--text-sm);
+		font-weight: 700;
+		color: var(--color-brand-700);
+		text-decoration: none;
+		min-height: 40px;
+	}
+
+	.card-grid { display: grid; gap: 1rem; }
+
+	.area-links { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.625rem; }
+	.area-link {
+		display: grid;
+		gap: 0.125rem;
+		min-height: var(--tap);
+		padding: 0.875rem 1rem;
+		background: #fff;
+		border: 1px solid var(--color-line);
+		border-radius: var(--radius-btn);
+		text-decoration: none;
+	}
+	.area-link:hover { border-color: var(--color-brand-600); }
+	.area-link-name { font-weight: 700; font-size: var(--text-sm); }
+	.area-link-county { font-size: var(--text-xs); }
+
+	@media (min-width: 768px) {
+		.pressure-list { grid-template-columns: repeat(3, 1fr); }
+		.card-grid { grid-template-columns: repeat(2, 1fr); }
+		.area-links { grid-template-columns: repeat(3, 1fr); }
+	}
+	@media (min-width: 1024px) {
+		.area-intro { grid-template-columns: 1.35fr 1fr; gap: 3rem; }
+		.card-grid { grid-template-columns: repeat(3, 1fr); }
+		.area-form { position: sticky; top: 92px; }
+	}
+</style>

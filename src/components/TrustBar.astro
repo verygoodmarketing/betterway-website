@@ -1,0 +1,46 @@
+---
+import Icon from './Icon.astro'
+import { DIFFERENTIATORS } from '../config/company'
+---
+
+{/* Sits directly under the hero. Proof immediately after the first CTA is what
+    makes the CTA credible rather than pushy. */}
+<div class="trust-bar">
+	<div class="container trust-grid">
+		{DIFFERENTIATORS.map(item => (
+			<div class="trust-item">
+				<span class="trust-icon"><Icon name={item.icon} class="icon-sm" /></span>
+				<span class="trust-label">{item.title}</span>
+			</div>
+		))}
+	</div>
+</div>
+
+<style>
+	.trust-bar {
+		background: var(--color-brand-800);
+		color: #fff;
+		padding-block: 0.875rem;
+	}
+	.trust-grid {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 0.75rem 1rem;
+	}
+	.trust-item {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		min-width: 0;
+	}
+	.trust-icon { color: var(--color-accent-400); flex-shrink: 0; display: block; }
+	.trust-label {
+		font-size: var(--text-xs);
+		font-weight: 700;
+		line-height: 1.25;
+	}
+	@media (min-width: 768px) {
+		.trust-grid { grid-template-columns: repeat(4, 1fr); }
+		.trust-label { font-size: var(--text-sm); }
+	}
+</style>

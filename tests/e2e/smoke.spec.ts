@@ -15,11 +15,13 @@ import {
  * not turn the build red.
  */
 
+const telSelector = `a[href="tel:+1${COMPANY.phone}"]`
+
 test.describe('@smoke', () => {
 	test('home page renders with the right phone number', async ({ page }) => {
 		await page.goto('/')
 		await expect(page.locator('h1')).toHaveCount(1)
-		await expect(page.locator(`a[href="tel:+1${COMPANY.phone}"]`).first()).toBeVisible()
+		await expect(page.locator(telSelector).first()).toBeVisible()
 	})
 
 	test('every service page loads and has one h1', async ({ page }) => {
@@ -40,13 +42,17 @@ test.describe('@smoke', () => {
 		}
 	})
 
-	test('the lead form is present and has its required fields', async ({ page }) => {
+	test('the lead form asks for the minimum and no more', async ({ page }) => {
 		await page.goto('/request-inspection')
 		const form = page.locator('form[data-lead-form]').first()
 		await expect(form).toBeVisible()
-		for (const field of ['name', 'phone', 'email', 'zip']) {
+
+		// Required: enough to call someone back and confirm they are in range.
+		for (const field of ['name', 'phone', 'zip']) {
 			await expect(form.locator(`[name="${field}"]`)).toHaveAttribute('required', '')
 		}
+		// Email must stay optional — every required field costs completions.
+		await expect(form.locator('[name="email"]')).not.toHaveAttribute('required', '')
 	})
 
 	test('no page still carries the scaffold placeholder', async ({ page }) => {
@@ -62,9 +68,7 @@ test.describe('@smoke', () => {
 		for (const path of paths) {
 			await page.goto(path)
 			const body = await page.locator('body').innerText()
-			expect(body, `${path} still has placeholder copy`).not.toContain(
-				'intentionally left blank',
-			)
+			expect(body, `${path} still has placeholder copy`).not.toContain('intentionally left blank')
 			expect(body, `${path} still has a scaffold button`).not.toContain('Tailwind Button')
 		}
 	})

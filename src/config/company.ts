@@ -65,9 +65,25 @@ export interface ServiceArea {
 	slug: string
 	name: string
 	county: string
+	/** <title> for the area page. Keep the rendered title under 70 chars. */
+	metaTitle: string
+	metaDescription: string
+	/** Lead paragraph under the H1. */
 	blurb: string
-	/** Second paragraph of the area page. */
+	/** Second paragraph — the local specifics that stop this reading as a template. */
 	detail: string
+	/** Nearby communities and landmarks this page should also rank for. */
+	nearby: string[]
+	/** Zip codes covered, for the LocalBusiness areaServed and on-page copy. */
+	zips: string[]
+	/**
+	 * What actually drives calls in this town, in priority order. Each becomes an
+	 * H3 on the area page tied to the matching service, so no two area pages have
+	 * the same section order or the same reasoning.
+	 */
+	localPressures: { serviceSlug: string; heading: string; body: string }[]
+	/** Town-specific FAQs. These render as FAQPage schema per area page. */
+	faqs: { q: string; a: string }[]
 }
 
 export const SERVICE_AREAS: ServiceArea[] = [
@@ -75,55 +91,289 @@ export const SERVICE_AREAS: ServiceArea[] = [
 		slug: 'hartselle',
 		name: 'Hartselle',
 		county: 'Morgan',
+		metaTitle: 'Pest Control Hartselle, AL',
+		metaDescription:
+			'Local pest, termite, mosquito, and rodent control in Hartselle, AL. Our office is on Sparkman St SW. Free inspections. Call (256) 580-6181.',
 		blurb:
-			'Hartselle is home — our office sits on Sparkman Street, a few minutes from most of the addresses we service.',
+			'Hartselle is home. Our office is on Sparkman Street SW, which means most Hartselle addresses are a few minutes from our front door.',
 		detail:
-			'Being based in town means a Hartselle call rarely waits. We know which neighborhoods sit on slab and which have crawl spaces, and we treat a lot of the older homes near downtown where moisture under the house is the real story behind a recurring bug problem.',
+			'Being based in town changes what we can promise. A Hartselle call does not get slotted around a drive from another county, and the technician who comes out is one you will see again on the next visit. We work the older homes around downtown and Sparkman Street, the subdivisions off Highway 31, and the properties out toward Flint and Union Hill.',
+		nearby: ['Falkville', 'Priceville', 'Somerville', 'Flint', 'Union Hill'],
+		zips: ['35640'],
+		localPressures: [
+			{
+				serviceSlug: 'residential-commercial-pest-control',
+				heading: 'Crawl spaces under the older homes',
+				body:
+					'A lot of Hartselle housing stock predates slab construction, and a recurring bug problem in one of those homes is usually a moisture problem underneath it. We check the crawl space before we quote a treatment plan, because spraying the kitchen every quarter does not fix what is happening under the floor.',
+			},
+			{
+				serviceSlug: 'termite-control',
+				heading: 'Termite pressure on established lots',
+				body:
+					'Mature trees, old stumps, and decades of leaf litter give termites a foothold long before they reach the house. On established Hartselle lots we install baiting stations around the structure and check them quarterly, which is what catches activity while it is still in the yard.',
+			},
+			{
+				serviceSlug: 'mosquito-control',
+				heading: 'Standing water after a Morgan County storm',
+				body:
+					'Yards here hold water in the low spots for days after a heavy rain, and that is all it takes. Monthly treatment through spring and fall targets where mosquitoes actually rest — under decks, in dense shrubs, along fence lines — instead of fogging the open air.',
+			},
+		],
+		faqs: [
+			{
+				q: 'Where is your Hartselle office?',
+				a: '209 Sparkman St SW, Hartselle, AL 35640. We are open Monday through Saturday, 7am to 6pm, and closed Sundays.',
+			},
+			{
+				q: 'How fast can you get to a Hartselle address?',
+				a: 'Faster than anywhere else we serve, because this is where we are based. Call and we will tell you honestly what the schedule looks like that week rather than promising a window we cannot hold.',
+			},
+			{
+				q: 'Do you treat homes with crawl spaces?',
+				a: 'Yes, and in Hartselle that comes up often. Crawl space and moisture management is part of our residential work, because moisture underneath is frequently the reason a pest problem keeps coming back.',
+			},
+		],
 	},
 	{
 		slug: 'decatur',
 		name: 'Decatur',
 		county: 'Morgan',
+		metaTitle: 'Pest Control Decatur, AL',
+		metaDescription:
+			'Pest, termite, mosquito, and rodent control for Decatur, AL homes and businesses. Restaurant and warehouse accounts welcome. Call (256) 580-6181.',
 		blurb:
-			'Decatur is our largest service area outside Hartselle, covering both homes and the commercial accounts along the river.',
+			'Decatur is our largest service area outside Hartselle, and it is split almost evenly between homes and commercial accounts.',
 		detail:
-			'Decatur mixes established neighborhoods with restaurants, warehouses, and manufacturing along the Tennessee River. Those are two different pest problems — a kitchen on a health inspection schedule needs a different plan than a house with an ant trail on the patio, and we run both out of the same office.',
+			'The city runs from established residential neighborhoods to the restaurants downtown and the warehouses and plants along the Tennessee River. Those are genuinely different jobs: a kitchen working against a health inspection schedule needs documentation and an off-hours visit, while a house with an ant trail on the patio needs someone to find where they are coming in. We run both out of the same Hartselle office, fifteen minutes south.',
+		nearby: ['Priceville', 'Trinity', 'Somerville', 'Flint City'],
+		zips: ['35601', '35603', '35609'],
+		localPressures: [
+			{
+				serviceSlug: 'residential-commercial-pest-control',
+				heading: 'Commercial accounts along the river corridor',
+				body:
+					'Manufacturing plants, warehouses, and restaurants each have their own pressure points — dock doors that stand open, floor drains, dry storage. We service single locations and multi-location operations, and we work around your hours rather than expecting you to work around ours.',
+			},
+			{
+				serviceSlug: 'mosquito-control',
+				heading: 'River-adjacent mosquito pressure',
+				body:
+					'Decatur sits on the Tennessee River next to the Wheeler National Wildlife Refuge wetlands. That is excellent for the birding and hard on anyone trying to use their back yard in July. Properties on the north side of town carry noticeably more mosquito pressure than the same house would five miles inland, and monthly treatment is what makes the difference.',
+			},
+			{
+				serviceSlug: 'rodent-control',
+				heading: 'Rodents in commercial storage',
+				body:
+					'Warehouses and restaurant stockrooms give rodents everything they need, and a single sighting in a commercial kitchen is a problem with a deadline attached. We remove what is there, seal the entry points so the population cannot replace itself, and clean up behind it.',
+			},
+		],
+		faqs: [
+			{
+				q: 'Do you service commercial properties in Decatur?',
+				a: 'Yes — manufacturing plants, restaurants, warehouses, and offices, for both single and multi-location operations. Call and we will walk the facility before quoting anything.',
+			},
+			{
+				q: 'Why are mosquitoes so bad on the north side of Decatur?',
+				a: 'The river and the Wheeler refuge wetlands sit right there, and mosquitoes breed in standing water. It does not mean you cannot use your yard — it means treatment needs to be monthly through the season rather than one visit in June.',
+			},
+			{
+				q: 'How far is Decatur from your office?',
+				a: 'About fifteen minutes north of our Hartselle office on Highway 31, so Decatur is well inside our regular service rotation.',
+			},
+		],
 	},
 	{
 		slug: 'moulton',
 		name: 'Moulton',
 		county: 'Lawrence',
+		metaTitle: 'Pest Control Moulton, AL',
+		metaDescription:
+			'Pest, rodent, and brown recluse control for Moulton and Lawrence County, AL. Rural properties and exclusion work. Call (256) 580-6181.',
 		blurb:
-			'Moulton and the surrounding Lawrence County properties, including homes well outside the city limits.',
+			'Moulton and the surrounding Lawrence County properties, including the homes well outside the city limits that most companies will not drive to.',
 		detail:
-			'A lot of Moulton work is rural — properties backing up to woods and fields, where mice come indoors as soon as the weather turns and brown recluse have plenty of undisturbed places to live. Those homes usually need exclusion work, not just a spray.',
+			'A lot of our Moulton work is rural. These are properties backing onto woods and fields, many of them near the Bankhead National Forest, with outbuildings, barns, and detached garages that give pests somewhere to establish before they ever reach the house. That changes the job: on a rural property, exclusion work matters more than spray volume, because there is an unlimited supply of mice and spiders in the tree line waiting to replace whatever you removed.',
+		nearby: ['Courtland', 'Town Creek', 'Hillsboro', 'Mount Hope', 'Bankhead National Forest'],
+		zips: ['35650'],
+		localPressures: [
+			{
+				serviceSlug: 'rodent-control',
+				heading: 'Mice moving indoors when the weather turns',
+				body:
+					'On a rural Lawrence County property the first cold snap sends field mice looking for somewhere warm, and they find the gaps you cannot see from inside. Trapping alone just opens a vacancy. We seal the entry points, then clean up the feces and nesting material and treat the odor.',
+			},
+			{
+				serviceSlug: 'brown-recluse-control',
+				heading: 'Brown recluse in outbuildings and storage',
+				body:
+					'Undisturbed space is exactly what brown recluse want, and rural properties have plenty of it — barns, sheds, garages, boxes that have not moved in years. They do not respond to general pest treatment, so if you are on a regular plan and still seeing them, that is why.',
+			},
+			{
+				serviceSlug: 'termite-control',
+				heading: 'Wooded lot lines and termite risk',
+				body:
+					'Property backing onto forest means dead wood, stumps, and debris close to the structure. We install baiting systems and inspect the stations quarterly so activity gets caught in the yard rather than in your floor joists.',
+			},
+		],
+		faqs: [
+			{
+				q: 'Do you come out to properties outside Moulton city limits?',
+				a: 'Yes. A good part of our Lawrence County work is on rural properties well outside town. Call with your address and we will tell you straight whether you are in our range.',
+			},
+			{
+				q: 'I keep finding brown recluse even though I have pest control. Why?',
+				a: 'Brown recluse do not respond to general pest treatment — they need a separate, much more thorough service. That is a common surprise for people who assumed their regular plan covered it.',
+			},
+			{
+				q: 'What does exclusion work involve on a rural property?',
+				a: 'Finding and sealing the openings rodents are actually using, then installing barriers so the next ones cannot get in. On a property next to woods this is the part that ends the problem, rather than trapping the same mice over and over.',
+			},
+		],
 	},
 	{
 		slug: 'athens',
 		name: 'Athens',
 		county: 'Limestone',
+		metaTitle: 'Pest Control Athens, AL',
+		metaDescription:
+			'Pest, termite, and mosquito control in Athens and Limestone County, AL. New construction termite protection. Call (256) 580-6181.',
 		blurb:
-			'Athens and Limestone County, where new construction keeps pushing into what used to be farmland.',
+			'Athens and Limestone County, where new construction keeps pushing out into what was recently farmland.',
 		detail:
-			'Newer subdivisions around Athens sit on ground that was recently open field, and the pests that lived there do not leave when the houses go up. Getting a termite baiting system in early on a new build is far cheaper than dealing with damage later.',
+			'Limestone County has been one of the fastest-growing counties in Alabama, and the subdivisions going up around Athens sit on ground that was open field a few years ago. The pests that lived on that land do not leave when the houses arrive — they just find better shelter. There is also a steady rental population around Athens State University, where turnover between tenants is when problems tend to surface.',
+		nearby: ['Elkmont', 'Ardmore', 'Tanner', 'Mooresville', 'Athens State University'],
+		zips: ['35611', '35613', '35614'],
+		localPressures: [
+			{
+				serviceSlug: 'termite-control',
+				heading: 'Protect a new build before there is a problem',
+				body:
+					'The cheapest termite work you will ever buy is the system you install on a house that does not have termites yet. On new construction around Athens we put the baiting system in early and inspect the stations quarterly, which costs a fraction of repairing damage found during a future sale.',
+			},
+			{
+				serviceSlug: 'residential-commercial-pest-control',
+				heading: 'Fields turning into subdivisions',
+				body:
+					'When a development goes in on former farmland, the ants, spiders, and field mice that were already there move into the nearest structure. New homes get more pest pressure than owners expect in the first few years, and a year-round plan through that period is what settles it down.',
+			},
+			{
+				serviceSlug: 'mosquito-control',
+				heading: 'Drainage in newer developments',
+				body:
+					'Retention ponds and fresh grading mean standing water sits in places it will not sit once the landscaping matures. Monthly treatment targets those breeding sites directly rather than waiting for the yard to establish.',
+			},
+		],
+		faqs: [
+			{
+				q: 'Should I get termite protection on a brand new house?',
+				a: 'Yes, and it is the best value in this business. Preventative protection on a new build costs a fraction of treating an active infestation and repairing the damage, and Limestone County has plenty of new construction on ground that was field.',
+			},
+			{
+				q: 'Do you work with rental properties in Athens?',
+				a: 'Yes. Turnover between tenants is a natural point to inspect and treat, and we can work with either the owner or the management company.',
+			},
+			{
+				q: 'How far into Limestone County do you go?',
+				a: 'We cover Limestone County as part of our regular North Alabama service area, including the communities around Athens. Call with your address and we will confirm.',
+			},
+		],
 	},
 	{
 		slug: 'madison',
 		name: 'Madison',
 		county: 'Madison',
+		metaTitle: 'Pest Control Madison, AL',
+		metaDescription:
+			'Year-round pest control and mosquito treatment for Madison, AL homes. Scheduled service, same technicians. Call (256) 580-6181.',
 		blurb:
-			'Madison homeowners who want a regular schedule rather than a phone call every time something shows up.',
+			'Madison homeowners who would rather be on a schedule than make a phone call every time something shows up.',
 		detail:
-			'Most of our Madison customers are on a year-round program — they would rather we come out on a set rotation than react to a problem. Mosquito treatment is the other common ask here, on properties where the yard is the whole point of the house.',
+			'Most of our Madison customers are on a year-round program, and that is a specific preference rather than an upsell — these are households that want the service to happen on a rotation without anyone having to think about it. The other common request here is mosquito treatment, on properties where the back yard is a significant part of why the house was bought in the first place.',
+		nearby: ['Triana', 'Harvest', 'Monrovia', 'Bridge Street', 'Research Park'],
+		zips: ['35756', '35757', '35758'],
+		localPressures: [
+			{
+				serviceSlug: 'mosquito-control',
+				heading: 'Getting the back yard back',
+				body:
+					'Pools, patios, and decks in Madison get built for evening use and then go unused after six because of mosquitoes. Monthly treatment through spring, summer, and fall targets resting and breeding sites on the property so the yard is usable at the hours you actually want it.',
+			},
+			{
+				serviceSlug: 'residential-commercial-pest-control',
+				heading: 'Year-round plans on a set rotation',
+				body:
+					'Pest pressure changes with the season rather than stopping, which is why one-off treatments feel like they wore off. A year-round plan puts us on your property on a set rotation, ahead of each season instead of after it.',
+			},
+			{
+				serviceSlug: 'termite-control',
+				heading: 'Termite inspections before a sale',
+				body:
+					'Madison turns over houses regularly, and termite damage is most often discovered by an inspector during a sale — years after it started. An annual inspection is what keeps that from becoming a closing-table problem.',
+			},
+		],
+		faqs: [
+			{
+				q: 'What does a year-round plan actually include?',
+				a: 'Scheduled return visits on a rotation built for your property, with interior and exterior treatment and the entry points handled rather than just the room where you saw something. We set the rotation after the free inspection.',
+			},
+			{
+				q: 'When should I start mosquito treatment in Madison?',
+				a: 'Before you start noticing them. Mosquitoes are active well into fall and again in spring, so starting early keeps the season comfortable instead of spending it catching up.',
+			},
+			{
+				q: 'Will I get the same technician each visit?',
+				a: 'That is the intent. We are a family owned company working Madison out of Hartselle, not a national brand routing whoever is closest — continuity is part of what you are paying for.',
+			},
+		],
 	},
 	{
 		slug: 'huntsville',
 		name: 'Huntsville',
 		county: 'Madison',
+		metaTitle: 'Pest Control Huntsville, AL',
+		metaDescription:
+			'Pest, termite, mosquito, and rodent control in Huntsville, AL from a locally owned Hartselle company. Free inspections. Call (256) 580-6181.',
 		blurb:
-			'Huntsville is the far end of our territory, and we hold the same response times there as we do at home.',
+			'Huntsville is the far end of our territory, and we hold the same response standard there that we hold at home.',
 		detail:
-			'We are a Hartselle company working in Huntsville, not a national brand with a call center. You get the same technicians on every visit, and the person who answers the phone knows which house is yours.',
+			'Huntsville has grown quickly and it shows in the housing: historic homes in the older districts, decades of mid-century stock in between, and new construction pushing out in every direction. Each of those has a different pest profile, which is the argument against a one-size treatment package. We are a Hartselle company working Huntsville — you get the same technicians on every visit, and the person answering the phone knows which house is yours.',
+		nearby: ['Meridianville', 'Hazel Green', 'Owens Cross Roads', 'Big Cove', 'Monte Sano'],
+		zips: ['35801', '35802', '35803', '35805', '35806', '35810', '35811'],
+		localPressures: [
+			{
+				serviceSlug: 'termite-control',
+				heading: 'Older housing stock and long-running damage',
+				body:
+					'In the established Huntsville neighborhoods the structures have had decades for termites to work quietly, and the damage is inside the wood where nobody sees it. An annual inspection on an older home is not a formality — it is the only reliable way to find out.',
+			},
+			{
+				serviceSlug: 'brown-recluse-control',
+				heading: 'Brown recluse in basements and attics',
+				body:
+					'Older homes come with the storage spaces brown recluse prefer: basements, attics, closets full of boxes nobody has moved. Clearing them takes a much more thorough treatment than a standard service visit, and general pest plans do not cover it.',
+			},
+			{
+				serviceSlug: 'mosquito-control',
+				heading: 'Wooded lots on the mountain side',
+				body:
+					'Properties backing onto the wooded slopes hold shade and moisture, which is exactly what mosquitoes rest in through the heat of the day. Treating those harborage areas monthly does more than treating open lawn.',
+			},
+		],
+		faqs: [
+			{
+				q: 'You are based in Hartselle — do you actually service Huntsville?',
+				a: 'Yes, regularly. Huntsville is the far end of our territory and we hold the same response standard there. The tradeoff people like is that you get a small local company rather than a call center.',
+			},
+			{
+				q: 'My house is from the 1950s. Does that change anything?',
+				a: 'It changes what we look for. Older Huntsville homes have had longer for termite activity to develop out of sight, and they tend to have the basements, attics, and storage areas that brown recluse favor. The inspection accounts for both.',
+			},
+			{
+				q: 'Do you charge extra for the drive to Huntsville?',
+				a: 'Call and ask — we will give you a straight answer with your quote rather than surprising you with it. The free inspection is free either way.',
+			},
+		],
 	},
 ]
 

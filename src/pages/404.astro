@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/main.astro'
-import { COMPANY, SERVICES, telHref, servicePath } from '../config/company'
+import Icon from '../components/Icon.astro'
+import { COMPANY, SERVICES, SERVICE_AREAS, telHref, servicePath, areaPath } from '../config/company'
 
 const content = {
 	title: `Page Not Found | ${COMPANY.name}`,
@@ -10,25 +11,61 @@ const content = {
 ---
 
 <Layout content={content}>
-	<section class="container py-20">
-		<div class="max-w-2xl space-y-6">
-			<h1>We couldn't find that page</h1>
-			<p class="text-lg text-muted-foreground">
-				The link may be out of date. Try one of these, or just call us.
+	<section class="section">
+		<div class="container notfound">
+			<p class="eyebrow">404</p>
+			<h1>We could not find that page.</h1>
+			<p class="muted notfound-sub">
+				The link may be out of date. Try one of these, or just call us — that is faster anyway.
 			</p>
-			<ul class="flex flex-wrap gap-3">
-				<li><a href="/" class="btn btn-outline px-4 py-2">Home</a></li>
-				{SERVICES.map(service => (
-					<li>
-						<a href={servicePath(service.slug)} class="btn btn-outline px-4 py-2"
-							>{service.shortName}</a
-						>
-					</li>
-				))}
-			</ul>
-			<a href={telHref()} data-location="404" class="btn btn-primary px-6 py-3 inline-flex">
+
+			<a href={telHref()} data-location="404" class="btn btn-cta btn-lg">
 				Call {COMPANY.phoneFormatted}
 			</a>
+
+			<div class="notfound-cols">
+				<div>
+					<h2 class="notfound-h">Services</h2>
+					<ul class="notfound-list">
+						{SERVICES.map(service => (
+							<li>
+								<a href={servicePath(service.slug)}>
+									<Icon name={service.icon} class="icon-sm" />
+									{service.name}
+								</a>
+							</li>
+						))}
+					</ul>
+				</div>
+				<div>
+					<h2 class="notfound-h">Service areas</h2>
+					<ul class="notfound-list">
+						{SERVICE_AREAS.map(area => (
+							<li><a href={areaPath(area.slug)}>Pest Control {area.name}, AL</a></li>
+						))}
+					</ul>
+				</div>
+			</div>
 		</div>
 	</section>
 </Layout>
+
+<style>
+	.notfound { display: grid; gap: 1rem; justify-items: start; max-width: 60rem; }
+	.notfound-sub { font-size: var(--text-lg); max-width: 50ch; }
+	.notfound-cols { display: grid; gap: 2rem; margin-top: 1.5rem; width: 100%; }
+	.notfound-h { font-size: var(--text-base); font-weight: 800; margin-bottom: 0.5rem; }
+	.notfound-list { list-style: none; margin: 0; padding: 0; display: grid; }
+	.notfound-list a {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		min-height: var(--tap);
+		font-size: var(--text-sm);
+		font-weight: 600;
+		text-decoration: none;
+		border-bottom: 1px solid var(--color-line);
+		color: var(--color-brand-800);
+	}
+	@media (min-width: 640px) { .notfound-cols { grid-template-columns: 1fr 1fr; } }
+</style>

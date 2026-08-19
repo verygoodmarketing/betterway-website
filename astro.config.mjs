@@ -3,7 +3,6 @@
 import tailwindcss from '@tailwindcss/vite'
 import { defineConfig } from 'astro/config'
 
-import react from '@astrojs/react'
 import sitemap from '@astrojs/sitemap'
 import vercel from '@astrojs/vercel'
 
@@ -16,16 +15,36 @@ export default defineConfig({
 	site: COMPANY.url,
 	trailingSlash: 'never',
 
-	adapter: vercel(),
+	adapter: vercel({
+		imageService: false,
+	}),
 	// Static by default; only /api/request-inspection opts out via
 	// `export const prerender = false`.
 	output: 'static',
 
-	vite: {
-		plugins: [tailwindcss()],
+	// There is deliberately no UI framework integration here. The only thing that
+	// ever needed one was a nav dropdown, which is now ~40 lines of Astro plus a
+	// details element — it shipped 250KB of JS to every phone to do that.
+	integrations: [sitemap()],
+
+	image: {
+		// Hero and logo go through astro:assets so they emit AVIF/WebP at the
+		// widths actually requested. Anything left in public/ is served
+		// unoptimized at full size.
+		responsiveStyles: true,
 	},
 
-	integrations: [react(), sitemap()],
+	build: {
+		// One stylesheet beats a request per page on a slow mobile connection.
+		inlineStylesheets: 'auto',
+	},
+
+	vite: {
+		plugins: [tailwindcss()],
+		build: {
+			cssMinify: 'lightningcss',
+		},
+	},
 
 	// The dev toolbar renders its own headings inside an open shadow root, which
 	// Playwright pierces — it makes "exactly one <h1>" assertions flaky. The E2E

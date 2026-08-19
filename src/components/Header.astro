@@ -1,32 +1,279 @@
 ---
-import NavMenu from './NavMenu'
-import { COMPANY, telHref } from '../config/company'
+import { Image } from 'astro:assets'
+import logo from '../assets/images/logo.png'
+import { COMPANY, NAV_LINKS, SERVICES, SERVICE_AREAS, telHref, servicePath, areaPath } from '../config/company'
+
+const path = Astro.url.pathname
+const isCurrent = (href: string) => path === href || path.startsWith(`${href}/`)
 ---
 
-<header class="relative z-50 w-full border-b bg-white/70 backdrop-blur supports-[backdrop-filter]:bg-white/60">
-	<div class="container py-3 flex items-center justify-between gap-3">
-		<a href="/" class="flex items-center gap-3">
-			<img
-				src="/logo.png"
+<header class="site-header">
+	<div class="container header-inner">
+		<a href="/" class="brand" aria-label={`${COMPANY.name} — home`}>
+			<Image
+				src={logo}
 				alt={COMPANY.name}
-				width="160"
-				height="40"
-				class="h-10 w-auto"
+				width={218}
+				height={100}
+				densities={[1, 2]}
+				format="webp"
+				quality={80}
 				loading="eager"
-				decoding="async"
+				fetchpriority="high"
+				class="brand-logo"
 			/>
-			<span class="text-xl font-extrabold tracking-tight sr-only">{COMPANY.name}</span>
 		</a>
-		<nav aria-label="Primary" class="hidden md:block">
-			<NavMenu client:load />
+
+		{/*
+		  The call button is the first tappable thing in the header and never
+		  collapses into a menu — on mobile it is the single highest-intent action
+		  on the site, so it stays visible at every breakpoint.
+		*/}
+		<a href={telHref()} data-location="header" class="btn btn-cta header-call">
+			<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+				<path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/>
+			</svg>
+			<span class="header-call-text">{COMPANY.phoneFormatted}</span>
+			<span class="header-call-short">Call Now</span>
+		</a>
+
+		<nav class="nav-desktop" aria-label="Primary">
+			<ul>
+				{NAV_LINKS.map(link => (
+					link.dropdown ? (
+						<li class="has-menu">
+							<a href={link.href} aria-current={isCurrent(link.href) ? 'page' : undefined}>
+								{link.label}
+								<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+							</a>
+							<div class="menu-panel">
+								<ul>
+									{SERVICES.map(service => (
+										<li><a href={servicePath(service.slug)}>{service.name}</a></li>
+									))}
+								</ul>
+							</div>
+						</li>
+					) : (
+						<li>
+							<a href={link.href} aria-current={isCurrent(link.href) ? 'page' : undefined}>{link.label}</a>
+						</li>
+					)
+				))}
+			</ul>
 		</nav>
-		<div class="flex items-center gap-2">
-			<a href={telHref()} data-location="header" class="btn btn-primary"
-				>Call {COMPANY.phoneFormatted}</a
-			>
-			<a href="/request-inspection" class="btn btn-outline hidden sm:inline-flex"
-				>Request Inspection</a
-			>
-		</div>
+
+		<button type="button" class="nav-toggle" aria-expanded="false" aria-controls="mobile-nav">
+			<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+				<path class="icon-open" d="M4 7h16M4 12h16M4 17h16"/>
+				<path class="icon-close" d="M6 6l12 12M18 6L6 18"/>
+			</svg>
+			<span class="sr-only">Menu</span>
+		</button>
 	</div>
+
+	<nav id="mobile-nav" class="nav-mobile" aria-label="Mobile" hidden>
+		<div class="container">
+			<p class="nav-heading">Services</p>
+			<ul class="nav-list">
+				{SERVICES.map(service => (
+					<li><a href={servicePath(service.slug)}>{service.name}</a></li>
+				))}
+			</ul>
+			<p class="nav-heading">Service Areas</p>
+			<ul class="nav-list nav-list-2col">
+				{SERVICE_AREAS.map(area => (
+					<li><a href={areaPath(area.slug)}>{area.name}</a></li>
+				))}
+			</ul>
+			<ul class="nav-list nav-list-plain">
+				<li><a href="/about">About</a></li>
+				<li><a href="/guarantee">Our Guarantee</a></li>
+			</ul>
+			<a href="/request-inspection" class="btn btn-brand btn-block">Request a Free Inspection</a>
+		</div>
+	</nav>
 </header>
+
+<style>
+	.site-header {
+		position: sticky;
+		top: 0;
+		z-index: 50;
+		background: #fff;
+		border-bottom: 1px solid var(--color-line);
+	}
+	.header-inner {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		padding-block: 0.625rem;
+	}
+	.brand {
+		display: block;
+		margin-right: auto;
+		flex-shrink: 1;
+		min-width: 0;
+	}
+	.brand-logo {
+		height: 42px;
+		width: auto;
+	}
+
+	.header-call {
+		padding: 0.625rem 1rem;
+		min-height: 44px;
+		flex-shrink: 0;
+	}
+	.header-call-short { display: none; }
+
+	.nav-toggle {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 46px;
+		height: 46px;
+		flex-shrink: 0;
+		background: transparent;
+		border: 1px solid var(--color-line);
+		border-radius: var(--radius-btn);
+		color: var(--color-brand-900);
+		cursor: pointer;
+	}
+	.nav-toggle .icon-close { display: none; }
+	.nav-toggle[aria-expanded='true'] .icon-open { display: none; }
+	.nav-toggle[aria-expanded='true'] .icon-close { display: block; }
+
+	.nav-desktop { display: none; }
+
+	.nav-mobile {
+		border-top: 1px solid var(--color-line);
+		background: #fff;
+		padding-block: 1rem 1.25rem;
+		max-height: calc(100dvh - 68px);
+		overflow-y: auto;
+	}
+	.nav-mobile[hidden] { display: none; }
+	.nav-heading {
+		font-size: var(--text-xs);
+		font-weight: 700;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: var(--color-ink-muted);
+		margin-top: 0.75rem;
+		margin-bottom: 0.25rem;
+	}
+	.nav-list { list-style: none; margin: 0 0 0.75rem; padding: 0; }
+	.nav-list-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 0 1rem; }
+	.nav-list a {
+		display: flex;
+		align-items: center;
+		min-height: var(--tap);
+		font-weight: 600;
+		text-decoration: none;
+		border-bottom: 1px solid var(--color-line);
+	}
+	.nav-list-plain { margin-top: 1rem; }
+
+	@media (min-width: 400px) {
+		.brand-logo { height: 46px; }
+	}
+
+	/* Below this width the full number does not fit beside the logo, so the CTA
+	   shortens rather than wrapping or pushing the menu button off-screen. */
+	@media (max-width: 419px) {
+		.header-call-text { display: none; }
+		.header-call-short { display: inline; }
+	}
+
+	@media (min-width: 900px) {
+		.nav-toggle { display: none; }
+		.nav-mobile { display: none !important; }
+		.nav-desktop { display: block; }
+		.brand-logo { height: 54px; }
+		.header-inner { gap: 1.25rem; padding-block: 0.75rem; }
+
+		.nav-desktop > ul {
+			display: flex;
+			align-items: center;
+			gap: 0.25rem;
+			list-style: none;
+			margin: 0;
+			padding: 0;
+		}
+		.nav-desktop > ul > li > a {
+			display: inline-flex;
+			align-items: center;
+			gap: 0.3rem;
+			padding: 0.5rem 0.75rem;
+			min-height: 44px;
+			font-size: var(--text-sm);
+			font-weight: 600;
+			text-decoration: none;
+			border-radius: 0.5rem;
+		}
+		.nav-desktop > ul > li > a:hover { background: var(--color-brand-50); }
+		.nav-desktop a[aria-current='page'] { color: var(--color-brand-700); }
+
+		.has-menu { position: relative; }
+		.menu-panel {
+			position: absolute;
+			top: 100%;
+			left: 0;
+			min-width: 20rem;
+			background: #fff;
+			border: 1px solid var(--color-line);
+			border-radius: var(--radius-card);
+			box-shadow: 0 12px 32px rgb(0 0 0 / 0.12);
+			padding: 0.5rem;
+			opacity: 0;
+			visibility: hidden;
+			transform: translateY(-4px);
+			transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s;
+		}
+		/* Hover and keyboard focus both open it — no JS involved. */
+		.has-menu:hover .menu-panel,
+		.has-menu:focus-within .menu-panel {
+			opacity: 1;
+			visibility: visible;
+			transform: translateY(0);
+		}
+		.menu-panel ul { list-style: none; margin: 0; padding: 0; }
+		.menu-panel a {
+			display: block;
+			padding: 0.625rem 0.75rem;
+			border-radius: 0.5rem;
+			font-size: var(--text-sm);
+			font-weight: 600;
+			text-decoration: none;
+		}
+		.menu-panel a:hover { background: var(--color-brand-50); color: var(--color-brand-800); }
+
+		.header-call { padding: 0.75rem 1.25rem; }
+	}
+</style>
+
+<script>
+	// The entire JS cost of the navigation. The desktop dropdown is CSS-only
+	// (:hover / :focus-within); this only drives the mobile panel.
+	const toggle = document.querySelector<HTMLButtonElement>('.nav-toggle')
+	const panel = document.getElementById('mobile-nav')
+
+	if (toggle && panel) {
+		const setOpen = (open: boolean) => {
+			toggle.setAttribute('aria-expanded', String(open))
+			panel.hidden = !open
+		}
+
+		toggle.addEventListener('click', () => {
+			setOpen(toggle.getAttribute('aria-expanded') !== 'true')
+		})
+
+		document.addEventListener('keydown', e => {
+			if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
+				setOpen(false)
+				toggle.focus()
+			}
+		})
+	}
+</script>

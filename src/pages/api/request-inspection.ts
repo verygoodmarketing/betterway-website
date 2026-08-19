@@ -40,7 +40,9 @@ export const POST: APIRoute = async ({ request }) => {
 		const phone = (data.phone || '').toString().trim()
 		const service = (data.service || '').toString().trim()
 
-		if (!email || !name || !zip || !phone) {
+		// Email is deliberately not required — see FormRequestInspection.astro.
+		// The office calls leads back, so a phone number is the only hard need.
+		if (!name || !zip || !phone) {
 			return new Response(JSON.stringify({ error: 'Missing required fields' }), {
 				status: 400,
 				headers: { 'content-type': 'application/json' },
@@ -62,7 +64,7 @@ export const POST: APIRoute = async ({ request }) => {
 				'',
 				`Name:     ${name}`,
 				`Phone:    ${phone}`,
-				`Email:    ${email}`,
+				`Email:    ${email || '(not given)'}`,
 				`Zip:      ${zip}`,
 				`Service:  ${serviceName(service)}`,
 				`Received: ${submittedAt} (${COMPANY.timezone})`,

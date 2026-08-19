@@ -1,5 +1,7 @@
 ---
 import Layout from '../../layouts/main.astro'
+import Hero from '../../components/Hero.astro'
+import TrustBar from '../../components/TrustBar.astro'
 import ServiceCard from '../../components/ServiceCard.astro'
 import CtaBand from '../../components/CtaBand.astro'
 import { COMPANY, SERVICES, COUNTIES, servicePath } from '../../config/company'
@@ -7,7 +9,7 @@ import { breadcrumbSchema } from '../../lib/schema'
 
 const content = {
 	title: `Pest Control Services | ${COMPANY.name}`,
-	description: `Pest control, termite, mosquito, rodent, and brown recluse services for homes and businesses across North Alabama. Free inspections. Call ${COMPANY.phoneFormatted}.`,
+	description: `Pest control, termite, mosquito, rodent, and brown recluse services for North Alabama homes and businesses. Free inspections. Call ${COMPANY.phoneFormatted}.`,
 }
 
 const schemas = [
@@ -19,31 +21,35 @@ const schemas = [
 ---
 
 <Layout content={content} schemas={schemas}>
-	<section class="border-b bg-gray-50">
-		<div class="container py-12 md:py-16">
-			<div class="max-w-3xl space-y-5">
-				<h1>Our Services</h1>
-				<p class="text-lg text-muted-foreground">
-					Year-round protection for homes and businesses across {COUNTIES.join(', ')} counties.
-					Every service starts with a free inspection.
-				</p>
-			</div>
-		</div>
-	</section>
+	<Hero
+		eyebrow="Free inspection on every service"
+		heading="Our Services"
+		sub={`Year-round protection for homes and businesses across ${COUNTIES.join(', ')} counties.`}
+		compact
+	/>
+	<TrustBar />
 
-	<section class="container py-12 grid gap-6">
-		<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-			{SERVICES.map(service => (
-				<ServiceCard
-					href={servicePath(service.slug)}
-					title={service.name}
-					description={service.excerpt}
-					icon={service.icon}
-					chips={service.chips}
-				/>
-			))}
+	<section class="section">
+		<div class="container">
+			<div class="card-grid">
+				{SERVICES.map(service => (
+					<ServiceCard
+						href={servicePath(service.slug)}
+						title={service.name}
+						description={service.excerpt}
+						icon={service.icon}
+						chips={service.chips}
+					/>
+				))}
+			</div>
 		</div>
 	</section>
 
 	<CtaBand location="services-footer" />
 </Layout>
+
+<style>
+	.card-grid { display: grid; gap: 1rem; }
+	@media (min-width: 640px) { .card-grid { grid-template-columns: repeat(2, 1fr); } }
+	@media (min-width: 1024px) { .card-grid { grid-template-columns: repeat(3, 1fr); } }
+</style>

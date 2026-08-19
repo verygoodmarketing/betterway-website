@@ -7,7 +7,7 @@ interface Props {
 	size?: number
 }
 
-const { name, class: className = 'w-6 h-6', size = 24 } = Astro.props as Props
+const { name, class: className = 'icon-md', size = 24 } = Astro.props as Props
 const path = getIcon(name)
 ---
 
@@ -24,3 +24,9 @@ const path = getIcon(name)
 	aria-hidden="true"
 	set:html={path}
 />
+
+<style is:global>
+	.icon-sm { width: 18px; height: 18px; }
+	.icon-md { width: 24px; height: 24px; }
+	.icon-lg { width: 32px; height: 32px; }
+</style>

@@ -63,6 +63,21 @@ test.describe('structured data', () => {
 		expect(business.address.postalCode).toBe(COMPANY.address.postalCode)
 	})
 
+	test('area pages emit a town-scoped Service and FAQPage', async ({ page }) => {
+		for (const area of SERVICE_AREAS) {
+			await page.goto(areaPath(area.slug))
+			const blocks = await page.locator('script[type="application/ld+json"]').allTextContents()
+			const parsed = blocks.map(b => JSON.parse(b))
+			const service = parsed.find(p => p['@type'] === 'Service')
+			expect(service, `${area.slug} missing Service schema`).toBeTruthy()
+			expect(service.name, `${area.slug} Service schema does not name the town`).toContain(area.name)
+			expect(
+				parsed.map(p => p['@type']),
+				`${area.slug} missing FAQPage schema`,
+			).toContain('FAQPage')
+		}
+	})
+
 	test('service pages emit Service and FAQPage', async ({ page }) => {
 		for (const service of SERVICES) {
 			await page.goto(servicePath(service.slug))

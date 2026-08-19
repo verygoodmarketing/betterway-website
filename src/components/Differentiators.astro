@@ -3,14 +3,39 @@ import Icon from './Icon.astro'
 import { DIFFERENTIATORS } from '../config/company'
 ---
 
-<div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+<ul class="diffs">
 	{DIFFERENTIATORS.map(item => (
-		<div class="space-y-2">
-			<div class="text-[color:var(--primary)]">
-				<Icon name={item.icon} class="w-8 h-8" />
-			</div>
-			<h3 class="font-bold">{item.title}</h3>
-			<p class="text-sm text-muted-foreground">{item.text}</p>
-		</div>
+		<li class="diff">
+			<span class="diff-icon"><Icon name={item.icon} class="icon-md" /></span>
+			<h3 class="diff-title">{item.title}</h3>
+			<p class="muted diff-text">{item.text}</p>
+		</li>
 	))}
-</div>
+</ul>
+
+<style>
+	.diffs {
+		display: grid;
+		gap: 1.5rem;
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+	.diff { display: grid; gap: 0.375rem; align-content: start; }
+	.diff-icon {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 44px;
+		height: 44px;
+		border-radius: 0.75rem;
+		background: var(--color-brand-50);
+		color: var(--color-brand-700);
+		margin-bottom: 0.25rem;
+	}
+	.diff-title { font-size: var(--text-base); font-weight: 800; }
+	.diff-text { font-size: var(--text-sm); line-height: 1.6; }
+
+	@media (min-width: 640px) { .diffs { grid-template-columns: repeat(2, 1fr); } }
+	@media (min-width: 1024px) { .diffs { grid-template-columns: repeat(4, 1fr); } }
+</style>

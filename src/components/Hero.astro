@@ -1,0 +1,136 @@
+---
+import { Picture } from 'astro:assets'
+import heroImage from '../assets/images/hero.jpg'
+import { COMPANY, telHref } from '../config/company'
+
+interface Props {
+	eyebrow?: string
+	heading: string
+	sub?: string
+	/** Only the home page hero is the LCP element; inner pages lazy-load. */
+	priority?: boolean
+	compact?: boolean
+}
+
+const { eyebrow, heading, sub, priority = false, compact = false } = Astro.props as Props
+---
+
+<section class={`hero on-dark${compact ? ' hero-compact' : ''}${priority ? ' hero-photo' : ''}`}>
+	{/*
+	  Only the home hero carries the photograph. On inner pages the hero is above
+	  the fold too, so a lazy-loaded image there would hurt LCP — and an eager one
+	  would cost bytes for decoration. Those pages get a pure CSS gradient: zero
+	  requests, zero bytes, same visual weight.
+
+	  Picture, not Image, so browsers get AVIF and fall back to WebP. Quality is
+	  pushed down hard on purpose: the photo sits under an 82%-opacity scrim, so
+	  compression artefacts are invisible and the bytes are pure LCP cost.
+	*/}
+	{priority && (
+		<Picture
+			src={heroImage}
+			alt=""
+			widths={[480, 768, 1200, 1600]}
+			sizes="100vw"
+			formats={['avif', 'webp']}
+			quality={55}
+			loading="eager"
+			fetchpriority="high"
+			decoding="sync"
+			pictureAttributes={{ class: 'hero-picture' }}
+			class="hero-bg"
+		/>
+	)}
+	<div class="container hero-content">
+		{eyebrow && <p class="eyebrow">{eyebrow}</p>}
+		<h1>{heading}</h1>
+		{sub && <p class="hero-sub muted">{sub}</p>}
+
+		<div class="hero-actions">
+			<a href={telHref()} data-location="hero" class="btn btn-cta btn-lg">
+				Call {COMPANY.phoneFormatted}
+			</a>
+			<a href="#request-inspection" class="btn btn-outline btn-lg">Get a Free Inspection</a>
+		</div>
+
+		<p class="hero-reassure">
+			Free inspection · No obligation · Same team every visit
+		</p>
+
+		<slot />
+	</div>
+</section>
+
+<style>
+	.hero {
+		position: relative;
+		display: flex;
+		align-items: center;
+		isolation: isolate;
+		/* Inner-page default: a gradient, not a photo. Costs nothing to fetch. */
+		background:
+			radial-gradient(120% 100% at 50% 0%, #1a6b3a 0%, transparent 60%),
+			var(--color-brand-900);
+		padding-block: clamp(2.5rem, 9vw, 5.5rem);
+	}
+	.hero-compact { padding-block: clamp(2rem, 6vw, 3.5rem); }
+
+	.hero-picture {
+		position: absolute;
+		inset: 0;
+		z-index: -2;
+	}
+	.hero-bg {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+	/* A flat scrim rather than a blur: cheaper to composite on a mid-range
+	   Android, and it is what makes the white heading hit AAA over a photo. */
+	.hero-photo::after {
+		content: '';
+		position: absolute;
+		inset: 0;
+		z-index: -1;
+		background: linear-gradient(
+			180deg,
+			rgb(20 83 45 / 0.82) 0%,
+			rgb(20 83 45 / 0.74) 45%,
+			rgb(20 83 45 / 0.88) 100%
+		);
+	}
+
+	.hero-content {
+		color: #fff;
+		text-align: center;
+		display: grid;
+		gap: 1.125rem;
+		justify-items: center;
+	}
+	.hero h1 { color: #fff; max-width: 26ch; }
+	.hero-sub {
+		max-width: 52ch;
+		font-size: var(--text-lg);
+	}
+
+	.hero-actions {
+		display: grid;
+		gap: 0.75rem;
+		width: 100%;
+		max-width: 26rem;
+		margin-top: 0.25rem;
+	}
+	.hero-reassure {
+		font-size: var(--text-sm);
+		color: rgb(255 255 255 / 0.9);
+	}
+
+	@media (min-width: 640px) {
+		.hero-actions {
+			display: flex;
+			justify-content: center;
+			flex-wrap: wrap;
+			max-width: none;
+		}
+	}
+</style>

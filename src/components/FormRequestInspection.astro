@@ -1,120 +1,119 @@
 ---
-import { COMPANY, SERVICES, LEAD_FORM_ENABLED } from '../config/company'
+import { COMPANY, SERVICES, LEAD_FORM_ENABLED, telHref } from '../config/company'
 
 interface Props {
 	/** Preselects the service dropdown, e.g. from a service page. */
 	defaultService?: string
 	/** Unique per instance — multiple forms can appear on one page. */
 	id?: string
+	heading?: string
+	sub?: string
 }
 
-const { defaultService = '', id = 'lead-form' } = Astro.props as Props
-const statusId = `${id}-status`
+const {
+	defaultService = '',
+	id = 'lead-form',
+	heading = 'Get a Free Inspection',
+	sub = 'Tell us what you are seeing. We will call you back to set a time.',
+} = Astro.props as Props
 ---
 
-{
-	/*
-	 * Renders nothing when the lead form is switched off in company.ts, so the
-	 * site can ship call-only without editing every page that embeds a form.
-	 */
-}
 {LEAD_FORM_ENABLED && (
 	<form
 		id={id}
 		action="/api/request-inspection"
 		method="post"
-		class="rounded-xl border p-4 md:p-6 space-y-3 bg-white/80"
+		class="lead-form card"
 		autocomplete="on"
 		data-lead-form
 		data-phone={COMPANY.phoneFormatted}
 		novalidate
 	>
-		<div class="grid gap-1.5">
-			<label class="text-sm font-medium" for={`${id}-name`}>Contact Name</label>
-			<input
-				id={`${id}-name`}
-				name="name"
-				type="text"
-				required
-				autocomplete="name"
-				class="w-full rounded-md border px-3 py-2"
-				placeholder="First and last name"
-			/>
+		<div class="lead-head">
+			<h2 class="lead-title">{heading}</h2>
+			<p class="muted lead-sub">{sub}</p>
 		</div>
 
-		<div class="grid gap-1.5">
-			<label class="text-sm font-medium" for={`${id}-phone`}>Phone</label>
-			<input
-				id={`${id}-phone`}
-				name="phone"
-				type="tel"
-				inputmode="tel"
-				required
-				autocomplete="tel"
-				class="w-full rounded-md border px-3 py-2"
-				placeholder="(256) 555-1234"
-			/>
+		{/*
+		  Four visible fields, two of them required. Every field added to a local
+		  service form costs completions, so email is optional — a phone number is
+		  the only thing the office actually needs to call someone back.
+		*/}
+		<div class="field">
+			<label for={`${id}-name`}>Your name</label>
+			<input id={`${id}-name`} name="name" type="text" required autocomplete="name" enterkeyhint="next" placeholder="First and last name" />
 		</div>
 
-		<div class="grid gap-1.5">
-			<label class="text-sm font-medium" for={`${id}-email`}>Email address</label>
-			<input
-				id={`${id}-email`}
-				name="email"
-				type="email"
-				required
-				autocomplete="email"
-				aria-describedby={`${id}-email-help`}
-				class="w-full rounded-md border px-3 py-2"
-				placeholder="you@example.com"
-			/>
+		<div class="field">
+			<label for={`${id}-phone`}>Phone number</label>
+			<input id={`${id}-phone`} name="phone" type="tel" inputmode="tel" required autocomplete="tel" enterkeyhint="next" placeholder="(256) 555-1234" />
 		</div>
 
-		<div class="grid gap-1.5">
-			<label class="text-sm font-medium" for={`${id}-zip`}>Service Zipcode</label>
-			<input
-				id={`${id}-zip`}
-				name="zip"
-				inputmode="numeric"
-				pattern="[0-9]{5}"
-				required
-				autocomplete="postal-code"
-				class="w-full rounded-md border px-3 py-2"
-				placeholder="35640"
-			/>
+		<div class="lead-row">
+			<div class="field">
+				<label for={`${id}-zip`}>Zip code</label>
+				<input id={`${id}-zip`} name="zip" inputmode="numeric" pattern="[0-9]{5}" required autocomplete="postal-code" enterkeyhint="next" placeholder="35640" />
+			</div>
+			<div class="field">
+				<label for={`${id}-service`}>What do you need?</label>
+				<select id={`${id}-service`} name="service">
+					<option value="">Not sure yet</option>
+					{SERVICES.map(service => (
+						<option value={service.slug} selected={service.slug === defaultService}>
+							{service.shortName}
+						</option>
+					))}
+				</select>
+			</div>
 		</div>
 
-		<div class="grid gap-1.5">
-			<label class="text-sm font-medium" for={`${id}-service`}>What do you need?</label>
-			<select id={`${id}-service`} name="service" class="w-full rounded-md border px-3 py-2 bg-white">
-				<option value="">Not sure yet</option>
-				{SERVICES.map(service => (
-					<option value={service.slug} selected={service.slug === defaultService}>
-						{service.name}
-					</option>
-				))}
-			</select>
+		<div class="field">
+			<label for={`${id}-email`}>Email <span class="muted lead-optional">(optional)</span></label>
+			<input id={`${id}-email`} name="email" type="email" autocomplete="email" enterkeyhint="send" placeholder="you@example.com" />
 		</div>
 
 		{/* Honeypot. Bots fill it, humans never see it. */}
-		<input
-			type="text"
-			name="company"
-			class="hidden"
-			tabindex="-1"
-			autocomplete="off"
-			aria-hidden="true"
-		/>
+		<input type="text" name="company" class="sr-only" tabindex="-1" autocomplete="off" aria-hidden="true" />
 
-		<button type="submit" class="btn btn-primary w-full">Request Free Inspection</button>
+		<button type="submit" class="btn btn-cta btn-lg btn-block">Request My Free Inspection</button>
 
-		<p id={`${id}-email-help`} class="text-xs text-muted-foreground">
-			We'll never share your email with anyone else.
+		<p class="lead-fineprint muted">
+			No obligation. We never share your details. Prefer to talk?
+			<a href={telHref()} data-location="form-fineprint" class="lead-call-link">Call {COMPANY.phoneFormatted}</a>
 		</p>
 
-		<div id={statusId} class="text-sm" aria-live="polite"></div>
+		<div id={`${id}-status`} class="lead-status" aria-live="polite"></div>
 	</form>
 )}
+
+<style>
+	.lead-form {
+		display: grid;
+		gap: 0.875rem;
+		box-shadow: 0 4px 20px rgb(0 0 0 / 0.07);
+	}
+	.lead-head { display: grid; gap: 0.25rem; }
+	.lead-title { font-size: var(--text-xl); }
+	.lead-sub { font-size: var(--text-sm); }
+	.lead-optional { font-weight: 400; font-size: var(--text-xs); }
+	.lead-row { display: grid; gap: 0.875rem; }
+	.lead-fineprint { font-size: var(--text-xs); line-height: 1.5; }
+	.lead-call-link { font-weight: 700; color: var(--color-brand-700); white-space: nowrap; }
+	.lead-status:empty { display: none; }
+	.lead-status {
+		font-size: var(--text-sm);
+		font-weight: 600;
+		padding: 0.625rem 0.75rem;
+		border-radius: 0.5rem;
+		background: var(--color-brand-50);
+		color: var(--color-brand-800);
+	}
+	.lead-status[data-state='error'] { background: #fef2f2; color: #991b1b; }
+
+	@media (min-width: 480px) {
+		.lead-row { grid-template-columns: 1fr 1fr; }
+	}
+</style>
 
 <script>
 	// Binds every lead form on the page. `document.currentScript` is null in an
@@ -131,10 +130,24 @@ const statusId = `${id}-status`
 		form.dataset.initialized = 'true'
 
 		const phone = form.dataset.phone ?? ''
-		const status = form.querySelector<HTMLDivElement>('[aria-live="polite"]')
-		const setStatus = (msg: string) => {
-			if (status) status.textContent = msg
+		const status = form.querySelector<HTMLDivElement>('.lead-status')
+		const setStatus = (msg: string, state?: 'error') => {
+			if (!status) return
+			status.textContent = msg
+			if (state) status.dataset.state = state
+			else delete status.dataset.state
 		}
+
+		// Format the phone field as it is typed. A number the office can read
+		// back is worth the ~15 lines; it also makes the field feel checked.
+		const phoneInput = form.querySelector<HTMLInputElement>('input[name="phone"]')
+		phoneInput?.addEventListener('input', () => {
+			const digits = phoneInput.value.replace(/\D/g, '').slice(0, 10)
+			if (digits.length > 6) phoneInput.value = `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`
+			else if (digits.length > 3) phoneInput.value = `(${digits.slice(0, 3)}) ${digits.slice(3)}`
+			else if (digits.length > 0) phoneInput.value = `(${digits}`
+			else phoneInput.value = ''
+		})
 
 		form.addEventListener(
 			'focusin',
@@ -155,28 +168,32 @@ const statusId = `${id}-status`
 			}
 
 			const button = form.querySelector<HTMLButtonElement>('button[type="submit"]')
-			if (button) button.disabled = true
-			setStatus('Submitting…')
+			const original = button?.textContent ?? ''
+			if (button) {
+				button.disabled = true
+				button.textContent = 'Sending…'
+			}
+			setStatus('')
 			trackEvent('lead_form_submit_attempt')
 
 			try {
-				const res = await fetch(form.action, {
-					method: 'POST',
-					body: new FormData(form),
-				})
+				const res = await fetch(form.action, { method: 'POST', body: new FormData(form) })
 				if (res.ok) {
-					setStatus('Thanks! We will contact you shortly.')
+					setStatus(`Got it — we will call you shortly. Need us sooner? Call ${phone}.`)
 					form.reset()
 					trackEvent('generate_lead')
 				} else {
-					setStatus(`There was a problem. Please call ${phone} or try again.`)
+					setStatus(`Something went wrong. Please call ${phone}.`, 'error')
 					trackEvent('lead_form_error', { status: res.status })
 				}
 			} catch {
-				setStatus(`Network error. Please call ${phone}.`)
+				setStatus(`Network error. Please call ${phone}.`, 'error')
 				trackEvent('lead_form_error', { status: 'network' })
 			} finally {
-				if (button) button.disabled = false
+				if (button) {
+					button.disabled = false
+					button.textContent = original
+				}
 			}
 		})
 	})

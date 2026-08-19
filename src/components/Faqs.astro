@@ -2,26 +2,49 @@
 interface Props {
 	faqs: { q: string; a: string }[]
 	heading?: string
+	id?: string
 }
 
-const { faqs, heading = 'Common Questions' } = Astro.props as Props
+const { faqs, heading = 'Common Questions', id } = Astro.props as Props
 ---
 
 {faqs.length > 0 && (
-	<section class="container py-12">
-		<div class="max-w-3xl">
-			<h2 class="mb-6">{heading}</h2>
-			<div class="divide-y border-t border-b">
+	<section class="section" id={id}>
+		<div class="container faq-wrap">
+			<h2>{heading}</h2>
+			<div class="faq-list">
 				{faqs.map(faq => (
-					<details class="group py-4">
-						<summary class="cursor-pointer font-semibold list-none flex items-start justify-between gap-4">
+					<details class="faq">
+						<summary>
 							<span>{faq.q}</span>
-							<span class="text-[color:var(--primary)] transition-transform group-open:rotate-45" aria-hidden="true">+</span>
+							<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
 						</summary>
-						<p class="mt-3 text-muted-foreground">{faq.a}</p>
+						<p class="muted faq-answer">{faq.a}</p>
 					</details>
 				))}
 			</div>
 		</div>
 	</section>
 )}
+
+<style>
+	.faq-wrap { max-width: 48rem; display: grid; gap: 1.25rem; }
+	.faq-list { display: grid; }
+	.faq { border-top: 1px solid var(--color-line); }
+	.faq:last-child { border-bottom: 1px solid var(--color-line); }
+	.faq summary {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+		min-height: var(--tap);
+		padding-block: 0.875rem;
+		font-weight: 700;
+		cursor: pointer;
+		list-style: none;
+	}
+	.faq summary::-webkit-details-marker { display: none; }
+	.faq summary svg { flex-shrink: 0; color: var(--color-brand-700); transition: transform 0.2s ease; }
+	.faq[open] summary svg { transform: rotate(180deg); }
+	.faq-answer { padding-bottom: 1rem; font-size: var(--text-base); line-height: 1.7; }
+</style>

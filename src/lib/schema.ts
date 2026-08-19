@@ -4,11 +4,13 @@
  */
 import {
 	COMPANY,
+	SERVICES,
 	COUNTIES,
 	SCHEMA_TYPE,
 	BUSINESS_DESCRIPTION,
 	SERVICE_AREAS,
 	type Service,
+	type ServiceArea,
 } from '../config/company'
 
 const abs = (path: string) => new URL(path, COMPANY.url).toString()
@@ -104,5 +106,45 @@ export function breadcrumbSchema(trail: { name: string; path: string }[]) {
 			name: item.name,
 			item: abs(item.path),
 		})),
+	}
+}
+
+/**
+ * Per-town Service schema. Naming the town, county, and zips explicitly is a
+ * stronger local signal than the site-wide areaServed list alone, and it is the
+ * part of an area page Google can actually verify against the address.
+ */
+export function areaServiceSchema(area: ServiceArea) {
+	return {
+		'@context': 'https://schema.org',
+		'@type': 'Service',
+		name: `Pest Control in ${area.name}, ${COMPANY.address.region}`,
+		description: area.metaDescription,
+		serviceType: 'Pest Control',
+		url: abs(`/${area.slug}-alabama`),
+		provider: { '@id': `${COMPANY.url}/#business` },
+		areaServed: [
+			{
+				'@type': 'City',
+				name: `${area.name}, ${COMPANY.address.region}`,
+				containedInPlace: {
+					'@type': 'AdministrativeArea',
+					name: `${area.county} County, ${COMPANY.address.region}`,
+				},
+			},
+			...area.nearby.map(place => ({ '@type': 'Place', name: place })),
+		],
+		hasOfferCatalog: {
+			'@type': 'OfferCatalog',
+			name: `Pest control services in ${area.name}`,
+			itemListElement: SERVICES.map(service => ({
+				'@type': 'Offer',
+				itemOffered: {
+					'@type': 'Service',
+					name: `${service.name} in ${area.name}, ${COMPANY.address.region}`,
+					url: abs(`/services/${service.slug}`),
+				},
+			})),
+		},
 	}
 }

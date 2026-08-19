@@ -1,5 +1,7 @@
 ---
 import Layout from '../layouts/main.astro'
+import Hero from '../components/Hero.astro'
+import TrustBar from '../components/TrustBar.astro'
 import Icon from '../components/Icon.astro'
 import CtaBand from '../components/CtaBand.astro'
 import { COMPANY, GUARANTEE, SERVICES, telHref, servicePath } from '../config/company'
@@ -19,53 +21,62 @@ const schemas = [
 ---
 
 <Layout content={content} schemas={schemas}>
-	<section class="border-b bg-gray-50">
-		<div class="container py-12 md:py-16">
-			<div class="max-w-3xl space-y-5">
-				<h1>The {GUARANTEE.name}</h1>
-				<p class="text-2xl font-semibold text-[color:var(--primary)]">{GUARANTEE.promise}</p>
+	<Hero
+		eyebrow="Our promise"
+		heading={`The ${GUARANTEE.name}`}
+		sub={GUARANTEE.promise}
+		compact
+	/>
+	<TrustBar />
+
+	<section class="section">
+		<div class="container guarantee-split">
+			<div class="prose-block guarantee-copy">
+				<p>That is the whole policy. There is no version of it with a page of conditions attached.</p>
+				<p>
+					We aim to give you better service and better results, and the guarantee is how we stand
+					behind that. It applies to every service we provide — pest control, termite, mosquito,
+					rodent, and brown recluse work alike.
+				</p>
+				<p>
+					If something is not right, call us before you do anything else. Most of the time it is
+					something we can come back out and fix. If it is not, you get your money back.
+				</p>
 			</div>
-		</div>
-	</section>
 
-	<section class="container py-12 grid gap-10 lg:grid-cols-3">
-		<div class="lg:col-span-2 space-y-4 text-lg leading-relaxed">
-			<p>
-				That is the whole policy. There is no version of it with a page of conditions attached.
-			</p>
-			<p>
-				We aim to give you better service and better results, and the guarantee is how we stand
-				behind that. It applies to every service we provide — pest control, termite, mosquito,
-				rodent, and brown recluse work alike.
-			</p>
-			<p>
-				If something is not right, call us before you do anything else. Most of the time it is
-				something we can come back out and fix. If it is not, you get your money back.
-			</p>
-		</div>
-
-		<aside>
-			<div class="rounded-xl border-2 border-[color:var(--border)] p-6 bg-white">
-				<h2 class="text-lg font-bold mb-4">Covered Services</h2>
-				<ul class="space-y-3">
+			<aside class="guarantee-aside card">
+				<h2 class="aside-title">Covered services</h2>
+				<ul class="covered-list">
 					{SERVICES.map(service => (
-						<li class="flex items-start gap-2 text-sm">
-							<span class="text-[color:var(--primary)] flex-shrink-0 mt-0.5">
-								<Icon name="check" class="w-4 h-4" />
-							</span>
-							<a href={servicePath(service.slug)} class="hover:underline">{service.name}</a>
+						<li>
+							<span class="covered-check"><Icon name="check" class="icon-sm" /></span>
+							<a href={servicePath(service.slug)}>{service.name}</a>
 						</li>
 					))}
 				</ul>
-				<p class="mt-6 text-sm">
-					Questions? Call
-					<a href={telHref()} data-location="guarantee" class="font-semibold hover:underline"
-						>{COMPANY.phoneFormatted}</a
-					>.
-				</p>
-			</div>
-		</aside>
+				<a href={telHref()} data-location="guarantee" class="btn btn-cta btn-lg btn-block">
+					Call {COMPANY.phoneFormatted}
+				</a>
+			</aside>
+		</div>
 	</section>
 
 	<CtaBand location="guarantee-footer" />
 </Layout>
+
+<style>
+	.guarantee-split { display: grid; gap: 2rem; align-items: start; }
+	.guarantee-copy { max-width: 60ch; }
+	.guarantee-aside { display: grid; gap: 1rem; }
+	.aside-title { font-size: var(--text-lg); }
+	.covered-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.5rem; }
+	.covered-list li { display: flex; align-items: center; gap: 0.5rem; font-size: var(--text-sm); min-height: 36px; }
+	.covered-list a { font-weight: 600; text-decoration: none; }
+	.covered-list a:hover { color: var(--color-brand-700); }
+	.covered-check { color: var(--color-brand-700); flex-shrink: 0; }
+
+	@media (min-width: 1024px) {
+		.guarantee-split { grid-template-columns: 1.4fr 1fr; gap: 3rem; }
+		.guarantee-aside { position: sticky; top: 92px; }
+	}
+</style>

@@ -7,39 +7,82 @@ interface Props {
 	description?: string
 	icon?: string
 	chips?: readonly string[]
+	cta?: string
 }
-const { href, title, description, icon, chips = [] } = Astro.props as Props
+const { href, title, description, icon, chips = [], cta = 'See details' } = Astro.props as Props
 ---
 
-<a
-	href={href}
-	class="group block rounded-xl border-2 border-[color:var(--border)] p-6 bg-white hover:border-[color:var(--primary)] hover:shadow-lg transition-all"
->
-	<div class="flex items-start gap-3">
-		{icon && (
-			<div class="text-[color:var(--primary)] flex-shrink-0">
-				<Icon name={icon} class="w-7 h-7" />
-			</div>
-		)}
-		<div class="flex-1 min-w-0">
-			<h3 class="font-bold mb-2 group-hover:text-[color:var(--primary)] transition-colors">{title}</h3>
-			{description && <p class="text-sm text-muted-foreground">{description}</p>}
-			{chips.length > 0 && (
-				<ul class="flex flex-wrap gap-2 mt-3">
-					{chips.map(chip => (
-						<li class="text-xs rounded-full bg-gray-100 px-2.5 py-1 text-muted-foreground">{chip}</li>
-					))}
-				</ul>
-			)}
-		</div>
-		<svg
-			class="w-5 h-5 flex-shrink-0 mt-1 text-muted-foreground group-hover:text-[color:var(--primary)] group-hover:translate-x-1 transition-all"
-			fill="none"
-			stroke="currentColor"
-			viewBox="0 0 24 24"
-			aria-hidden="true"
-		>
-			<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-		</svg>
-	</div>
+<a href={href} class="service-card">
+	{icon && <span class="service-icon"><Icon name={icon} class="icon-md" /></span>}
+	<h3 class="service-title">{title}</h3>
+	{description && <p class="service-desc muted">{description}</p>}
+	{chips.length > 0 && (
+		<ul class="service-chips">
+			{chips.slice(0, 4).map(chip => <li>{chip}</li>)}
+		</ul>
+	)}
+	<span class="service-cta">
+		{cta}
+		<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+	</span>
 </a>
+
+<style>
+	.service-card {
+		display: grid;
+		align-content: start;
+		gap: 0.625rem;
+		padding: 1.5rem;
+		background: #fff;
+		border: 1px solid var(--color-line);
+		border-radius: var(--radius-card);
+		text-decoration: none;
+		height: 100%;
+		transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+	}
+	.service-card:hover {
+		border-color: var(--color-brand-600);
+		box-shadow: 0 8px 24px rgb(0 0 0 / 0.08);
+		transform: translateY(-2px);
+	}
+	.service-icon {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 46px;
+		height: 46px;
+		border-radius: 0.75rem;
+		background: var(--color-brand-50);
+		color: var(--color-brand-700);
+	}
+	.service-title { font-size: var(--text-lg); }
+	.service-desc { font-size: var(--text-sm); line-height: 1.6; }
+	.service-chips {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.375rem;
+		list-style: none;
+		margin: 0.125rem 0 0;
+		padding: 0;
+	}
+	.service-chips li {
+		font-size: var(--text-xs);
+		font-weight: 600;
+		padding: 0.25rem 0.625rem;
+		border-radius: 999px;
+		background: var(--color-brand-50);
+		color: var(--color-brand-800);
+	}
+	.service-cta {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.375rem;
+		margin-top: auto;
+		padding-top: 0.375rem;
+		font-size: var(--text-sm);
+		font-weight: 700;
+		color: var(--color-brand-700);
+	}
+	.service-card:hover .service-cta svg { transform: translateX(3px); }
+	.service-cta svg { transition: transform 0.15s ease; }
+</style>

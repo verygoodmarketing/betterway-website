@@ -1,5 +1,7 @@
 ---
 import Layout from '../layouts/main.astro'
+import Hero from '../components/Hero.astro'
+import TrustBar from '../components/TrustBar.astro'
 import Differentiators from '../components/Differentiators.astro'
 import Testimonials from '../components/Testimonials.astro'
 import CtaBand from '../components/CtaBand.astro'
@@ -20,75 +22,75 @@ const schemas = [
 ---
 
 <Layout content={content} schemas={schemas}>
-	<section class="border-b bg-gray-50">
-		<div class="container py-12 md:py-16">
-			<div class="max-w-3xl space-y-5">
-				<h1>About {COMPANY.name}</h1>
-				<p class="text-lg">{COMPANY.tagline}</p>
+	<Hero eyebrow="Family owned since day one" heading={`About ${COMPANY.name}`} sub={COMPANY.tagline} compact />
+	<TrustBar />
+
+	<section class="section">
+		<div class="container about-split">
+			<div class="prose-block about-copy">
+				<p>
+					{COMPANY.name} is a family owned business that has been built one customer at a time with
+					honesty and integrity.
+				</p>
+				<p>
+					Our values and foundation are based upon our biblical faith in God. What that looks like
+					in practice is simple: we tell you what we actually find, we quote what the work actually
+					costs, and if you do not need us we say so.
+				</p>
+				<p>
+					Our mission is to provide customers with better pest control options by offering friendly,
+					honest, caring, and dependable service. Between our technicians we bring more than forty
+					years of combined pest control experience to that, and our staff and service specialists
+					will provide you with the utmost care for your home and business needs.
+				</p>
+				<p>
+					We are based in {COMPANY.address.locality} and reach several counties across North
+					Alabama — {COUNTIES.join(', ')} — including {serviceAreaNames()}. Home inspections are
+					free, and every service we provide is backed by the {GUARANTEE.name}.
+				</p>
 			</div>
+
+			<aside class="about-aside card">
+				<h2 class="aside-title">Visit or call</h2>
+				<address class="aside-address">
+					<p>{COMPANY.address.streetAddress}<br />{COMPANY.address.locality}, {COMPANY.address.region} {COMPANY.address.postalCode}</p>
+				</address>
+				<a href={telHref()} data-location="about" class="btn btn-cta btn-lg btn-block">
+					Call {COMPANY.phoneFormatted}
+				</a>
+				<ul class="aside-hours">
+					{COMPANY.hoursDisplay.map(row => (
+						<li><span>{row.days}</span><span class="muted">{row.hours}</span></li>
+					))}
+				</ul>
+			</aside>
 		</div>
 	</section>
 
-	<section class="container py-12 grid gap-10 lg:grid-cols-3">
-		<div class="lg:col-span-2 space-y-4 text-lg leading-relaxed">
-			<p>
-				{COMPANY.name} is a family owned business that has been built one customer at a time with
-				honesty and integrity.
-			</p>
-			<p>
-				Our values and foundation are based upon our biblical faith in God. What that looks like in
-				practice is simple: we tell you what we actually find, we quote what the work actually
-				costs, and if you do not need us we say so.
-			</p>
-			<p>
-				Our mission is to provide customers with better pest control options by offering friendly,
-				honest, caring, and dependable service. Between our technicians we bring more than forty
-				years of combined pest control experience to that, and our friendly staff and service
-				specialists will provide you with the utmost care for your home and business needs.
-			</p>
-			<p>
-				We are based in {COMPANY.address.locality} and reach several counties across North
-				Alabama — {COUNTIES.join(', ')} — including {serviceAreaNames()}. Home inspections are
-				free, and every service we provide is backed by the {GUARANTEE.name}.
-			</p>
-		</div>
-
-		<aside class="space-y-4">
-			<div class="rounded-xl border-2 border-[color:var(--border)] p-6 bg-white space-y-4">
-				<div>
-					<h2 class="text-lg font-bold mb-2">Visit or Call</h2>
-					<address class="not-italic text-sm space-y-2">
-						<p>{COMPANY.address.streetAddress}<br />{COMPANY.address.locality}, {COMPANY.address.region} {COMPANY.address.postalCode}</p>
-						<p>
-							<a href={telHref()} data-location="about" class="font-semibold hover:underline"
-								>{COMPANY.phoneFormatted}</a
-							>
-						</p>
-					</address>
-				</div>
-				<div>
-					<h2 class="text-lg font-bold mb-2">Hours</h2>
-					<ul class="text-sm space-y-1">
-						{COMPANY.hoursDisplay.map(row => (
-							<li class="flex justify-between gap-3">
-								<span>{row.days}</span>
-								<span class="text-muted-foreground">{row.hours}</span>
-							</li>
-						))}
-					</ul>
-				</div>
-			</div>
-		</aside>
-	</section>
-
-	<section class="bg-gray-50 py-12">
+	<section class="section section-alt">
 		<div class="container">
-			<h2 class="mb-8">What You Get</h2>
+			<h2 class="about-h2">What you get</h2>
 			<Differentiators />
 		</div>
 	</section>
 
-	<Testimonials heading="What Our Customers Say" />
+	<Testimonials alt={false} />
 
 	<CtaBand location="about-footer" />
 </Layout>
+
+<style>
+	.about-split { display: grid; gap: 2rem; align-items: start; }
+	.about-copy { max-width: 62ch; }
+	.about-aside { display: grid; gap: 1rem; }
+	.aside-title { font-size: var(--text-lg); }
+	.aside-address { font-style: normal; font-size: var(--text-sm); }
+	.aside-hours { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.375rem; font-size: var(--text-sm); }
+	.aside-hours li { display: flex; justify-content: space-between; gap: 1rem; }
+	.about-h2 { margin-bottom: 1.75rem; }
+
+	@media (min-width: 1024px) {
+		.about-split { grid-template-columns: 1.5fr 1fr; gap: 3rem; }
+		.about-aside { position: sticky; top: 92px; }
+	}
+</style>
