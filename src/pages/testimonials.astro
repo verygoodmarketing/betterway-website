@@ -1,0 +1,151 @@
+---
+import Layout from '../layouts/main.astro'
+import Hero from '../components/Hero.astro'
+import Testimonial from '../components/Testimonial.astro'
+import GoogleMark from '../components/GoogleMark.astro'
+import FacebookMark from '../components/FacebookMark.astro'
+import CtaBand from '../components/CtaBand.astro'
+import { COMPANY } from '../config/company'
+import { googleReviews, facebookReviews, sortedReviews } from '../config/reviews'
+import { breadcrumbSchema } from '../lib/schema'
+
+const reviews = sortedReviews()
+const googleCount = reviews.filter(r => r.source === 'google').length
+const facebookCount = reviews.filter(r => r.source === 'facebook').length
+const ratingLabel = googleReviews.rating.toFixed(1)
+
+const content = {
+	title: `Customer Reviews | ${COMPANY.name}`,
+	description: `Read Google and Facebook reviews from Hartselle and North Alabama homeowners. ${ratingLabel} stars from ${googleReviews.reviewCount} Google reviews · ${facebookReviews.recommendPercent}% recommend on Facebook. Call ${COMPANY.phoneFormatted}.`,
+}
+
+const schemas = [
+	breadcrumbSchema([
+		{ name: 'Home', path: '/' },
+		{ name: 'Reviews', path: '/testimonials' },
+	]),
+].filter(Boolean)
+---
+
+<Layout content={content} schemas={schemas}>
+	<Hero
+		eyebrow="Google and Facebook reviews"
+		heading="What customers say"
+		sub={`${ratingLabel} stars from ${googleReviews.reviewCount} Google reviews · ${facebookReviews.recommendPercent}% recommend on Facebook. See what North Alabama homeowners say about our work.`}
+		compact
+	/>
+
+	<section class="section">
+		<div class="container">
+			<div class="reviews-links">
+				<a
+					href={googleReviews.reviewsUrl}
+					rel="noopener noreferrer"
+					target="_blank"
+					data-analytics="google_reviews_click"
+					data-link-location="testimonials"
+					class="platform-link"
+				>
+					<GoogleMark class="gmark" />
+					<span class="google-score">{ratingLabel}</span>
+					<span class="muted">· {googleReviews.reviewCount} Google reviews</span>
+				</a>
+				<a
+					href={facebookReviews.reviewsUrl}
+					rel="noopener noreferrer"
+					target="_blank"
+					data-analytics="social_click"
+					data-network="facebook"
+					data-link-location="testimonials"
+					class="platform-link"
+				>
+					<FacebookMark class="fbmark" />
+					<span class="google-score">{facebookReviews.recommendPercent}% recommend</span>
+					<span class="muted">· {facebookReviews.reviewCount} Facebook reviews</span>
+				</a>
+				<a href="/review" class="muted leave-link">Leave a 5-star Google review →</a>
+			</div>
+
+			<p class="muted showing">Showing {reviews.length} reviews on this page ({googleCount} Google · {facebookCount} Facebook)</p>
+
+			<ul class="reviews-grid">
+				{reviews.map(review => (
+					<li>
+						<Testimonial review={review} />
+					</li>
+				))}
+			</ul>
+
+			<div class="reviews-bottom">
+				<a href="/review" class="btn btn-cta">Leave a 5-star Google review</a>
+				<a
+					href={googleReviews.reviewsUrl}
+					rel="noopener noreferrer"
+					target="_blank"
+					data-analytics="google_reviews_click"
+					data-link-location="testimonials-bottom"
+					class="btn btn-outline"
+				>
+					See all {googleReviews.reviewCount} on Google →
+				</a>
+				<a
+					href={facebookReviews.reviewsUrl}
+					rel="noopener noreferrer"
+					target="_blank"
+					data-analytics="social_click"
+					data-network="facebook"
+					data-link-location="testimonials-bottom"
+					class="btn btn-outline"
+				>
+					See reviews on Facebook →
+				</a>
+			</div>
+		</div>
+	</section>
+
+	<CtaBand
+		heading="Ready for the kind of service these neighbors describe?"
+		location="testimonials-footer"
+	/>
+</Layout>
+
+<style>
+	.reviews-links {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: center;
+		gap: 1rem 1.5rem;
+		margin-bottom: 1.5rem;
+	}
+	.platform-link {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		text-decoration: none;
+		font-weight: 600;
+	}
+	.platform-link:hover { color: var(--color-brand-700); }
+	.gmark { width: 20px; height: 20px; }
+	.fbmark { width: 20px; height: 20px; color: #1877F2; }
+	.google-score { font-weight: 800; }
+	.leave-link { font-weight: 600; text-decoration: none; }
+	.leave-link:hover { color: var(--color-brand-800); text-decoration: underline; }
+	.showing { text-align: center; margin-bottom: 1.5rem; }
+	.reviews-grid {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: grid;
+		gap: 1rem;
+	}
+	.reviews-bottom {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 0.75rem;
+		margin-top: 2.5rem;
+	}
+	@media (min-width: 640px) { .reviews-grid { grid-template-columns: repeat(2, 1fr); } }
+	@media (min-width: 1024px) { .reviews-grid { grid-template-columns: repeat(3, 1fr); } }
+</style>

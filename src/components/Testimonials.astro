@@ -1,54 +1,83 @@
 ---
-import { getCollection } from 'astro:content'
 import Testimonial from './Testimonial.astro'
+import GoogleMark from './GoogleMark.astro'
+import { displayedReviews, googleReviews, facebookReviews } from '../config/reviews'
 
 interface Props {
-	featuredOnly?: boolean
 	heading?: string
 	sub?: string
 	limit?: number
 	alt?: boolean
+	showCtas?: boolean
 }
 
 const {
-	featuredOnly = false,
 	heading = 'What our customers say',
 	sub,
 	limit,
 	alt = true,
+	showCtas = true,
 } = Astro.props as Props
 
-const all = await getCollection('testimonials')
-const filtered = featuredOnly ? all.filter(t => t.data.featured) : all
-const reviews = limit ? filtered.slice(0, limit) : filtered
+const ratingLabel = googleReviews.rating.toFixed(1)
+const featured = displayedReviews()
+const reviews = limit ? featured.slice(0, limit) : featured
 ---
 
-{/* No reviews on file → the whole section hides rather than rendering an empty grid. */}
 {reviews.length > 0 && (
-	<section class={`section${alt ? ' section-alt' : ''}`}>
+	<section class={`section${alt ? ' section-alt' : ''}`} id="reviews">
 		<div class="container reviews-wrap">
 			<div class="reviews-head">
+				<div class="reviews-rating">
+					<GoogleMark class="reviews-gmark" />
+					<span class="reviews-score">{ratingLabel}</span>
+					<div class="stars" role="img" aria-label={`${ratingLabel} out of 5 stars`}>
+						{Array.from({ length: 5 }).map(() => (
+							<svg viewBox="0 0 20 20" width="18" height="18" fill="currentColor" aria-hidden="true">
+								<path d="M9.05 2.93c.3-.92 1.6-.92 1.9 0l1.07 3.3a1 1 0 0 0 .95.68h3.46c.97 0 1.37 1.24.59 1.81l-2.8 2.04a1 1 0 0 0-.37 1.11l1.07 3.3c.3.92-.75 1.68-1.54 1.11l-2.8-2.03a1 1 0 0 0-1.17 0l-2.8 2.03c-.79.57-1.84-.19-1.54-1.11l1.07-3.3a1 1 0 0 0-.37-1.11l-2.8-2.04c-.78-.57-.38-1.81.59-1.81h3.46a1 1 0 0 0 .95-.69l1.07-3.29z" />
+							</svg>
+						))}
+					</div>
+				</div>
 				<h2>{heading}</h2>
-				{sub && <p class="muted">{sub}</p>}
+				<p class="muted">
+					{sub ?? `${ratingLabel} out of 5 from ${googleReviews.reviewCount} Google reviews · ${facebookReviews.recommendPercent}% recommend · ${facebookReviews.reviewCount} Facebook reviews`}
+				</p>
 			</div>
 			<div class="reviews-grid">
 				{reviews.map(review => (
-					<Testimonial
-						quote={review.data.text}
-						author={review.data.name}
-						location={review.data.location}
-						rating={review.data.rating ?? 5}
-					/>
+					<Testimonial review={review} />
 				))}
 			</div>
+			{showCtas && (
+				<div class="reviews-ctas">
+					<a href="/testimonials" class="btn btn-brand">Read all customer reviews</a>
+					<a href="/review" class="btn btn-outline">Leave a 5-star Google review</a>
+				</div>
+			)}
 		</div>
 	</section>
 )}
 
 <style>
 	.reviews-wrap { display: grid; gap: 1.75rem; }
-	.reviews-head { display: grid; gap: 0.5rem; }
+	.reviews-head { display: grid; gap: 0.5rem; justify-items: center; text-align: center; }
+	.reviews-rating {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.5rem;
+	}
+	.reviews-gmark { width: 24px; height: 24px; }
+	.reviews-score { font-size: var(--text-2xl); font-weight: 800; color: var(--color-brand-900); }
+	.stars { display: flex; gap: 2px; color: var(--color-accent-600); }
 	.reviews-grid { display: grid; gap: 1rem; }
+	.reviews-ctas {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 0.75rem;
+	}
 	@media (min-width: 640px) { .reviews-grid { grid-template-columns: repeat(2, 1fr); } }
 	@media (min-width: 1024px) { .reviews-grid { grid-template-columns: repeat(3, 1fr); } }
 </style>

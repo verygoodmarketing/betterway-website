@@ -12,6 +12,7 @@ import {
 	type Service,
 	type ServiceArea,
 } from '../config/company'
+import { googleReviews } from '../config/reviews'
 
 const abs = (path: string) => new URL(path, COMPANY.url).toString()
 
@@ -62,6 +63,13 @@ export function localBusinessSchema() {
 				name: `${c} County, ${COMPANY.address.region}`,
 			})),
 		],
+		aggregateRating: {
+			'@type': 'AggregateRating',
+			ratingValue: googleReviews.rating,
+			reviewCount: googleReviews.reviewCount,
+			bestRating: 5,
+			worstRating: 1,
+		},
 		...(social.length ? { sameAs: social } : {}),
 	}
 }

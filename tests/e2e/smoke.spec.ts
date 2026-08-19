@@ -60,6 +60,8 @@ test.describe('@smoke', () => {
 			'/',
 			'/about',
 			'/guarantee',
+			'/testimonials',
+			'/review',
 			'/request-inspection',
 			'/services',
 			...SERVICES.map(s => servicePath(s.slug)),

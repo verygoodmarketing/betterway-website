@@ -15,6 +15,8 @@ const allPaths = [
 	'/',
 	'/about',
 	'/guarantee',
+	'/testimonials',
+	'/review',
 	'/request-inspection',
 	'/services',
 	...SERVICES.map(s => servicePath(s.slug)),

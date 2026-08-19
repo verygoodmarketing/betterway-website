@@ -8,11 +8,14 @@ import {
 	servicePath,
 	areaPath,
 } from '../../src/config/company'
+import { googleReviews, facebookReviews } from '../../src/config/reviews'
 
 const allPaths = [
 	'/',
 	'/about',
 	'/guarantee',
+	'/testimonials',
+	'/review',
 	'/request-inspection',
 	'/services',
 	...SERVICES.map(s => servicePath(s.slug)),
@@ -61,6 +64,8 @@ test.describe('structured data', () => {
 		expect(business, `no ${SCHEMA_TYPE} block found`).toBeTruthy()
 		expect(business.telephone).toBe(`+1${COMPANY.phone}`)
 		expect(business.address.postalCode).toBe(COMPANY.address.postalCode)
+		expect(business.aggregateRating.ratingValue).toBe(googleReviews.rating)
+		expect(business.aggregateRating.reviewCount).toBe(googleReviews.reviewCount)
 	})
 
 	test('area pages emit a town-scoped Service and FAQPage', async ({ page }) => {
@@ -111,6 +116,16 @@ test.describe('navigation', () => {
 			const res = await page.goto(link.href)
 			expect(res?.status(), `${link.href} did not return 200`).toBe(200)
 		}
+	})
+
+	test('reviews pages expose Google listing, Facebook reviews, and write-review links', async ({ page }) => {
+		await page.goto('/testimonials')
+		await expect(page.locator('h1')).toContainText('What customers say')
+		await expect(page.locator(`a[href="${googleReviews.reviewsUrl}"]`).first()).toBeVisible()
+		await expect(page.locator(`a[href="${facebookReviews.reviewsUrl}"]`).first()).toBeVisible()
+
+		await page.goto('/review')
+		await expect(page.locator(`a[href="${googleReviews.writeReviewUrl}"]`).first()).toBeVisible()
 	})
 })
 

@@ -24,6 +24,7 @@ export const COMPANY = {
 	email: '',
 	/** Canonical host. Must match `site` in astro.config.mjs. No trailing slash. */
 	url: 'https://betterwaypestcontrol.com',
+	/** Public URL of the light-background logo (also used as the default OG image). */
 	logo: '/logo.png',
 	address: {
 		streetAddress: '209 Sparkman St SW',
@@ -43,7 +44,7 @@ export const COMPANY = {
 	social: {
 		facebook: 'https://www.facebook.com/BetterWayPestControl/',
 		yelp: 'https://www.yelp.com/biz/better-way-pest-control-hartselle',
-		google: 'https://goo.gl/maps/c3yoeyEDwTn',
+		google: 'https://www.google.com/maps?cid=3359166999766756865',
 	},
 } as const
 
@@ -632,7 +633,7 @@ export const SERVICES: Service[] = [
 ]
 
 /**
- * Four checkable claims. Each one is verifiable on the published site — do not
+ * Checkable claims. Each one is verifiable on the published site — do not
  * add a differentiator the business cannot stand behind.
  */
 export const DIFFERENTIATORS = [
@@ -645,11 +646,6 @@ export const DIFFERENTIATORS = [
 		title: 'Better Bee Guarantee',
 		text: 'If you are not completely satisfied with the services provided by our team, we will give you back your money.',
 		icon: 'shield',
-	},
-	{
-		title: 'BBB A+ Rated',
-		text: 'Accredited with an A+ rating from the Better Business Bureau.',
-		icon: 'badge',
 	},
 	{
 		title: 'Locally Owned & Operated',
@@ -713,6 +709,7 @@ export interface NavLink {
 export const NAV_LINKS: readonly NavLink[] = [
 	{ href: '/services', label: 'Services', dropdown: true },
 	{ href: '/about', label: 'About' },
+	{ href: '/testimonials', label: 'Reviews' },
 	{ href: '/guarantee', label: 'Guarantee' },
 	{ href: '/request-inspection', label: 'Request Inspection' },
 ]

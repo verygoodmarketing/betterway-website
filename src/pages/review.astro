@@ -1,0 +1,170 @@
+---
+import Layout from '../layouts/main.astro'
+import Hero from '../components/Hero.astro'
+import GoogleMark from '../components/GoogleMark.astro'
+import Icon from '../components/Icon.astro'
+import { COMPANY, telHref } from '../config/company'
+import { googleReviews } from '../config/reviews'
+import { breadcrumbSchema } from '../lib/schema'
+
+const content = {
+	title: `Leave a Google Review | ${COMPANY.name}`,
+	description: `If Better Way Pest Control earned five stars, please share that on Google. If anything would keep you from five stars, call so we can make it right first.`,
+}
+
+const schemas = [
+	breadcrumbSchema([
+		{ name: 'Home', path: '/' },
+		{ name: 'Leave a Review', path: '/review' },
+	]),
+].filter(Boolean)
+---
+
+<Layout content={content} schemas={schemas}>
+	<Hero
+		eyebrow="Leave a review"
+		heading="We'd be honored by a 5-star Google review"
+		sub="If we earned five stars, please tell Google. It takes about a minute — and it is the single most helpful thing you can do for our family-owned team."
+		compact
+	/>
+
+	<section class="section">
+		<div class="container">
+			<div class="write-card card">
+				<div class="stars" role="img" aria-label="5 out of 5 stars">
+					{Array.from({ length: 5 }).map(() => (
+						<svg viewBox="0 0 20 20" width="28" height="28" fill="currentColor" aria-hidden="true">
+							<path d="M9.05 2.93c.3-.92 1.6-.92 1.9 0l1.07 3.3a1 1 0 0 0 .95.68h3.46c.97 0 1.37 1.24.59 1.81l-2.8 2.04a1 1 0 0 0-.37 1.11l1.07 3.3c.3.92-.75 1.68-1.54 1.11l-2.8-2.03a1 1 0 0 0-1.17 0l-2.8 2.03c-.79.57-1.84-.19-1.54-1.11l1.07-3.3a1 1 0 0 0-.37-1.11l-2.8-2.04c-.78-.57-.38-1.81.59-1.81h3.46a1 1 0 0 0 .95-.69l1.07-3.29z" />
+						</svg>
+					))}
+				</div>
+				<h2>Leave a 5-star review on Google</h2>
+				<p class="muted">
+					You'll be taken to our Google Business Profile. Tap all five stars, add a sentence or two
+					about the work, and hit post. Neighbors looking for pest control in North Alabama will see it.
+				</p>
+				<a
+					href={googleReviews.writeReviewUrl}
+					rel="noopener noreferrer"
+					target="_blank"
+					data-analytics="google_review_click"
+					data-link-location="review-page"
+					class="btn btn-cta btn-lg"
+				>
+					<GoogleMark class="gmark" />
+					Leave a 5-Star Google Review
+				</a>
+				<p class="hint muted">You'll need to be signed into a Google account. Takes about a minute.</p>
+			</div>
+		</div>
+	</section>
+
+	<section class="section section-alt">
+		<div class="container">
+			<div class="section-head">
+				<h2>Why five stars matter so much</h2>
+				<p class="muted">
+					Google doesn't treat a 4-star review as “pretty good.” Star ratings decide who neighbors
+					trust — and who Google shows first.
+				</p>
+			</div>
+			<div class="why-grid">
+				<div class="card why-card">
+					<span class="why-icon"><Icon name="award" class="icon-md" /></span>
+					<h3>The average is everything</h3>
+					<p class="muted">
+						We're a {googleReviews.rating.toFixed(1)} because customers took a minute to say so. A
+						single 4-star review drops that number for every homeowner who looks us up. Five stars
+						keep the rating we worked to earn.
+					</p>
+				</div>
+				<div class="card why-card">
+					<span class="why-icon"><Icon name="map-pin" class="icon-md" /></span>
+					<h3>Google ranks by stars</h3>
+					<p class="muted">
+						When someone in Hartselle, Decatur, or Huntsville searches for pest control, Google uses
+						ratings and review count to decide who appears. Five-star reviews are how a small local
+						company stays visible.
+					</p>
+				</div>
+				<div class="card why-card">
+					<span class="why-icon"><Icon name="home" class="icon-md" /></span>
+					<h3>Neighbors rely on you</h3>
+					<p class="muted">
+						Most people pick a pest company from Google reviews. An honest five-star note from you
+						is how the next family finds a team that shows up, does the job right, and treats their
+						home with care.
+					</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="section">
+		<div class="container make-right">
+			<div>
+				<p class="eyebrow">Not quite five stars?</p>
+				<h2>Let us make it right first</h2>
+				<p class="muted">
+					If anything about the job would keep you from leaving five stars, please tell us before you
+					post. We'd rather fix it than have you walk away unhappy — and we'd rather earn five stars
+					than ask for a rating we haven't earned.
+				</p>
+				<p class="muted">
+					Call. We'll work to resolve whatever's standing between you and a five-star experience.
+				</p>
+				<p class="call-block">
+					<a href={telHref()} data-location="review-page" class="btn btn-cta btn-lg">
+						Call {COMPANY.phoneFormatted}
+					</a>
+					<span class="hint muted">Usually the fastest way to reach us.</span>
+				</p>
+			</div>
+			<div class="card call-card">
+				<h3>Call us</h3>
+				<p class="muted">The quickest way to get this resolved is by phone. A real person answers.</p>
+				<a href={telHref()} data-location="review-page" class="btn btn-brand btn-lg btn-block">
+					{COMPANY.phoneFormatted}
+				</a>
+			</div>
+		</div>
+	</section>
+</Layout>
+
+<script is:inline>
+	if (window.gtag) window.gtag('event', 'review_page_view', { page_path: location.pathname })
+</script>
+
+<style>
+	.write-card {
+		max-width: 40rem;
+		margin-inline: auto;
+		text-align: center;
+		display: grid;
+		gap: 1rem;
+		justify-items: center;
+		padding: 2rem 1.5rem;
+	}
+	.stars { display: flex; gap: 4px; color: var(--color-accent-600); }
+	.gmark { width: 20px; height: 20px; }
+	.hint { font-size: var(--text-xs); }
+
+	.section-head { display: grid; gap: 0.5rem; margin-bottom: 1.75rem; max-width: 60ch; margin-inline: auto; text-align: center; }
+	.why-grid { display: grid; gap: 1rem; }
+	.why-card { display: grid; gap: 0.625rem; align-content: start; }
+	.why-icon { color: var(--color-accent-600); }
+
+	.make-right { display: grid; gap: 2rem; align-items: start; }
+	.make-right h2 { margin: 0.35rem 0 1rem; }
+	.make-right .muted + .muted { margin-top: 1rem; }
+	.call-block { display: grid; gap: 0.5rem; justify-items: start; margin-top: 1.5rem; }
+	.call-card { display: grid; gap: 0.75rem; text-align: center; }
+
+	@media (min-width: 640px) {
+		.why-grid { grid-template-columns: repeat(3, 1fr); }
+		.write-card { padding: 2.5rem; }
+	}
+	@media (min-width: 1024px) {
+		.make-right { grid-template-columns: 1.2fr 1fr; gap: 3rem; }
+	}
+</style>

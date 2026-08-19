@@ -1,11 +1,15 @@
 ---
+import GoogleMark from './GoogleMark.astro'
+import FacebookMark from './FacebookMark.astro'
+import { reviewYear, reviewSourceLabel, type CustomerReview } from '../config/reviews'
+
 interface Props {
-	quote: string
-	author: string
-	location?: string
+	review: CustomerReview
 	rating?: number
 }
-const { quote, author, location, rating = 5 } = Astro.props as Props
+
+const { review, rating = 5 } = Astro.props as Props
+const isFacebook = review.source === 'facebook'
 ---
 
 <figure class="review">
@@ -16,9 +20,17 @@ const { quote, author, location, rating = 5 } = Astro.props as Props
 			</svg>
 		))}
 	</div>
-	<blockquote class="review-quote">{quote}</blockquote>
+	<blockquote class="review-quote">{review.quote}</blockquote>
 	<figcaption class="review-by">
-		{author}{location && <span class="muted">, {location}</span>}
+		<div>
+			<p class="review-name">{review.author}</p>
+			<p class="muted review-meta">{reviewSourceLabel(review)} · {reviewYear(review)}</p>
+		</div>
+		{isFacebook ? (
+			<FacebookMark class="review-mark review-mark-fb" />
+		) : (
+			<GoogleMark class="review-mark" />
+		)}
 	</figcaption>
 </figure>
 
@@ -42,5 +54,16 @@ const { quote, author, location, rating = 5 } = Astro.props as Props
 	}
 	.review-quote::before { content: '“'; }
 	.review-quote::after { content: '”'; }
-	.review-by { font-size: var(--text-sm); font-weight: 700; }
+	.review-by {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.75rem;
+		padding-top: 0.75rem;
+		border-top: 1px solid var(--color-line);
+	}
+	.review-name { font-size: var(--text-sm); font-weight: 700; }
+	.review-meta { font-size: var(--text-xs); }
+	.review-mark { width: 20px; height: 20px; flex-shrink: 0; }
+	.review-mark-fb { color: #1877F2; }
 </style>

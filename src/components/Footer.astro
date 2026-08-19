@@ -9,10 +9,20 @@ import {
 	areaPath,
 	servicePath,
 } from '../config/company'
+import Icon from './Icon.astro'
+import FacebookMark from './FacebookMark.astro'
+import YelpMark from './YelpMark.astro'
+import GoogleMark from './GoogleMark.astro'
 
 const [street, cityLine] = addressLines()
 const social = Object.entries(COMPANY.social).filter(([, url]) => url)
 const year = new Date().getFullYear()
+
+const socialLabels: Record<string, string> = {
+	facebook: 'Facebook',
+	yelp: 'Yelp',
+	google: 'Google',
+}
 ---
 
 <footer class="site-footer on-dark">
@@ -27,23 +37,54 @@ const year = new Date().getFullYear()
 		</div>
 
 		<div class="footer-grid">
-			<section class="footer-col">
+			<section class="footer-col footer-contact">
 				<h2 class="footer-h">Contact</h2>
-				<address class="footer-address">
-					<p>{street}<br />{cityLine}</p>
-					<p><a href={telHref()} data-location="footer" class="footer-phone">{COMPANY.phoneFormatted}</a></p>
-				</address>
-				<ul class="footer-hours">
-					{COMPANY.hoursDisplay.map(row => (
-						<li><span>{row.days}</span><span class="muted">{row.hours}</span></li>
-					))}
-				</ul>
-				{social.length > 0 && (
-					<ul class="footer-social">
-						{social.map(([label, url]) => (
-							<li><a href={url} rel="noopener noreferrer" target="_blank">{label}</a></li>
+
+				<div class="footer-contact-block">
+					<span class="footer-contact-icon"><Icon name="map-pin" size={18} /></span>
+					<address class="footer-address">
+						{street}<br />{cityLine}
+					</address>
+				</div>
+
+				<div class="footer-contact-block">
+					<span class="footer-contact-icon"><Icon name="phone" size={18} /></span>
+					<a href={telHref()} data-location="footer" class="footer-phone">{COMPANY.phoneFormatted}</a>
+				</div>
+
+				<div class="footer-contact-block">
+					<span class="footer-contact-icon"><Icon name="clock" size={18} /></span>
+					<ul class="footer-hours">
+						{COMPANY.hoursDisplay.map(row => (
+							<li>
+								<span class="footer-hours-days">{row.days}</span>
+								<span class="footer-hours-sep" aria-hidden="true">·</span>
+								<span class="muted">{row.hours}</span>
+							</li>
 						))}
 					</ul>
+				</div>
+
+				{social.length > 0 && (
+					<nav class="footer-social" aria-label="Social media">
+						<ul>
+							{social.map(([key, url]) => {
+								const name = socialLabels[key] ?? key
+								return (
+									<li>
+										<a href={url} rel="noopener noreferrer" target="_blank">
+											<span class="footer-social-mark">
+												{key === 'facebook' && <FacebookMark />}
+												{key === 'yelp' && <YelpMark />}
+												{key === 'google' && <GoogleMark />}
+											</span>
+											<span class="sr-only">{name} (opens in a new tab)</span>
+										</a>
+									</li>
+								)
+							})}
+						</ul>
+					</nav>
 				)}
 			</section>
 
@@ -69,6 +110,8 @@ const year = new Date().getFullYear()
 				<h2 class="footer-h">Company</h2>
 				<ul class="footer-links">
 					<li><a href="/about">About Us</a></li>
+					<li><a href="/testimonials">Reviews</a></li>
+					<li><a href="/review">Leave a Google Review</a></li>
 					<li><a href="/guarantee">{GUARANTEE.name}</a></li>
 					<li><a href="/request-inspection">Request an Inspection</a></li>
 				</ul>
@@ -109,12 +152,85 @@ const year = new Date().getFullYear()
 		text-transform: uppercase;
 		color: var(--color-accent-300);
 	}
-	.footer-address { font-style: normal; display: grid; gap: 0.5rem; font-size: var(--text-sm); }
-	.footer-phone { font-size: var(--text-lg); font-weight: 800; text-decoration: none; }
-	.footer-hours { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.25rem; font-size: var(--text-sm); }
-	.footer-hours li { display: flex; justify-content: space-between; gap: 1rem; max-width: 18rem; }
-	.footer-social { list-style: none; margin: 0.25rem 0 0; padding: 0; display: flex; gap: 1rem; font-size: var(--text-sm); }
-	.footer-social a { text-transform: capitalize; }
+
+	.footer-contact { gap: 1rem; }
+	.footer-contact-block {
+		display: grid;
+		grid-template-columns: 1.125rem 1fr;
+		gap: 0.75rem;
+		align-items: start;
+	}
+	.footer-contact-icon {
+		display: flex;
+		color: var(--color-accent-300);
+		margin-top: 0.2rem;
+	}
+	.footer-address {
+		font-style: normal;
+		font-size: var(--text-sm);
+		line-height: 1.45;
+	}
+	.footer-phone {
+		font-size: var(--text-lg);
+		font-weight: 800;
+		text-decoration: none;
+		line-height: 1.2;
+		width: fit-content;
+	}
+	.footer-hours {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: grid;
+		gap: 0.2rem;
+		width: max-content;
+		font-size: var(--text-sm);
+		line-height: 1.45;
+		font-variant-numeric: tabular-nums;
+	}
+	.footer-hours li {
+		display: flex;
+		align-items: baseline;
+		gap: 0.4rem;
+	}
+	.footer-hours-days { font-weight: 600; }
+	.footer-hours-sep { opacity: 0.45; }
+
+	.footer-social { padding-left: calc(1.125rem + 0.75rem); }
+	.footer-social ul {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.25rem;
+	}
+	.footer-social a {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: var(--tap);
+		height: var(--tap);
+		border-radius: 999px;
+		background: rgb(255 255 255 / 0.08);
+		text-decoration: none;
+	}
+	.footer-social a:hover {
+		background: rgb(255 255 255 / 0.16);
+	}
+	.footer-social a:focus-visible {
+		outline-color: var(--color-accent-300);
+	}
+	.footer-social-mark {
+		display: flex;
+		width: 22px;
+		height: 22px;
+		flex-shrink: 0;
+	}
+	.footer-social-mark :global(svg) {
+		width: 22px;
+		height: 22px;
+	}
 
 	.footer-links { list-style: none; margin: 0; padding: 0; display: grid; }
 	.footer-links a {
@@ -124,7 +240,7 @@ const year = new Date().getFullYear()
 		font-size: var(--text-sm);
 		text-decoration: none;
 	}
-	.footer-links a:hover, .footer-social a:hover, .footer-phone:hover { color: var(--color-accent-300); }
+	.footer-links a:hover, .footer-phone:hover { color: var(--color-accent-300); }
 
 	.footer-bottom {
 		margin-top: 2rem;
