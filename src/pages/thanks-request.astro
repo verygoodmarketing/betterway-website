@@ -1,0 +1,94 @@
+---
+import Layout from '../layouts/main.astro'
+import TrustBar from '../components/TrustBar.astro'
+import Testimonials from '../components/Testimonials.astro'
+import Icon from '../components/Icon.astro'
+import { COMPANY, telHref } from '../config/company'
+import { breadcrumbSchema } from '../lib/schema'
+
+const content = {
+	title: `Thanks for your request | ${COMPANY.name}`,
+	description: `Thank you for requesting an inspection. A member of ${COMPANY.name} will call you shortly.`,
+}
+
+const schemas = [
+	breadcrumbSchema([
+		{ name: 'Home', path: '/' },
+		{ name: 'Request Inspection', path: '/request-inspection' },
+		{ name: 'Thanks', path: '/thanks-request' },
+	]),
+].filter(Boolean)
+---
+
+<Layout content={content} schemas={schemas}>
+	<section class="thanks-hero">
+		<div class="container thanks-wrap">
+			<p class="eyebrow">Request received</p>
+			<h1>Thank you. We will call you shortly.</h1>
+			<p class="muted thanks-sub">
+				Your free inspection request is in. If you need us immediately, call now and we will get you on the schedule.
+			</p>
+
+			<div class="thanks-actions">
+				<a href={telHref()} class="btn btn-cta btn-lg">Call {COMPANY.phoneFormatted}</a>
+				<a href="/" class="btn btn-outline btn-lg">Back to Home</a>
+			</div>
+		</div>
+	</section>
+
+	<section class="section section-alt">
+		<div class="container">
+			<div class="next-card card">
+				<h2>What happens next</h2>
+				<ul class="next-list">
+					<li>
+						<span class="next-icon"><Icon name="check" class="icon-sm" /></span>
+						<span>We review your request and call to confirm your details.</span>
+					</li>
+					<li>
+						<span class="next-icon"><Icon name="check" class="icon-sm" /></span>
+						<span>We schedule your free inspection at a time that works for you.</span>
+					</li>
+					<li>
+						<span class="next-icon"><Icon name="check" class="icon-sm" /></span>
+						<span>You get a clear quote before any work starts.</span>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</section>
+
+	<TrustBar />
+	<Testimonials limit={3} />
+</Layout>
+
+<style>
+	.thanks-hero { padding-block: clamp(2rem, 6vw, 4rem); }
+	.thanks-wrap {
+		max-width: 48rem;
+		display: grid;
+		gap: 0.875rem;
+		text-align: center;
+		justify-items: center;
+	}
+	.thanks-sub { font-size: var(--text-lg); max-width: 40ch; }
+	.thanks-actions {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.75rem;
+		justify-content: center;
+		margin-top: 0.5rem;
+	}
+
+	.next-card { max-width: 48rem; margin-inline: auto; }
+	.next-card h2 { font-size: var(--text-xl); margin-bottom: 0.875rem; }
+	.next-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.75rem; }
+	.next-list li {
+		display: flex;
+		gap: 0.5rem;
+		align-items: flex-start;
+		font-size: var(--text-sm);
+		font-weight: 600;
+	}
+	.next-icon { color: var(--color-brand-700); flex-shrink: 0; margin-top: 2px; }
+</style>

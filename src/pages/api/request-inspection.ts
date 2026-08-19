@@ -17,6 +17,101 @@ function env(key: string): string {
 const serviceName = (slug: string) =>
 	SERVICES.find(s => s.slug === slug)?.name || slug || 'Not specified'
 
+type LeadPayload = {
+	name: string
+	phone: string
+	email: string
+	zip: string
+	service: string
+	submittedAt: string
+}
+
+type LeadProvider = 'formspree' | 'highlevel'
+
+function leadProvider(): LeadProvider {
+	const provider = env('LEAD_PROVIDER').toLowerCase().trim()
+	if (provider === 'highlevel') return 'highlevel'
+	return 'formspree'
+}
+
+async function sendViaFormspree(lead: LeadPayload) {
+	const endpoint = env('FORMSPREE_ENDPOINT')
+	if (!endpoint) {
+		return {
+			ok: false,
+			status: 500,
+			error: 'Formspree endpoint is not configured',
+		}
+	}
+
+	const body = {
+		name: lead.name,
+		phone: lead.phone,
+		email: lead.email || '(not given)',
+		zip: lead.zip,
+		service: serviceName(lead.service),
+		source: 'Website request inspection form',
+		submittedAt: `${lead.submittedAt} (${COMPANY.timezone})`,
+	}
+
+	const res = await fetch(endpoint, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+			Accept: 'application/json',
+		},
+		body: JSON.stringify(body),
+	})
+
+	if (!res.ok) {
+		return { ok: false, status: 502, error: 'Unable to send Formspree submission' }
+	}
+	return { ok: true, status: 200 }
+}
+
+async function sendViaHighLevel(lead: LeadPayload) {
+	const apiKey = env('HIGHLEVEL_API_KEY')
+	const locationId = env('HIGHLEVEL_LOCATION_ID')
+	const endpoint = env('HIGHLEVEL_ENDPOINT') || 'https://services.leadconnectorhq.com/contacts/upsert'
+
+	if (!apiKey || !locationId) {
+		return {
+			ok: false,
+			status: 500,
+			error: 'HighLevel credentials are not configured',
+		}
+	}
+
+	const body = {
+		locationId,
+		firstName: lead.name,
+		phone: lead.phone,
+		email: lead.email || undefined,
+		source: 'Website request inspection form',
+		tags: ['website', 'request-inspection'],
+		customFields: [
+			{ key: 'zip', field_value: lead.zip },
+			{ key: 'service', field_value: serviceName(lead.service) },
+			{ key: 'submitted_at', field_value: `${lead.submittedAt} (${COMPANY.timezone})` },
+		],
+	}
+
+	const res = await fetch(endpoint, {
+		method: 'POST',
+		headers: {
+			Authorization: `Bearer ${apiKey}`,
+			Version: '2021-07-28',
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(body),
+	})
+
+	if (!res.ok) {
+		return { ok: false, status: 502, error: 'Unable to send HighLevel submission' }
+	}
+	return { ok: true, status: 200 }
+}
+
 export const POST: APIRoute = async ({ request }) => {
 	try {
 		const contentType = request.headers.get('content-type') || ''
@@ -49,61 +144,26 @@ export const POST: APIRoute = async ({ request }) => {
 			})
 		}
 
-		const RESEND_API_KEY = env('RESEND_API_KEY')
-		const RESEND_TO_EMAIL = env('RESEND_TO_EMAIL')
-		const FROM_EMAIL = env('RESEND_FROM_EMAIL') || 'no-reply@betterwaypestcontrol.com'
-
 		// Serverless runs in UTC. Stamp the lead in the company's own timezone so
 		// "called at 7:15" in the CRM means what the office thinks it means.
 		const submittedAt = new Date().toLocaleString('en-US', { timeZone: COMPANY.timezone })
+		const lead: LeadPayload = { name, phone, email, zip, service, submittedAt }
+		const provider = leadProvider()
 
-		if (RESEND_API_KEY && RESEND_TO_EMAIL) {
-			const subject = `New Inspection Request — ${name}`
-			const text = [
-				'New inspection request',
-				'',
-				`Name:     ${name}`,
-				`Phone:    ${phone}`,
-				`Email:    ${email || '(not given)'}`,
-				`Zip:      ${zip}`,
-				`Service:  ${serviceName(service)}`,
-				`Received: ${submittedAt} (${COMPANY.timezone})`,
-			].join('\n')
+		let result: { ok: boolean; status: number; error?: string }
+		if (provider === 'highlevel') result = await sendViaHighLevel(lead)
+		else result = await sendViaFormspree(lead)
 
-			const res = await fetch('https://api.resend.com/emails', {
-				method: 'POST',
-				headers: {
-					Authorization: `Bearer ${RESEND_API_KEY}`,
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify({ from: FROM_EMAIL, to: RESEND_TO_EMAIL, subject, text }),
-			})
-
-			if (!res.ok) {
-				console.warn('Resend email failed', await res.text())
-				return new Response(JSON.stringify({ error: 'Unable to send email' }), {
-					status: 502,
-					headers: { 'content-type': 'application/json' },
-				})
-			}
-			return new Response(JSON.stringify({ ok: true }), {
-				status: 200,
+		if (!result.ok) {
+			console.warn(`[Request Inspection][${provider}]`, result.error || 'Submission failed')
+			return new Response(JSON.stringify({ error: result.error || 'Submission failed' }), {
+				status: result.status,
 				headers: { 'content-type': 'application/json' },
 			})
 		}
 
-		// No mail provider configured yet — accept the lead so the form still works,
-		// and log it so it is at least recoverable from the Vercel function logs.
-		console.log('[Request Inspection][No Email Config]', {
-			name,
-			phone,
-			email,
-			zip,
-			service: serviceName(service),
-			submittedAt,
-		})
-		return new Response(JSON.stringify({ ok: true, emailSent: false }), {
-			status: 202,
+		return new Response(JSON.stringify({ ok: true, provider }), {
+			status: 200,
 			headers: { 'content-type': 'application/json' },
 		})
 	} catch {

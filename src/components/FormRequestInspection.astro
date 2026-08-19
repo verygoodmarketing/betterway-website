@@ -179,9 +179,8 @@ const {
 			try {
 				const res = await fetch(form.action, { method: 'POST', body: new FormData(form) })
 				if (res.ok) {
-					setStatus(`Got it — we will call you shortly. Need us sooner? Call ${phone}.`)
-					form.reset()
 					trackEvent('generate_lead')
+					window.location.assign('/thanks-request')
 				} else {
 					setStatus(`Something went wrong. Please call ${phone}.`, 'error')
 					trackEvent('lead_form_error', { status: res.status })
