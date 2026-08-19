@@ -15,80 +15,132 @@ const social = Object.entries(COMPANY.social).filter(([, url]) => url)
 const year = new Date().getFullYear()
 ---
 
-<footer class="mt-16 border-t bg-gray-50">
-	<div class="container py-12 grid gap-8 md:grid-cols-4">
-		<section>
-			<h2 class="text-lg font-bold mb-3">Contact</h2>
-			<address class="not-italic text-sm space-y-2">
-				<p>{street}<br />{cityLine}</p>
-				<p>
-					<a href={telHref()} data-location="footer" class="font-semibold hover:underline"
-						>{COMPANY.phoneFormatted}</a
-					>
-				</p>
-			</address>
-			{social.length > 0 && (
-				<ul class="flex gap-4 mt-4 text-sm">
-					{social.map(([label, url]) => (
-						<li>
-							<a href={url} rel="noopener noreferrer" target="_blank" class="capitalize hover:underline"
-								>{label}</a
-							>
-						</li>
+<footer class="site-footer on-dark">
+	<div class="container">
+		{/* One more call CTA before the link columns — the footer is where people
+		    land after reading, and scrolling back up is friction. */}
+		<div class="footer-cta">
+			<p class="footer-cta-text">Ready when you are.</p>
+			<a href={telHref()} data-location="footer-cta" class="btn btn-cta btn-lg">
+				Call {COMPANY.phoneFormatted}
+			</a>
+		</div>
+
+		<div class="footer-grid">
+			<section class="footer-col">
+				<h2 class="footer-h">Contact</h2>
+				<address class="footer-address">
+					<p>{street}<br />{cityLine}</p>
+					<p><a href={telHref()} data-location="footer" class="footer-phone">{COMPANY.phoneFormatted}</a></p>
+				</address>
+				<ul class="footer-hours">
+					{COMPANY.hoursDisplay.map(row => (
+						<li><span>{row.days}</span><span class="muted">{row.hours}</span></li>
 					))}
 				</ul>
-			)}
-		</section>
+				{social.length > 0 && (
+					<ul class="footer-social">
+						{social.map(([label, url]) => (
+							<li><a href={url} rel="noopener noreferrer" target="_blank">{label}</a></li>
+						))}
+					</ul>
+				)}
+			</section>
 
-		<section>
-			<h2 class="text-lg font-bold mb-3">Services</h2>
-			<ul class="text-sm space-y-2">
-				{SERVICES.map(service => (
-					<li>
-						<a href={servicePath(service.slug)} class="hover:underline">{service.shortName}</a>
-					</li>
-				))}
-			</ul>
-		</section>
-
-		<section>
-			<h2 class="text-lg font-bold mb-3">Service Areas</h2>
-			<ul class="text-sm space-y-2">
-				{SERVICE_AREAS.map(area => (
-					<li>
-						<a href={areaPath(area.slug)} class="hover:underline">{area.name}, AL</a>
-					</li>
-				))}
-			</ul>
-		</section>
-
-		<section>
-			<h2 class="text-lg font-bold mb-3">Office Hours</h2>
-			<ul class="text-sm space-y-1">
-				{COMPANY.hoursDisplay.map(row => (
-					<li class="flex justify-between gap-3">
-						<span>{row.days}</span>
-						<span class="text-muted-foreground">{row.hours}</span>
-					</li>
-				))}
-			</ul>
-			<p class="text-sm mt-4">
-				<a href="/guarantee" class="font-semibold hover:underline">{GUARANTEE.name}</a>
-			</p>
-		</section>
-	</div>
-
-	<div class="border-t">
-		<div class="container py-4 text-sm flex flex-wrap items-center justify-between gap-3">
-			<p>© {COMPANY.name} {year}</p>
-			<nav aria-label="Footer">
-				<ul class="flex flex-wrap gap-4">
-					<li><a href="/about" class="hover:underline">About</a></li>
-					<li><a href="/services" class="hover:underline">Services</a></li>
-					<li><a href="/guarantee" class="hover:underline">Guarantee</a></li>
-					<li><a href="/request-inspection" class="hover:underline">Request Inspection</a></li>
+			<section class="footer-col">
+				<h2 class="footer-h">Services</h2>
+				<ul class="footer-links">
+					{SERVICES.map(service => (
+						<li><a href={servicePath(service.slug)}>{service.name}</a></li>
+					))}
 				</ul>
-			</nav>
+			</section>
+
+			<section class="footer-col">
+				<h2 class="footer-h">Service Areas</h2>
+				<ul class="footer-links">
+					{SERVICE_AREAS.map(area => (
+						<li><a href={areaPath(area.slug)}>Pest Control {area.name}, AL</a></li>
+					))}
+				</ul>
+			</section>
+
+			<section class="footer-col">
+				<h2 class="footer-h">Company</h2>
+				<ul class="footer-links">
+					<li><a href="/about">About Us</a></li>
+					<li><a href="/guarantee">{GUARANTEE.name}</a></li>
+					<li><a href="/request-inspection">Request an Inspection</a></li>
+				</ul>
+			</section>
+		</div>
+
+		<div class="footer-bottom">
+			<p>© {year} {COMPANY.name}. All rights reserved.</p>
+			<p class="muted">Serving {COMPANY.address.locality} and North Alabama.</p>
 		</div>
 	</div>
 </footer>
+
+<style>
+	.site-footer {
+		background: var(--color-brand-900);
+		color: #fff;
+		padding-block: clamp(2rem, 5vw, 3rem) 1.5rem;
+		margin-top: 0;
+	}
+	.footer-cta {
+		display: grid;
+		gap: 0.875rem;
+		justify-items: center;
+		text-align: center;
+		padding-bottom: 2rem;
+		margin-bottom: 2rem;
+		border-bottom: 1px solid rgb(255 255 255 / 0.15);
+	}
+	.footer-cta-text { font-size: var(--text-xl); font-weight: 800; }
+
+	.footer-grid { display: grid; gap: 2rem; }
+	.footer-col { display: grid; gap: 0.75rem; align-content: start; }
+	.footer-h {
+		font-size: var(--text-xs);
+		font-weight: 700;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: var(--color-accent-300);
+	}
+	.footer-address { font-style: normal; display: grid; gap: 0.5rem; font-size: var(--text-sm); }
+	.footer-phone { font-size: var(--text-lg); font-weight: 800; text-decoration: none; }
+	.footer-hours { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.25rem; font-size: var(--text-sm); }
+	.footer-hours li { display: flex; justify-content: space-between; gap: 1rem; max-width: 18rem; }
+	.footer-social { list-style: none; margin: 0.25rem 0 0; padding: 0; display: flex; gap: 1rem; font-size: var(--text-sm); }
+	.footer-social a { text-transform: capitalize; }
+
+	.footer-links { list-style: none; margin: 0; padding: 0; display: grid; }
+	.footer-links a {
+		display: flex;
+		align-items: center;
+		min-height: 40px;
+		font-size: var(--text-sm);
+		text-decoration: none;
+	}
+	.footer-links a:hover, .footer-social a:hover, .footer-phone:hover { color: var(--color-accent-300); }
+
+	.footer-bottom {
+		margin-top: 2rem;
+		padding-top: 1.25rem;
+		border-top: 1px solid rgb(255 255 255 / 0.15);
+		display: grid;
+		gap: 0.25rem;
+		font-size: var(--text-xs);
+	}
+
+	@media (min-width: 640px) {
+		.footer-grid { grid-template-columns: repeat(2, 1fr); }
+		.footer-cta { grid-template-columns: auto auto; justify-content: center; align-items: center; gap: 1.5rem; }
+	}
+	@media (min-width: 1024px) {
+		.footer-grid { grid-template-columns: 1.3fr 1fr 1fr 1fr; gap: 2.5rem; }
+		.footer-bottom { grid-template-columns: 1fr auto; }
+	}
+</style>
