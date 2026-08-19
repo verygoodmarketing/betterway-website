@@ -24,8 +24,20 @@ export const COMPANY = {
 	email: '',
 	/** Canonical host. Must match `site` in astro.config.mjs. No trailing slash. */
 	url: 'https://betterwaypestcontrol.com',
-	/** Public URL of the light-background logo (also used as the default OG image). */
+	/** Public URL of the logo. Used in JSON-LD `logo` / `image`, not social cards. */
 	logo: '/logo.png',
+	/**
+	 * Default Open Graph / Twitter card (1200×630). Pages override it by passing
+	 * `content.ogImage` (and optionally alt/width/height) into the layout.
+	 * Rebuild the JPEG with `node scripts/og-image.mjs` after swapping logo or hero art.
+	 */
+	og: {
+		image: '/og-default.jpg',
+		width: 1200,
+		height: 630,
+		alt: 'Better Way Pest Control — Hartselle, Alabama',
+		type: 'image/jpeg',
+	},
 	address: {
 		streetAddress: '209 Sparkman St SW',
 		locality: 'Hartselle',

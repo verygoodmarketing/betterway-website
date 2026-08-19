@@ -53,6 +53,21 @@ test.describe('metadata', () => {
 			}
 		}
 	})
+
+	test('home uses the default Open Graph card', async ({ page }) => {
+		await page.goto('/')
+		const expected = `${COMPANY.url}${COMPANY.og.image}`
+		await expect(page.locator('meta[property="og:image"]')).toHaveAttribute('content', expected)
+		await expect(page.locator('meta[property="og:image:width"]')).toHaveAttribute(
+			'content',
+			String(COMPANY.og.width),
+		)
+		await expect(page.locator('meta[property="og:image:height"]')).toHaveAttribute(
+			'content',
+			String(COMPANY.og.height),
+		)
+		await expect(page.locator('meta[name="twitter:image"]')).toHaveAttribute('content', expected)
+	})
 })
 
 test.describe('structured data', () => {
